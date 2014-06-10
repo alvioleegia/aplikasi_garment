@@ -1,0 +1,15 @@
+/* Begin Custom CSS */
+
+body {
+    background-color: #ebebeb;
+}
+
+#right-side h2:not(:first-child){
+	margin-top: 50px;
+}
+
+#form-input {
+    width: 500px;
+    margin: 0 auto;
+}
+
