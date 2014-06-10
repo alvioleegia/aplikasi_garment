@@ -112,7 +112,7 @@
                                 <i class="fa fa-angle-left pull-right"></i>
                             </a>
                             <ul class="treeview-menu">
-                                <li><a ><i class="fa fa-angle-double-right"></i>Manage User</a></li>
+                                <li><a href="<?php echo DOMAIN; ?>/page/user" ><i class="fa fa-angle-double-right"></i>Manage User</a></li>
                                 <li><a ><i class="fa fa-angle-double-right"></i>Tambah User</a></li>
                             </ul>
                         </li>
