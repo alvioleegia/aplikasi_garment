@@ -10,8 +10,12 @@
 		return false;
 	}
 
-	function getUserLevel(){
-		$level = getUserInfo('level');
+	function getUserLevel($level = null){
+
+		if(!$level){
+			$level = getUserInfo('level');	
+		}
+
 		if($level){
 			switch ($level) {
 				case 1:
@@ -36,4 +40,5 @@
 
 		return false;
 	}
+
 ?>
