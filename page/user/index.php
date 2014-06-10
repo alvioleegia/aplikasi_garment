@@ -17,6 +17,20 @@
 <section class="content">
 	 <div class="row">
 		<div class="col-xs-12">
+			<?php if(isset($_GET['r']) && $_GET['r'] == 1): ?>
+				<div class="alert alert-success alert-dismissable">
+	                <i class="fa fa-check"></i>
+	                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+	                <b>Success!</b> Data terhapus.
+	            </div>
+            <?php endif; ?>
+            <?php if(isset($_GET['r']) && $_GET['r'] == 2): ?>
+				<div class="alert alert-success alert-dismissable">
+	                <i class="fa fa-check"></i>
+	                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+	                <b>Success!</b> Data berhasil ditambahkan.
+	            </div>
+            <?php endif; ?>
 		    <div class="box">
 		        <div class="box-header">
 		            <h3 class="box-title">Data User</h3>
@@ -36,10 +50,10 @@
 		                    <th>Name</th>
 		                    <th>Username</th>
 		                    <th>Level</th>
-		                    <th>Date</th>
+		                    <th>Date Created</th>
 		                    <th>Action</th>
 		                </tr>
-		                <?php $sql = mysql_query('SELECT * FROM user'); ?>
+		                <?php $sql = mysql_query('SELECT * FROM user ORDER BY id_user DESC'); ?>
 		                <?php while($row = mysql_fetch_array($sql) ): ?>
 			                <tr>
 			                    <td><?php echo $row['id_user']; ?></td>

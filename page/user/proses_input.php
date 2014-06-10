@@ -13,15 +13,13 @@
 
 		$fields = implode(", ", $field);
 		$datas = implode(", ", $data);
-		
-		$id = $_POST['fm']['id_user'];
 
 		$table = "user";
 
-		$sql = mysql_query("UPDATE ".$table." SET ".$fields." VALUES(".$datas.") WHERE id_user='".$id."'");
+		$sql = mysql_query("INSERT INTO ".$table."(".$fields.") VALUES(".$datas.")");
 
 		if($sql){
-			header("Location:".DOMAIN."/page/user?r=1");
+			header("Location:".DOMAIN."/page/user?r=2");
 		} else {
 			echo mysql_error();
 		}

@@ -113,7 +113,7 @@
                             </a>
                             <ul class="treeview-menu">
                                 <li><a href="<?php echo DOMAIN; ?>/page/user"><i class="fa fa-angle-double-right"></i>Manage User</a></li>
-                                <li><a ><i class="fa fa-angle-double-right"></i>Tambah User</a></li>
+                                <li><a href="<?php echo DOMAIN; ?>/page/user/input.php"><i class="fa fa-angle-double-right"></i>Tambah User</a></li>
                             </ul>
                         </li>
                         <?php endif; ?>
