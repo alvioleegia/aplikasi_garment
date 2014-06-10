@@ -2,7 +2,7 @@
 	require '../../config/config.php';
 
 	session_start();
-	if(isset($_SESSION['username'])){
+	if(isset($_SESSION['id_user'])){
 		header("Location:".DOMAIN."views/produksi/input_produksi.php");
 	}
 ?>

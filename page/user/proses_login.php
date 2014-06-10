@@ -7,11 +7,9 @@ $login = mysql_query("SELECT * FROM user where username = '" . $_POST['username'
 
 $rowcount = mysql_num_rows($login);
 if ($rowcount == 1) {
-	$_SESSION['username'] = $_POST['username'];
-
-	$result = mysql_fetch_array($login);
-
-	$_SESSION['level'] = $result['level'];
+	$data_user = mysql_fetch_array($login);
+	$_SESSION['id_user'] = $data_user['id_user'];
+	$_SESSION['level'] = $data_user['level'];
 
 	header("Location:".DOMAIN."/");
 }
