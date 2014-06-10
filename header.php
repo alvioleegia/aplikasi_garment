@@ -108,20 +108,20 @@
                     <!-- /.search form -->
                     <!-- sidebar menu: : style can be found in sidebar.less -->
                     <ul class="sidebar-menu">
-                        <li class="active">
+                        <li <?php if($pageActive == 'dashboard'): ?>class="active"<?php endif; ?> >
                             <a href="<?php echo DOMAIN; ?>">
                                 <i class="fa fa-dashboard"></i> <span>Dashboard</span>
                             </a>
                         </li>
 
                         <?php if($_SESSION['level'] == 1): ?>
-                        <li class="treeview">
+                        <li class="treeview <?php if($pageActive == 'user'): ?>active<?php endif; ?>">
                             <a href="#">
                                 <i class="fa fa-table"></i> <span>User</span>
                                 <i class="fa fa-angle-left pull-right"></i>
                             </a>
                             <ul class="treeview-menu">
-                                <li><a ><i class="fa fa-angle-double-right"></i>Manage User</a></li>
+                                <li><a href="<?php echo DOMAIN; ?>/page/user"><i class="fa fa-angle-double-right"></i>Manage User</a></li>
                                 <li><a ><i class="fa fa-angle-double-right"></i>Tambah User</a></li>
                             </ul>
                         </li>

@@ -1,5 +1,5 @@
 <?php $pageTitle = 'PT Cipta Gemilang Sentosa'; ?>
-<?php include 'header.php'; ?>
+<?php include '../header.php'; ?>
 
 <!-- Content Header (Page header) -->
 <section class="content-header">
@@ -18,4 +18,4 @@
 	
 </section><!-- /.content -->
 
-<?php include 'footer.php'; ?>
+<?php include '../footer.php'; ?>
