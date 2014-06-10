@@ -109,12 +109,12 @@
                     <!-- sidebar menu: : style can be found in sidebar.less -->
                     <ul class="sidebar-menu">
                         <li class="active">
-                            <a href="index.html">
+                            <a href="<?php echo DOMAIN; ?>">
                                 <i class="fa fa-dashboard"></i> <span>Dashboard</span>
                             </a>
                         </li>
 
-
+                        <?php if($_SESSION['level'] == 1): ?>
                         <li class="treeview">
                             <a href="#">
                                 <i class="fa fa-table"></i> <span>User</span>
@@ -125,6 +125,7 @@
                                 <li><a ><i class="fa fa-angle-double-right"></i>Tambah User</a></li>
                             </ul>
                         </li>
+                        <?php endif; ?>
                         
                         <li class="treeview">
                             <a href="#">
@@ -137,6 +138,7 @@
                             </ul>
                         </li>
 
+                        <?php if($_SESSION['level'] == 1 || $_SESSION['level'] == 2): ?>
                         <li class="treeview">
                             <a href="#">
                                 <i class="fa fa-table"></i> <span>Kain</span>
@@ -192,7 +194,7 @@
                                 <li><a ><i class="fa fa-angle-double-right"></i>Tambah Spesifikasi</a></li>
                             </ul>
                         </li>
-                        
+                        <?php endif; ?>
                     </ul>
                 </section>
                 <!-- /.sidebar -->

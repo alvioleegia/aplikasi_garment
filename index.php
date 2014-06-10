@@ -4,7 +4,7 @@
 <!-- Content Header (Page header) -->
 <section class="content-header">
     <h1>
-        Blank page
+        Dashboard
         <small>Control panel</small>
     </h1>
     <ol class="breadcrumb">
@@ -37,7 +37,6 @@
 		 <br/>
 		 <br/>
 		 
-		 <a class="btn btn-primary" href="/aplikasi_garment/views/user/logout.php">LOGOUT</a>
 		 <?php } else { ?>
 			<a class="btn btn-primary" href="/aplikasi_garment/views/produksi/konsumen.php">DATA KONSUMEN</a>
 			<a class="btn btn-primary" href="/aplikasi_garment/views/produksi/input.php">INPUT DATA</a>
