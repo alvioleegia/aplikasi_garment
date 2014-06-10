@@ -1,4 +1,4 @@
-<?php $pageTitle = 'PT Cipta Gemilang Sentosa'; ?>
+<?php $pageTitle = 'PT Cipta Gemilang Sentosa'; $pageActive = 'dashboard'; ?>
 <?php include 'header.php'; ?>
 
 <!-- Content Header (Page header) -->

@@ -1,4 +1,4 @@
-<?php $pageTitle = 'PT Cipta Gemilang Sentosa'; ?>
+<?php $pageTitle = 'PT Cipta Gemilang Sentosa'; $pageActive = 'user'; ?>
 <?php include '../header.php'; ?>
 
 <!-- Content Header (Page header) -->
@@ -15,7 +15,9 @@
 
 <!-- Main content -->
 <section class="content">
-	
+	<div class="row">
+
+	</div>
 </section><!-- /.content -->
 
 <?php include '../footer.php'; ?>
