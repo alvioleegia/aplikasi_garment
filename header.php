@@ -30,6 +30,9 @@
           <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
           <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
         <![endif]-->
+
+        <!-- jQuery 2.0.2 -->
+        <script src="<?php echo DOMAIN; ?>/js/jquery-2.0.2.min.js"></script>
     </head>
     <body class="skin-blue">
         <!-- header logo: style can be found in header.less -->
@@ -118,14 +121,14 @@
                         </li>
                         <?php endif; ?>
                         
-                        <li class="treeview <?php if($pageActive == 'size'): ?>active<?php endif; ?>">
+                        <li class="treeview <?php if($pageActive == 'produksi'): ?>active<?php endif; ?>">
                             <a href="#">
                                 <i class="fa fa-table"></i> <span>Produksi</span>
                                 <i class="fa fa-angle-left pull-right"></i>
                             </a>
                             <ul class="treeview-menu">
-                                <li><a ><i class="fa fa-angle-double-right"></i>Manage Produksi</a></li>
-                                <li><a ><i class="fa fa-angle-double-right"></i>Tambah Produksi</a></li>
+                                <li><a href="<?php echo DOMAIN; ?>/page/produksi"><i class="fa fa-angle-double-right"></i>Manage Produksi</a></li>
+                                <li><a href="<?php echo DOMAIN; ?>/page/produksi/input.php"><i class="fa fa-angle-double-right"></i>Tambah Produksi</a></li>
                             </ul>
                         </li>
 
