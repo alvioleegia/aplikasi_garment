@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Jun 10, 2014 at 09:37 PM
+-- Generation Time: Jun 11, 2014 at 06:36 PM
 -- Server version: 5.5.16
 -- PHP Version: 5.3.8
 
@@ -71,9 +71,9 @@ INSERT INTO `jenis_warna` (`id_jenis_warna`, `id_kain`, `warna`, `harga`) VALUES
 (4, 2, 'Merah Bata', 42000),
 (5, 2, 'Navy', 45500),
 (6, 2, 'Putih', 38500),
-(7, 3, 'Benhur', 27000),
-(8, 3, 'Tosca', 27000),
-(9, 3, 'Hitam', 27000),
+(7, 6, 'Benhur', 27000),
+(8, 2, 'Tosca', 27000),
+(9, 9, 'Hitam', 27000),
 (10, 4, 'Cream Tua', 52500);
 
 -- --------------------------------------------------------
@@ -122,18 +122,7 @@ CREATE TABLE IF NOT EXISTS `produksi` (
   `deskripsi` text NOT NULL,
   `gambar` varchar(255) NOT NULL,
   PRIMARY KEY (`id_produksi`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=6 ;
-
---
--- Dumping data for table `produksi`
---
-
-INSERT INTO `produksi` (`id_produksi`, `id_jenis_barang`, `nama`, `tanggal_pemesanan`, `tanggal_selesai`, `deskripsi`, `gambar`) VALUES
-(1, 0, 'Pio', '2014-05-18', '2014-06-18', 'hehe', ''),
-(2, 0, 'Pidi', '2014-05-18', '2014-06-18', 'heuyheuy', ''),
-(3, 1, 'heh', '2014-05-18', '2014-06-18', 'ww', ''),
-(4, 3, 'men', '2014-05-18', '2014-06-18', 'yuyyu', ''),
-(5, 4, 'jojo', '2014-05-19', '2014-06-19', 'hihi', '');
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=40 ;
 
 -- --------------------------------------------------------
 
@@ -163,24 +152,7 @@ CREATE TABLE IF NOT EXISTS `produksi_size` (
   `id_size` int(11) NOT NULL,
   `jumlah` int(11) NOT NULL,
   PRIMARY KEY (`id_produksi_size`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=12 ;
-
---
--- Dumping data for table `produksi_size`
---
-
-INSERT INTO `produksi_size` (`id_produksi_size`, `id_produksi`, `id_size`, `jumlah`) VALUES
-(1, 1, 1, 4),
-(2, 1, 2, 4),
-(3, 1, 3, 4),
-(4, 2, 1, 6),
-(5, 2, 2, 6),
-(6, 3, 1, 12),
-(7, 4, 3, 18),
-(8, 4, 2, 18),
-(9, 5, 1, 11),
-(10, 5, 2, 15),
-(11, 5, 3, 10);
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=21 ;
 
 -- --------------------------------------------------------
 
@@ -194,9 +166,8 @@ CREATE TABLE IF NOT EXISTS `produksi_spesifikasi` (
   `id_produksi` int(11) NOT NULL,
   `id_spesifikasi` int(11) NOT NULL,
   `id_sub_spesifikasi` int(11) NOT NULL,
-  `jumlah` int(11) NOT NULL,
   PRIMARY KEY (`id_produksi_spesifikasi`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=13 ;
 
 -- --------------------------------------------------------
 
@@ -212,19 +183,7 @@ CREATE TABLE IF NOT EXISTS `produksi_warna` (
   `id_jenis_warna` int(10) NOT NULL,
   `pemakaian` int(10) NOT NULL,
   PRIMARY KEY (`id_produksi_warna`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=7 ;
-
---
--- Dumping data for table `produksi_warna`
---
-
-INSERT INTO `produksi_warna` (`id_produksi_warna`, `id_produksi`, `id_kain`, `id_jenis_warna`, `pemakaian`) VALUES
-(1, 1, 3, 3, 12),
-(2, 2, 1, 1, 12),
-(3, 3, 1, 1, 12),
-(4, 4, 10, 10, 36),
-(5, 5, 1, 1, 75),
-(6, 5, 6, 6, 25);
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=20 ;
 
 -- --------------------------------------------------------
 
@@ -256,7 +215,7 @@ INSERT INTO `sizes` (`id_size`, `size`) VALUES
 (10, '36'),
 (11, '38'),
 (12, '40'),
-(13, '42');
+(13, '44');
 
 -- --------------------------------------------------------
 
@@ -289,7 +248,7 @@ INSERT INTO `spesifikasis` (`id_spesifikasi`, `spesifikasi`) VALUES
 (12, 'Fiterbn'),
 (13, 'Tali Cord'),
 (14, 'Ujung Cord'),
-(15, 'Karet Pingg');
+(15, 'Karet Ping');
 
 -- --------------------------------------------------------
 
@@ -344,7 +303,7 @@ CREATE TABLE IF NOT EXISTS `user` (
 --
 
 INSERT INTO `user` (`id_user`, `nama`, `username`, `password`, `level`, `date_created`) VALUES
-(1, 'Nova Stella Andini', 'superadmin', '123', 1, '2014-06-11'),
+(1, 'Nova Stella ', 'superadmin', '123', 1, '2014-06-11'),
 (2, 'Kim Taeyeon', 'ppc_1', '12345', 2, '2014-06-10'),
 (5, 'Im Yoona', 'sales_1', '12345', 3, '2014-06-10');
 
