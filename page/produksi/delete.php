@@ -15,7 +15,7 @@ if(isset($_GET['id'])){
 
 	if ($qproduksi && $qspesifikasi && $qwarna && $qsize)
 	{ 	
-	    header("Location:/aplikasi_garment/views/produksi");
+	    header("Location:".DOMAIN."/page/produksi/?r=1");
 	}
 	else
 	{
