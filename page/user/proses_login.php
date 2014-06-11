@@ -15,6 +15,6 @@ if ($rowcount == 1) {
 }
 else
 {
-	header("Location:".DOMAIN."/views/user/login.php?ket=error");
+	header("Location:".DOMAIN."/page/user/login.php?ket=error");
 }
 ?>
