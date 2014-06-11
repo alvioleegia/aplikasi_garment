@@ -1,61 +1,88 @@
+<?php $pageTitle = 'Manage Produksi'; $pageActive = 'produksi'; ?>
 <?php include '../header.php'; ?>
-<div class="container">
-	<div class="col-md=12">
-		<h2>Data Produksi <?php if($_SESSION['level'] == 1){ ?> <a href="admin_input.php" class="btn btn-mini btn-primary">Tambah</a></h2><?php } ?>
-		<table class="table table-stripped" id="table_data">
-		<thead>
-			<tr>
-				<th>#</th>
-				<th>Nama Pemesan</th>
-				<th>Tanggal Pemesanan</th>
-				<th>Spesifikasi</th>
-				<th>Kain</th>
-				<th>Size</th>
-				<th></th>
-		</tr>
-	</thead>
-	<tbody>
-		
-		<?php
-		$result = mysql_query("SELECT * FROM produksi");
-		while($row = mysql_fetch_array( $result )) {
-			echo "<tr>";
-			echo "	<td>".$row['id_produksi']."</td>";
-			echo "	<td><a href='view.php?id=".$row['id_produksi']."'>".$row['nama']."</a></td>";
-			echo "	<td>".$row['tanggal_pemesanan']." s/d " .$row['tanggal_selesai']."</td>";
 
-			$spesifikasi = mysql_query("SELECT COUNT(*) FROM produksi_spesifikasi WHERE id_produksi=".$row['id_produksi']);
-			$kain = mysql_query("SELECT COUNT(*) FROM produksi_warna WHERE id_produksi=".$row['id_produksi']);
-			$size = mysql_query("SELECT COUNT(*) FROM produksi_size WHERE id_produksi=".$row['id_produksi']);
-			echo "	<td>".mysql_result($spesifikasi,0)."</td>";
-			echo "	<td>".mysql_result($kain,0)."</td>";
-			echo "	<td>".mysql_result($size,0)."</td>";
-			echo "	<td><a class='btn btn-mini btn-info btn-xs' title='Edit' href='edit.php?id=".$row['id_produksi']."''><i class='glyphicon glyphicon-edit'></i></button>";
-			echo "	<a class='btn btn-mini btn-danger btn_hapus btn-xs' title='Hapus' href='delete.php?id=".$row['id_produksi']."''> <i class='glyphicon glyphicon-remove'></i></button></td>";
-			echo "</tr>";
+<!-- Content Header (Page header) -->
+<section class="content-header">
+    <h1>
+        Manage
+        <small>Produksi</small>
+    </h1>
+    <ol class="breadcrumb">
+        <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+        <li class="active">Manage Produksi</li>
+    </ol>
+</section>
 
-		}
+<!-- Main content -->
+<section class="content">
+	 <div class="row">
+		<div class="col-xs-12">
+			<?php if(isset($_GET['r']) && $_GET['r'] == 1): ?>
+				<div class="alert alert-success alert-dismissable">
+	                <i class="fa fa-check"></i>
+	                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+	                <b>Success!</b> Data terhapus.
+	            </div>
+            <?php endif; ?>
+            <?php if(isset($_GET['r']) && $_GET['r'] == 2): ?>
+				<div class="alert alert-success alert-dismissable">
+	                <i class="fa fa-check"></i>
+	                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+	                <b>Success!</b> Data berhasil ditambahkan.
+	            </div>
+            <?php endif; ?>
+		    <div class="box">
+		        <div class="box-header">
+		            <h3 class="box-title">Data Produksi</h3>
+		            <div class="box-tools">
+		                <div class="input-group">
+		                    <input type="text" name="table_search" class="form-control input-sm pull-right" style="width: 150px;" placeholder="Search"/>
+		                    <div class="input-group-btn">
+		                        <button class="btn btn-sm btn-default"><i class="fa fa-search"></i></button>
+		                    </div>
+		                </div>
+		            </div>
+		        </div><!-- /.box-header -->
+		        <div class="box-body table-responsive no-padding">
+		            <table class="table table-hover" id="table_data">
+						<tr>
+							<th>ID</th>
+							<th>Nama Pemesan</th>
+							<th>Tanggal Pemesanan</th>
+							<th>Spesifikasi</th>
+							<th>Jumlah</th>
+							<th>Action</th>
+						</tr>
 
-		
-		?>
-	</tbody>
+						<?php $sql = mysql_query("SELECT * FROM produksi ORDER BY id_produksi DESC"); ?>
+						<?php while($row = mysql_fetch_array($sql)): ?>
+							<tr>
+								<td><?php echo $row['id_produksi']; ?></td>
+								<td><?php echo $row['nama']; ?></td>
+								<td>
+									<?php echo dateFormat($row['tanggal_pemesanan']); ?> s/d <?php echo dateFormat($row['tanggal_selesai']); ?>
+								</td>
+								<td><?php echo getCountSpesifikasi($row['id_produksi']); ?></td>
+								<td><?php echo getJumlahProduksi($row['id_produksi']); ?></td>
+								<td>
+									<a class="btn btn-primary btn-xs" title="Lihat" href="view.php?id=<?php echo $row['id_produksi']; ?>">
+										<i class="glyphicon glyphicon-search"></i>
+									</a>
+									<a class="btn btn-warning btn-xs" title="Edit" href="edit.php?id=<?php echo $row['id_produksi']; ?>">
+										<i class="glyphicon glyphicon-edit"></i>
+									</a>
+									<a class="btn btn-danger btn-xs" title="Hapus" href="delete.php?id=<?php echo $row['id_produksi']; ?>" onclick="return confirm('Anda yakin akan menghapus ini?')">
+										<i class='glyphicon glyphicon-remove'></i>
+									</a>
+								</td>
+							</tr>
 
+						<?php endwhile; ?>
+					</table>
+		        </div><!-- /.box-body -->
+		    </div><!-- /.box -->
+		</div>
+		</div>
+</section><!-- /.content -->
 
-		</table>
-	</div>
-</div>
-<script type="text/javascript">
-    $(function(){
-    	 $('body').on('click','.btn_hapus',function(e){
-
-            var hapus = confirm("Hapus?");
-
-            if(!hapus){
-            	return false;
-            }
-
-         });
-    });
-</script>
-</body>
-</html>
+<?php include '../footer.php'; ?>

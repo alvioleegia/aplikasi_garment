@@ -55,7 +55,10 @@
 			                <tr>
 			                    <td><?php echo $row['id_spesifikasi']; ?></td>
 			                    <td><?php echo $row['spesifikasi']; ?></td>
-			                    <td><a href="view.php?id=<?php echo $row['id_spesifikasi']; ?>" class="btn btn-primary btn-xs">lihat</a> <a href="edit.php?id=<?php echo $row['id_spesifikasi']; ?>" class="btn btn-warning btn-xs">edit</a> <a href="delete.php?id=<?php echo $row['id_spesifikasi']; ?>" onclick="return confirm('Anda yakin akan menghapus ini?')" class="btn btn-danger btn-xs">hapus</a></td>
+			                    <td>
+			                    	<a href="view.php?id=<?php echo $row['id_spesifikasi']; ?>" class="btn btn-primary btn-xs">lihat</a>
+			                    	<a href="edit.php?id=<?php echo $row['id_spesifikasi']; ?>" class="btn btn-warning btn-xs">edit</a>
+			                    	<a href="delete.php?id=<?php echo $row['id_spesifikasi']; ?>" onclick="return confirm('Anda yakin akan menghapus ini?')" class="btn btn-danger btn-xs">hapus</a></td>
 			                </tr>
 			            <?php endwhile; ?>
 		            </table>

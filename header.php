@@ -33,6 +33,12 @@
 
         <!-- jQuery 2.0.2 -->
         <script src="<?php echo DOMAIN; ?>/js/jquery-2.0.2.min.js"></script>
+
+        <!-- Bootstrap -->
+        <script src="<?php echo DOMAIN; ?>/js/bootstrap.min.js" type="text/javascript"></script>
+
+        <!-- date-range-picker -->
+        <script src="<?php echo DOMAIN; ?>/js/plugins/daterangepicker/daterangepicker.js" type="text/javascript"></script>
     </head>
     <body class="skin-blue">
         <!-- header logo: style can be found in header.less -->
