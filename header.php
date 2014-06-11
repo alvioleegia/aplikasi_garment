@@ -130,14 +130,14 @@
                         </li>
 
                         <?php if($_SESSION['level'] == 1 || $_SESSION['level'] == 2): ?>
-                        <li class="treeview">
+                        <li class="treeview <?php if($pageActive == 'kain'): ?>active<?php endif; ?>">
                             <a href="#">
                                 <i class="fa fa-table"></i> <span>Kain</span>
                                 <i class="fa fa-angle-left pull-right"></i>
                             </a>
                             <ul class="treeview-menu">
-                                <li><a ><i class="fa fa-angle-double-right"></i>Manage Kain</a></li>
-                                <li><a ><i class="fa fa-angle-double-right"></i>Tambah Kain</a></li>
+                                <li><a href="<?php echo DOMAIN; ?>/page/kain"><i class="fa fa-angle-double-right"></i>Manage Kain</a></li>
+                                <li><a href="<?php echo DOMAIN; ?>/page/kain/input.php"><i class="fa fa-angle-double-right"></i>Tambah Kain</a></li>
                             </ul>
                         </li>
 

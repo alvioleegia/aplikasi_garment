@@ -1,61 +1,68 @@
-<?php $pageTitle = 'Daftar Kain'; ?>
+<?php $pageTitle = 'Manage Kain'; $pageActive = 'kain'; ?>
 <?php include '../header.php'; ?>
-<div class="container">
-	<div class="col-md=12">
-		<h2>Daftar Kain <?php if($_SESSION['level'] == 1){ ?> <a href="input.php" class="btn btn-mini btn-primary">Tambah</a></h2><?php } ?>
-				<?php if(isset($_GET['q']) && $_GET['q'] == 3){ ?>
- 			<div class="alert alert-success">
-      			<strong>Data Berhasil Dihapus!</strong>
-    		</div>
-		<?php } ?>
-		<table class="table table-bordered" id="table_data">
-		<thead>
-			<tr>
-				<th>#</th>
-				<th>ID Kain</th>
-				<th>Jenis Kain</th>
-				<th></th>
 
-		</tr>
-	</thead>
-	<tbody>
-		
-		<?php
-		$result = mysql_query("SELECT * FROM kains");
+<!-- Content Header (Page header) -->
+<section class="content-header">
+    <h1>
+        Manage
+        <small>Kain</small>
+    </h1>
+    <ol class="breadcrumb">
+        <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+        <li class="active">Manage Kain</li>
+    </ol>
+</section>
 
-		$i=0;
-		while($row = mysql_fetch_array( $result )) {
-			$i++;
-			echo "<tr>";
-			echo "	<td>".$i."</td>";
-			echo "	<td>".$row['id_kain']."</a></td>";
-			echo "	<td><a href='view.php?id=".$row['id_kain']."'>".$row['kain']."</td>";
-			echo "	<td><center><a class='btn btn-mini btn-info btn-xs' title='Edit' href='edit.php?id=".$row['id_kain']."''><i class='glyphicon glyphicon-edit'></i></button>";
-			echo "	<a class='btn btn-mini btn-danger btn_hapus btn-xs' title='Hapus' href='delete.php?id=".$row['id_kain']."''> <i class='glyphicon glyphicon-remove'></i></button></td>";
-			echo "</tr>";
+<!-- Main content -->
+<section class="content">
+	 <div class="row">
+		<div class="col-xs-12">
+			<?php if(isset($_GET['r']) && $_GET['r'] == 1): ?>
+				<div class="alert alert-success alert-dismissable">
+	                <i class="fa fa-check"></i>
+	                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+	                <b>Success!</b> Data terhapus.
+	            </div>
+            <?php endif; ?>
+            <?php if(isset($_GET['r']) && $_GET['r'] == 2): ?>
+				<div class="alert alert-success alert-dismissable">
+	                <i class="fa fa-check"></i>
+	                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+	                <b>Success!</b> Data berhasil ditambahkan.
+	            </div>
+            <?php endif; ?>
+		    <div class="box">
+		        <div class="box-header">
+		            <h3 class="box-title">Data Kain</h3>
+		            <div class="box-tools">
+		                <div class="input-group">
+		                    <input type="text" name="table_search" class="form-control input-sm pull-right" style="width: 150px;" placeholder="Search"/>
+		                    <div class="input-group-btn">
+		                        <button class="btn btn-sm btn-default"><i class="fa fa-search"></i></button>
+		                    </div>
+		                </div>
+		            </div>
+		        </div><!-- /.box-header -->
+		        <div class="box-body table-responsive no-padding">
+		            <table class="table table-hover">
+		                <tr>
+		                    <th>ID</th>
+		                    <th>Kain</th>
+		                    <th>Action</th>
+		                </tr>
+		                <?php $sql = mysql_query('SELECT * FROM kains ORDER BY id_kain DESC'); ?>
+		                <?php while($row = mysql_fetch_array($sql) ): ?>
+			                <tr>
+			                    <td><?php echo $row['id_kain']; ?></td>
+			                    <td><?php echo $row['kain']; ?></td>
+			                    <td><a href="view.php?id=<?php echo $row['id_kain']; ?>" class="btn btn-primary btn-xs">lihat</a> <a href="edit.php?id=<?php echo $row['id_kain']; ?>" class="btn btn-warning btn-xs">edit</a> <a href="delete.php?id=<?php echo $row['id_kain']; ?>" onclick="return confirm('Anda yakin akan menghapus ini?')" class="btn btn-danger btn-xs">hapus</a></td>
+			                </tr>
+			            <?php endwhile; ?>
+		            </table>
+		        </div><!-- /.box-body -->
+		    </div><!-- /.box -->
+		</div>
+		</div>
+</section><!-- /.content -->
 
-		}
-
-		
-		?>
-	</tbody>
-
-
-		</table>
-	</div>
-</div>
-<script type="text/javascript">
-    $(function(){
-    	 $('body').on('click','.btn_hapus',function(e){
-
-            var hapus = confirm("Hapus?");
-
-            if(!hapus){
-            	return false;
-            }
-
-         });
-    });
-</script>
-</body>
-</html>
+<?php include '../footer.php'; ?>

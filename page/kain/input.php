@@ -1,32 +1,51 @@
-<?php
-	require("../../config/loginsession.php");
-?>
-<html>
-<head>
-	<title>Form Input Produk</title>
- 		<link rel="stylesheet" type="text/css" href="/aplikasi_garment/css/bootstrap.min.css">
-        <link rel="stylesheet" type="text/css" href="/aplikasi_garment/css/style.css">
-        <script type="text/javascript" src="/aplikasi_garment/js/jquery-1.11.1.min.js"></script>
-        <script type="text/javascript" src="/aplikasi_garment/js/bootstrap.min.js"></script>
-</head>
-<body>
-<div class="container">
-<form role="form" id="form_input" action="proses_input_kain.php" method="post">
-	<?php require "../../config/config.php"; ?>
+<?php $pageTitle = 'Tambah Kain'; $pageActive = 'kain'; ?>
+<?php include '../header.php'; ?>
 
-	<!-- Kolom kiri -->
-	<div class="col-md-7">
-		<h1>Form Input</h1>
-				<div class="form-group">
-					<label for="nama">Nama Kain</label>
-					<input type="text" class="form-control" id="kain" name="kain">
-				</div>
-				<div class="form-group">
-				<button class="btn btn-primary ">Submit</button>
-				</div>
-					
-	</div>
+<!-- Content Header (Page header) -->
+<section class="content-header">
+    <h1>
+        Input
+        <small>Kain</small>
+    </h1>
+    <ol class="breadcrumb">
+        <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+        <li class="active">Input Kain</li>
+    </ol>
+</section>
 
-	
-</body>
-</html>
+<!-- Main content -->
+<section class="content">
+
+	<form role="form" action="proses_input.php" method="post">
+		<div class="row">
+			<div class="col-md-6">
+				<div class="box box-primary">
+					<div class="box-header">
+						<h3 class="box-title">Kain Baru</h3>
+					</div>
+					<div class="box-body">
+						<div class="form-group">
+							<label>Kain</label>
+							<input type="text" class="form-control" name="fm[kain]" >
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-3">
+				<div class="box box-warning">
+					<div class="box-header">
+						<h3 class="box-title">Action</h3>
+					</div>
+					<div class="box-body">
+						<p>
+							<button type="submit" class="btn btn-primary">Simpan</button>
+						</p>
+					</div>
+				</div>
+			</div>
+		</div>
+	</form>
+
+</section><!-- /.content -->
+
+<?php include '../footer.php'; ?>

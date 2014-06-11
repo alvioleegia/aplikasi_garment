@@ -3,22 +3,23 @@
 	require '../../config/session.php';
 
 	if(isset($_POST['fm'])){
+		$field = array();
 		$data = array();
 
 		foreach($_POST['fm'] as $key => $value){
-			$data[] = $key."='".$value."'";
+			$field[] = $key;
+			$data[] = "'".$value."'";
 		}
 
+		$fields = implode(", ", $field);
 		$datas = implode(", ", $data);
-		
-		$id = $_POST['fm']['id_kain'];
 
 		$table = "kains";
 
-		$sql = mysql_query("UPDATE ".$table." SET ".$datas." WHERE id_kain='".$id."'");
+		$sql = mysql_query("INSERT INTO ".$table."(".$fields.") VALUES(".$datas.")");
 
 		if($sql){
-			header("Location:".DOMAIN."/page/kain/view.php?id=".$id."&r=1");
+			header("Location:".DOMAIN."/page/kain?r=2");
 		} else {
 			echo mysql_error();
 		}

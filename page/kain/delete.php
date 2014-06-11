@@ -1,23 +1,20 @@
 <?php
-require "../../config/config.php";
-if(isset($_GET['id'])){
+	require '../../config/config.php';
+	require '../../config/session.php';
 
-	$id_kain = $_GET['id'];
-	$sqlkain="DELETE FROM kains WHERE id_kain='$id_kain'";
-	
-	$qkain=mysql_query($sqlkain);
+	if(isset($_GET['id'])){
+		$id = $_GET['id'];
+		$field_id = 'id_kain';
+		$table = 'kains';
 
-	if ($qkain)
-	{ 	
-	    header('Location:/aplikasi_garment/views/kain/index.php?q=3');
+		$sql = mysql_query("DELETE FROM ".$table." WHERE ".$field_id."=".$id);
+
+		if($sql){
+			header("Location:".DOMAIN."/page/kain/?r=1");
+		} else {
+			echo mysql_error();
+		}
+	} else {
+		header("Location:".DOMAIN."/404.php");
 	}
-	else
-	{
-	    echo "ERROR!";
-	    // close connection 
-	    mysql_close();
-	}
-} else {
-	echo "Process Error!";
-}
 ?>

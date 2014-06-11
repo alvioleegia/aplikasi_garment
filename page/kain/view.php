@@ -1,87 +1,72 @@
-<?php $pageTitle = "Detail Kain Baru"; ?>
-	<?php
-	include "../header.php"; 
-?>
-<div class="container">
-<form role="form" id="form_input" action="proses_edit.php" method="post">
-	<?php require "../../config/config.php"; ?>
-	<?php
-		if(isset($_GET['id'])){
+<?php $pageTitle = 'View Kain'; $pageActive = 'kain'; ?>
+<?php include '../header.php'; ?>
 
-			$id_kain = $_GET['id'];
-			$q = "SELECT * FROM kains where id_kain= $id_kain";
-			$result = mysql_query($q) or die(mysql_error());
+<!-- Content Header (Page header) -->
+<section class="content-header">
+    <h1>
+        View
+        <small>Kain</small>
+    </h1>
+    <ol class="breadcrumb">
+        <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+        <li class="active">View Kain</li>
+    </ol>
+</section>
 
-			if($result){
-			    $row = mysql_fetch_array($result) or die(mysql_error()); 
-			}
-		} else {
-			echo "Id Kain Required";
-			exit;
-		}
-	?>
-
-    
-	<!-- Kolom kiri -->
-	<div class="col-md-7">
-		<h1>Detail Kain</h1>
-
-		<?php if(isset($_GET['q']) && $_GET['q'] == 1){ ?>
- 			<div class="alert alert-success">
-      			<strong>Data Berhasil Ditambahkan!</strong>
-    		</div>
-		<?php } ?>
-
-		<?php if(isset($_GET['q']) && $_GET['q'] == 2){ ?>
- 			<div class="alert alert-success">
-      			<strong>Data Berhasil Diupdate!</strong>
-    		</div>
-		<?php } ?>
-
-
-		<div class="form-group">
-			<label for="nama">Kain</label>
-			<div><?php echo $row['kain']; ?></div>
-		</div>
-		
-
-		<div class="form-group">
-		<?php if($_SESSION['level'] == 1 || $_SESSION['level'] == 2 ){ ?>
-		
-			<a href="edit.php?id=<?PHP echo $id_produksi; ?>" class="btn btn-mini btn-warning" title='Edit'> <i class="glyphicon glyphicon-edit"></i> Update</a>
-  			<a href="delete.php?id=<?PHP echo $id_produksi; ?>" class="btn btn-mini btn-danger btn-hapus" title='hapus'><i class="glyphicon glyphicon-remove"></i> Hapus </a>
-  			<a href="index.php" class="btn btn-mini btn-primary "title='Back'><i class="glyphicon glyphicon-arrow-left"></i> Kembali ke Daftar Kain</a>
-		
-		<?php } else{ ?>
-			<a href="/aplikasi_garment/views/produksi/konsumen.php" class="btn btn-mini btn-warning" title='Manage Konsumen'><i class="glyphicon glyphicon-edit"></i> Manage Konsumen</a>
-
-		<?php } ?>
-		</div>
-	</div>
-
+<!-- Main content -->
+<section class="content">
 	
-	</div>
+	<?php if(isset($_GET['id'])){ ?>
+		<?php
+			$id = $_GET['id'];
+			$sql = mysql_query("SELECT * FROM kains WHERE id_kain=$id");
+			$data = mysql_fetch_array($sql);
+		?>
 
+		<div class="row">
+			<div class="col-md-6">
+				<div class="box box-primary">
+					<div class="box-header">
+						<h3 class="box-title">Kain #<?php echo $data['id_kain']; ?></h3>
+					</div>
+					<div class="box-body">
 
-<input type="hidden" name="id_produksi" value="<?php echo $id_produksi; ?>">;
+						<?php if(isset($_GET['r']) && $_GET['r'] == 1): ?>
+						<div class="alert alert-success alert-dismissable">
+                            <i class="fa fa-check"></i>
+                            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                            <b>Success!</b> Data updated.
+                        </div>
+	                    <?php endif; ?>
 
-</form>
-</div>
+						<div class="form-group">
+							<label>Kain</label>
+							<p><?php echo $data['kain']; ?></p>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-3">
+				<div class="box box-warning">
+					<div class="box-header">
+						<h3 class="box-title">Action</h3>
+					</div>
+					<div class="box-body">
+						<p>
+							<a href="edit.php?id=<?php echo $id; ?>" class="btn btn-warning">Edit</a>
+						</p>
+						<p>
+							<a href="delete.php?id=<?php echo $id; ?>" onclick="return confirm('Anda yakin akan menghapus ini?')" class="btn btn-danger">Hapus</a>
+						</p>
 
-<script type="text/javascript">
-    $(function(){
-    	 $('body').on('click','.btn-hapus',function(e){
+					</div>
+				</div>
+			</div>
+		</div>
+	<?php } else { ?>
+		<?php include '../404.php'; ?>
+	<?php } ?>
 
-            var hapus = confirm("Hapus?");
+</section><!-- /.content -->
 
-            if(!hapus){
-            	return false;
-            }
-
-         });
-    });
-</script>
-
-
-</body>
-</html>
+<?php include '../footer.php'; ?>
