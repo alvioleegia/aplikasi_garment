@@ -152,14 +152,14 @@
                             </ul>
                         </li>
 
-                        <li class="treeview">
+                        <li class="treeview <?php if($pageActive == 'size'): ?>active<?php endif; ?>">
                             <a href="#">
                                 <i class="fa fa-table"></i> <span>Size</span>
                                 <i class="fa fa-angle-left pull-right"></i>
                             </a>
                             <ul class="treeview-menu">
-                                <li><a ><i class="fa fa-angle-double-right"></i>Manage Size</a></li>
-                                <li><a ><i class="fa fa-angle-double-right"></i>Tambah Size</a></li>
+                                <li><a href="<?php echo DOMAIN; ?>/page/size" ><i class="fa fa-angle-double-right"></i>Manage Size</a></li>
+                                <li><a href="<?php echo DOMAIN; ?>/page/size/input.php"><i class="fa fa-angle-double-right"></i>Tambah Size</a></li>
                             </ul>
                         </li>
 
