@@ -48,4 +48,11 @@
 		return $data['kain'];
 	}
 
+	function getSpesifikasi($id){
+		$q = mysql_query("select * from spesifikasis where id_spesifikasi='$id'");
+		$data = mysql_fetch_array($q);
+
+		return $data['spesifikasi'];
+	}
+
 ?>

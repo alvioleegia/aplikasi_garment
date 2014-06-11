@@ -174,14 +174,14 @@
                             </ul>
                         </li>
 
-                        <li class="treeview">
+                        <li class="treeview <?php if($pageActive == 'sub_spesifikasi'): ?>active<?php endif; ?>">
                             <a href="#">
                                 <i class="fa fa-table"></i> <span>Sub Spesifikasi</span>
                                 <i class="fa fa-angle-left pull-right"></i>
                             </a>
                             <ul class="treeview-menu">
-                                <li><a ><i class="fa fa-angle-double-right"></i>Manage Spesifikasi</a></li>
-                                <li><a ><i class="fa fa-angle-double-right"></i>Tambah Spesifikasi</a></li>
+                                <li><a href="<?php echo DOMAIN; ?>/page/sub-spesifikasi"><i class="fa fa-angle-double-right"></i>Manage Spesifikasi</a></li>
+                                <li><a href="<?php echo DOMAIN; ?>/page/sub-spesifikasi/input.php"><i class="fa fa-angle-double-right"></i>Tambah Spesifikasi</a></li>
                             </ul>
                         </li>
                         <?php endif; ?>
