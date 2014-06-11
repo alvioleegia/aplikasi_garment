@@ -82,16 +82,14 @@
 	                                <th style="width: 30px">#</th>
 	                                <th>Spesifikasi</th>
 	                                <th>Sub</th>
-	                                <th>Jumlah</th>
 	                            </tr>
 	                            
 	                            <?php $i = 1; ?>
 								<?php while($row = mysql_fetch_array($q)): ?>
 		                            <tr>
 		                                <td><?php echo $i; ?></td>
-		                                <td><?php echo $row['id_spesifikasi']; ?></td>
-		                                <td><?php echo $row['id_sub_spesifikasi']; ?></td>
-		                                <td><?php echo $row['jumlah']; ?></td>
+		                                <td><?php echo getSpesifikasi($row['id_spesifikasi']); ?></td>
+		                                <td><?php echo getSubSpesifikasi($row['id_sub_spesifikasi']); ?></td>
 		                            </tr>
 		                            <?php $i++; ?>
 	                        	<?php endwhile; ?>

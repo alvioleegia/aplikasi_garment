@@ -69,6 +69,13 @@
 		return $data['spesifikasi'];
 	}
 
+	function getSubSpesifikasi($id){
+		$q = mysql_query("select * from sub_spesifikasi where id_sub_spesifikasi='$id'");
+		$data = mysql_fetch_array($q);
+
+		return $data['nama'];
+	}
+
 	function getCountSpesifikasi($id_produksi){
 		$q = mysql_query("SELECT COUNT(*) FROM produksi_spesifikasi WHERE id_produksi=".$id_produksi);
 		$data = mysql_result($q,0);

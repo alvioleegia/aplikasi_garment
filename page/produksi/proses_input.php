@@ -1,47 +1,57 @@
 <?php
 require "../../config/config.php";
 
-if(!isset($_POST['nama'])){ 
+if(!isset($_POST['fm'])){ 
 	echo "Process Error!"; 
 	exit();
 }
 
-$sql = "INSERT INTO produksi (nama, tanggal_pemesanan, tanggal_selesai, deskripsi, id_jenis_barang) VALUES('".$_POST['nama']."', '".$_POST['tanggal_pemesanan']."', '".$_POST['tanggal_selesai']."', '".$_POST['deskripsi']."', '".$_POST['id_jenis_barang']."' )";
+$field = array();
+$data = array();
 
-$q = mysql_query($sql);
+foreach($_POST['fm'] as $key => $value){
+	$field[] = $key;
+	$data[] = "'".$value."'";
+}
 
-if ($q){
+$fields = implode(", ", $field);
+$datas = implode(", ", $data);
+
+$table = "produksi";
+
+$sql = mysql_query("INSERT INTO ".$table."(".$fields.") VALUES(".$datas.")");
+
+if ($sql){
 	$id_produksi = mysql_insert_id();
 	
 	if(!empty($_POST["spesifikasi"])){
-
-		foreach ($_POST['spesifikasi'] as $key => $value) 
+		foreach ($_POST["spesifikasi"] as $id_spesifikasi => $id_sub_spesifikasi) 
 		{
-			$sql_spesifikasi = "INSERT INTO produksi_spesifikasi (id_produksi, id_spesifikasi, jumlah) VALUES('".$id_produksi."', '".$key."', '".$value."' )";
+			$sql_spesifikasi = "INSERT INTO produksi_spesifikasi (id_produksi, id_spesifikasi, id_sub_spesifikasi) VALUES('".$id_produksi."', '".$id_spesifikasi."', '".$id_sub_spesifikasi."' )";
 			$q_spesifikasi = mysql_query($sql_spesifikasi);
 
 			if(!$q_spesifikasi)
-				{
-				 echo 'Could not run query: ' . mysql_error();
-				 exit();
-				}
+			{
+			 echo 'Could not run query: ' . mysql_error();
+			 exit();
+			}
 		}
 	}
 
 	if(!empty($_POST['warna'])){
-		foreach ($_POST['warna'] as $key => $value) 
+		foreach ($_POST['warna'] as $key => $warna) 
 		{
-			$kain = mysql_fetch_array(mysql_query("SELECT * FROM jenis_warna WHERE id_jenis_warna=".$_POST['warna'])); 
-			$id_kain = $key;
+			foreach ($warna as $id_jenis_warna => $jumlah) {
+				$id_kain = $key;
 
-			$sql_warna = "INSERT INTO produksi_warna (id_produksi, id_kain, id_jenis_warna, pemakaian) VALUES('".$id_produksi."','".$id_kain."', '".$key."', '".$value."' )";
-			$q_warna = mysql_query($sql_warna);
+				$sql_warna = "INSERT INTO produksi_warna (id_produksi, id_kain, id_jenis_warna, pemakaian) VALUES('".$id_produksi."','".$id_kain."', '".$id_jenis_warna."', '".$jumlah."' )";
+				$q_warna = mysql_query($sql_warna);
 
-			if(!$q_warna)
+				if(!$q_warna)
 				{
-				 echo 'Could not run query: ' . mysql_error();
-				 exit();
-
+					 echo 'Could not run query: ' . mysql_error();
+					 exit();
+				}
 			}
 		}
 	}

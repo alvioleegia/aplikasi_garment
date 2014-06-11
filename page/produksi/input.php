@@ -1,230 +1,343 @@
-<?php
-	require("../../config/loginsession.php");
-?>
-<html>
-<head>
-	<title>Form Input Produk</title>
- 		<link rel="stylesheet" type="text/css" href="/aplikasi_garment/css/bootstrap.min.css">
-        <link rel="stylesheet" type="text/css" href="/aplikasi_garment/css/style.css">
-        <script type="text/javascript" src="/aplikasi_garment/js/jquery-1.11.1.min.js"></script>
-        <script type="text/javascript" src="/aplikasi_garment/js/bootstrap.min.js"></script>
-</head>
-<body>
-<div class="container">
-<form role="form" id="form_input" action="proses_input.php" method="post">
-	<?php require "../../config/config.php"; ?>
+<?php $pageTitle = 'Tambah Produksi'; $pageActive = 'produksi'; ?>
+<?php include '../header.php'; ?>
 
-	<!-- Kolom kiri -->
-	<div class="col-md-7">
-		<h1>Form Input</h1>
-				<div class="form-group">
-					<label for="nama">Nama Pemesan</label>
-					<input type="text" class="form-control" id="nama" name="nama">
-				</div>
-				<div class="form-group">
-					<label for="tanggal_pemesanan">Tanggal Pemesanan</label>
-					<input type="text" class="form-control" id="tanggal_pemesanan" name="tanggal_pemesanan">
-				</div>
-				<div class="form-group">
-					<label for="tanggal_selesai">Tanggal Selesai</label>
-					<input type="text" class="form-control" id="tanggal_selesai" name="tanggal_selesai">
-				</div>
-				<div class="form-group">
-					<label for="jenis_barang">Jenis Barang</label>
-					<div class="col-md-12 row"> 
-					<select name="id_jenis_barang" class="form-control " id="jenis_barang">
-						<option>Pilih Jenis Barang</option>
-							<?php
-								$sql = " SELECT * from jenis_barang";
-								$result = mysql_query($sql);
-								while($row = mysql_fetch_row($result)) {
-									echo "<option value='$row[0]'>".$row[1]."</option>";
-								}
-							?>
-					</select>
-				</div>
-				</div>
-				<div class="form-group">
-					<label for="deskripsi">Deskripsi</label>
-					<textarea class="form-control" name="deskripsi" id="deskripsi" rows="9"></textarea>
+<!-- Content Header (Page header) -->
+<section class="content-header">
+    <h1>
+        Input
+        <small>Produksi</small>
+    </h1>
+    <ol class="breadcrumb">
+        <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+        <li class="active">Input Produksi</li>
+    </ol>
+</section>
+
+<!-- Main content -->
+<section class="content">
+
+	<form role="form" action="proses_input.php" method="post" id="form_input">
+		<div class="row">
+			<div class="col-md-6">
+				<div class="box box-primary">
+					<div class="box-header">
+						<h3 class="box-title">Produksi Baru</h3>
+					</div>
+					<div class="box-body">
+						<div class="form-group">
+							<label>Nama Pemesan</label>
+							<input type="text" class="form-control" name="fm[nama]" required>
+						</div>
+
+						<div class="form-group">
+							<label>Tanggal Pemesanan</label>
+							<div class="input-group">
+                                <div class="input-group-addon">
+                                    <i class="fa fa-calendar"></i>
+                                </div>
+                                <input type="text" class="form-control pull-right" name="fm[tanggal_pemesanan]" id="tanggal_pemesanan" required/>
+                            </div><!-- /.input group -->
+						</div>
+
+						<div class="form-group">
+							<label>Tanggal Selesai</label>
+							<div class="input-group">
+								<div class="input-group-addon">
+                                    <i class="fa fa-calendar"></i>
+                                </div>
+								<input type="text" class="form-control pull-right" name="fm[tanggal_selesai]" id="tanggal_selesai" required>
+							</div>
+						</div>
+
+						<div class="form-group">
+							<label>Jenis Barang</label>
+							<select name="fm[id_jenis_barang]" class="form-control " id="jenis_barang" required>
+								<?php $sql = mysql_query("SELECT * FROM jenis_barang ORDER BY barang ASC"); ?>
+								<?php while($row = mysql_fetch_row($sql)): ?>
+									<option value="<?php echo $row[0]; ?>"><?php echo $row[1]; ?></option>
+								<?php endwhile; ?>
+							</select>
+						</div>
+
+						<div class="form-group">
+							<label>Deskripsi</label>
+							<textarea id="deskripsi" name="fm[deskripsi]" style="width:100%;height:100px"></textarea>
+						</div>
+					</div>
 				</div>
 
-				
-				
-		
-	</div>
+				<div class="box box-danger">
+					<div class="box-header">
+						<h3 class="box-title">Spesifikasi</h3>
+					</div>
+					<div class="box-body">
+						<div class="form-group">
+							<select class="form-control " id="tambah_spesifikasi">
+								<option>Pilih Spesifikasi</option>
+								<?php $sql = mysql_query("SELECT * FROM spesifikasis ORDER BY spesifikasi ASC"); ?>
+								<?php while($row = mysql_fetch_row($sql)): ?>
+									<option value="<?php echo $row[0]; ?>"><?php echo $row[1]; ?></option>
+								<?php endwhile; ?>
+							</select>
+						</div>
+						<div class="input-group form-group hide" id="sub_spesifikasi">
+							<select class="form-control " id="pilih_sub_spesifikasi">
+								<option>Pilih Sub</option>
+							</select>
+							<span class="input-group-btn">
+                                <button class="btn btn-primary btn-flat" id="tambah_sub_spesifikasi" type="button">Tambah</button>
+                            </span>
+						</div>
 
-	<!-- Kolom Kanan -->
-	<div id="right-side" class="col-md-5">
-		<h2>Kain</h2>
-		<div class="form-group">
-			<label class="col-md-12 row" for="kain">Kain</label>
-
-			<div class="col-md-12 row"> 
-				<select class="form-control " id="kain">
-					<option>Piilh Kain</option>
-						<?php
-							$sql = " SELECT * from kains";
-							$result = mysql_query($sql);
-							while($row = mysql_fetch_row($result)) {
-								echo "<option value='$row[0]'>".$row[1]."</option>";
-							}
-						?>
-				</select>
+						<table class="table table-striped" id="data_spesifikasi">
+                            <tr>
+                                <th style="width: 10px">#</th>
+                                <th>Spesifikasi</th>
+                                <th>Sub</th>
+                                <th style="width: 20px">&nbsp;</th>
+                            </tr>
+                        </table>
+					</div>
+				</div>
 			</div>
-			
-			<div class="clearfix"></div>
-		</div>
+			<div class="col-md-5">
+				<div class="box box-warning">
+					<div class="box-header">
+						<h3 class="box-title">Action</h3>
+					</div>
+					<div class="box-body">
+						<p>
+							<button type="submit" class="btn btn-primary">Simpan</button>
+						</p>
+					</div>
+				</div>
 
-		<div id="jenis_warna" class="form-group hide">
-			<label class="col-md-12 row" for="warna">Warna</label>
+				<div class="box box-success">
+					<div class="box-header">
+						<h3 class="box-title">Kain</h3>
+					</div>
+					<div class="box-body">
+						<div class="form-group">
+							<select class="form-control " id="tambah_kain">
+								<option>Pilih Kain</option>
+								<?php $sql = mysql_query("SELECT * FROM kains ORDER BY kain ASC"); ?>
+								<?php while($row = mysql_fetch_row($sql)): ?>
+									<option value="<?php echo $row[0]; ?>"><?php echo $row[1]; ?></option>
+								<?php endwhile; ?>
+							</select>
+						</div>
+						<div class="input-group form-group hide" id="warna">
+							<select class="form-control " id="pilih_warna">
+								<option>Pilih Warna</option>
+							</select>
+							<span class="input-group-btn">
+                                <button class="btn btn-primary btn-flat" id="tambah_warna" type="button">Tambah</button>
+                            </span>
+						</div>
 
-			<div class="col-md-6 row"> 
-				<select class="form-control " id="warna"></select>
-			</div>
-			<div class="col-md-2">
-				<button class="btn btn-primary tambah_warna">Tambah</button>
-			</div>
-			<div class="clearfix"></div>
-		</div>
+						<table class="table table-striped" id="data_kain">
+                            <tr>
+                                <th style="width: 10px">#</th>
+                                <th>Kain</th>
+                                <th>Warna</th>
+                                <th style="width: 100px">Pemakaian</th>
+                                <th style="width: 20px">&nbsp;</th>
+                            </tr>
+                        </table>
+					</div>
+				</div>
 
-		<table class="table table-hover" id="table_kain">
-			<thead>
-				<tr>
-					<th>Item</th>
-					<th class="col-md-5">Pemakaian (%)</th>
-					<th></th>
-				</tr>
-			</thead>
-			<tbody>
-			</tbody>		
-		</table>
-
-				
-
-				<h2>Size</h2>
-				<div class="form-group">
-					<label class="col-md-12 row" for="size">Size</label>
-
-					<div class="col-md-10 row"> 
-						<select class="form-control " id="size">
+				<div class="box box-info">
+					<div class="box-header">
+						<h3 class="box-title">Size</h3>
+					</div>
+					<div class="box-body">
+						<div class="input-group form-group">
+							<select class="form-control " id="pilih_size">
 								<option>Pilih Size</option>
-								<?php
-									$sql = " SELECT * from sizes";
-									$result = mysql_query($sql);
-									while($row = mysql_fetch_row($result)) {
-										echo "<option value='$row[0]'>".$row[1]."</option>";
-									}
-								?>
-						</select>
+								<?php $sql = mysql_query("SELECT * FROM sizes ORDER BY size ASC"); ?>
+								<?php while($row = mysql_fetch_row($sql)): ?>
+									<option value="<?php echo $row[0]; ?>"><?php echo $row[1]; ?></option>
+								<?php endwhile; ?>
+							</select>
+							<span class="input-group-btn">
+                                <button class="btn btn-primary btn-flat" id="tambah_size" type="button">Tambah</button>
+                            </span>
+						</div>
+
+						<table class="table table-striped" id="data_size">
+                            <tr>
+                                <th style="width: 10px">#</th>
+                                <th>Size</th>
+                                <th style="width:100px">Jumlah</th>
+                                <th style="width: 20px">&nbsp;</th>
+                            </tr>
+                        </table>
 					</div>
-					<div class="col-md-2">
-						<button class="btn btn-primary tambah_size">Tambah</button>
-					</div>
-					<div class="clearfix"></div>	
 				</div>
-		
-		
-		<table class="table table-hover" id="table_size">
-			<thead>
-				<tr>
-					<th>Item</th>
-					<th class="col-md-3">Qty</th>
-					<th></th>
-				</tr>
-			</thead>
-			<tbody>
-			</tbody>		
-		</table> 
-		<button class="btn btn-primary ">Submit</button>
+			</div>
+		</div>
+	</form>
 
-
-
-	</div>
-
-</form>
-</div>
-
-
+</section><!-- /.content -->
 
 <script type="text/javascript">
-    $(function(){
-        
-        $('.tambah_warna').on('click',function(e){
+	$(function(){
+		$('#tanggal_pemesanan, #tanggal_selesai').daterangepicker({singleDatePicker: true, format: 'YYYY-MM-DD'});
+		$('#deskripsi').wysihtml5({ "font-styles" : false, "image" : false, "link" : false});
+
+		$('#tambah_sub_spesifikasi').on('click',function(e){
             e.preventDefault();
 
-            var kain = $('#kain option:selected').text();
-            var value =  $('#warna').val();
-            var text = $('#warna option:selected').text();
+            var spesifikasi_value = $('#tambah_spesifikasi').val();
+            var spesifikasi = $('#tambah_spesifikasi option:selected').text();
+            var value =  $('#pilih_sub_spesifikasi').val();
+            var text = $('#pilih_sub_spesifikasi option:selected').text();
 
             if(!value){
-                alert("Pilih Jenis Warna!");
+                alert("Pilih Sub Spesifikasi!");
                 return false;
             }
 
+            var jumlah_spesifikasi = $('#data_spesifikasi').find('tr').length;
+
             var el = '';
+
             el += '<tr>';
-            el += ' <td>('+kain+') '+text+'</td>';
-            el += ' <td><div class="col-md-9 row"><input type="text" placeholder="0" class="form-control input-warna" input-sm name="warna['+value+']"></div></td>';
-            el += '<td><button type="button" class="btn btn-danger btn-sm hapus_warna">Hapus</button></td>'
+        	el += '    <td>'+jumlah_spesifikasi+'.</td>';
+            el += '    <td>'+spesifikasi+'</td>';
+            el += '    <td>'+text+'</td>';
+            el += '    <td><a class="btn btn-danger btn-xs hapus-spesifikasi"><i class="glyphicon glyphicon-remove"></i></a></td>';
+            el += '    <input type="hidden" class="input-spesifikasi" name="spesifikasi['+spesifikasi_value+']" value="'+value+'">';
             el += '</tr>';
 
-            $('#table_kain').append(el);
+            $('#data_spesifikasi').append(el);
         });
 
-        $('.tambah_size').on('click',function(e){
+		$('#tambah_warna').on('click',function(e){
             e.preventDefault();
 
-            var value =  $('#size').val();
-            var text = $('#size option:selected').text()
+            var kain_value = $('#tambah_kain').val();
+            var kain = $('#tambah_kain option:selected').text();
+            var value =  $('#pilih_warna').val();
+            var text = $('#pilih_warna option:selected').text();
+
+            if(!value){
+                alert("Pilih Warna Kain!");
+                return false;
+            }
+
+            var jumlah_kain = $('#data_kain').find('tr').length;
+
+            var el = '';
+            el += '<tr>';
+            el += '    <td>'+jumlah_kain+'.</td>';
+            el += '    <td>'+kain+'</td>';
+            el += '    <td>'+text+'</td>';
+            el += '    <td>';
+            el += '    	<div class="input-group input-group-sm">';
+            el += '    		<input type="text" class="form-control input-kain" style="width:60px" name="warna['+kain_value+']['+value+']">';
+            el += '    		<span class="input-group-btn">%</span>';
+            el += '    	</div>';
+            el += '   </td>';
+            el += '    <td>';
+            el += '    	<a class="btn btn-danger btn-xs hapus-kain">';
+            el += '    		<i class="glyphicon glyphicon-remove"></i>';
+            el += '    	</a>';
+            el += '    </td>';
+            el += '</tr>';
+
+            $('#data_kain').append(el);
+        });
+
+        $('#tambah_size').on('click',function(e){
+            e.preventDefault();
+
+            var value =  $('#pilih_size').val();
+            var text = $('#pilih_size option:selected').text()
             if(!value){
                     alert("Pilih Size!");
                     return false;
             }
 
+            var jumlah_size = $('#data_size').find('tr').length;
+
             var el = '';
-            el += '<tr>';
-            el += ' <td>'+text+'</td>';
-            el += ' <td><div class="col-md-12 row"><input type="text" placeholder="0" class="form-control input-size" input-sm name="size['+value+']"></div></td>';
-            el += '<td><button type="button" class="btn btn-danger btn-sm hapus_size">Hapus</button></td>'
+			el += '<tr>';
+            el += '    <td>'+jumlah_size+'.</td>';
+            el += '    <td>'+text+'</td>';
+            el += '    <td>';
+            el += '    	<div class="input-group input-group-sm">';
+            el += '    		<input type="text" class="form-control input-size" style="width:60px" name="size['+value+']">';
+            el += '    	</div>';
+            el += '    </td>';
+            el += '    <td><a class="btn btn-danger btn-xs hapus-size" ><i class="glyphicon glyphicon-remove"></i></a></td>';
             el += '</tr>';
 
-            $('#table_size').append(el);
+            $('#data_size').append(el);
         });
      
-     	$('body').on('click','.hapus_spesifikasi',function(e){
+     	$('body').on('click','.hapus-spesifikasi',function(e){
      		e.preventDefault();
             var hapus = confirm("Hapus?");
 
             if(hapus){
-      
             	$(this).parents('tr').remove();
+
+            	//reorder data
+            	var s = 1;
+            	$.each($('#data_spesifikasi').find('tr'), function(i, e){
+            		if(i > 0){
+            			$(e).find('td:first-child').text(s+'.');
+            			s++;
+            		}
+            	});
             }
         });
 
-     	$('body').on('click','.hapus_warna',function(e){
+     	$('body').on('click','.hapus-kain',function(e){
      		e.preventDefault();
             var hapus = confirm("Hapus?");
 
             if(hapus){
-      
             	$(this).parents('tr').remove();
+
+            	//reorder data
+            	var s = 1;
+            	$.each($('#data_kain').find('tr'), function(i, e){
+            		if(i > 0){
+            			$(e).find('td:first-child').text(s+'.');
+            			s++;
+            		}
+            	});
             }
         });
 
-        $('body').on('click','.hapus_size',function(e){
+        $('body').on('click','.hapus-size',function(e){
      		e.preventDefault();
             var hapus = confirm("Hapus?");
 
             if(hapus){
-      
             	$(this).parents('tr').remove();
+
+            	//reorder data
+            	var s = 1;
+            	$.each($('#data_size').find('tr'), function(i, e){
+            		if(i > 0){
+            			$(e).find('td:first-child').text(s+'.');
+            			s++;
+            		}
+            	});
             }
         });
 
         $('#form_input').submit(function(){
-        	if(!$('body').find('.input-warna').length){
-        		alert("Tambahkan Jenis Warna!");
+        	if(!$('body').find('.input-spesifikasi').length){
+        		alert("Tambahkan Spesifikasi!");
+        		return false;
+        	}
+        	if(!$('body').find('.input-kain').length){
+        		alert("Tambahkan Kain!");
         		return false;
         	}
         	if(!$('body').find('.input-size').length){
@@ -233,34 +346,54 @@
         	}
         });
 			
-		$('#kain').on('change',function(){
-
+		$('#tambah_kain').on('change',function(){
 			$.ajax({
 				url: 'get_warna.php',
-				data: { 'id_kain': $('#kain').val() },
+				data: { 'id_kain': $('#tambah_kain').val() },
 				dataType : 'json',
 				success: function(results){
 					if(results.Status == 'OK'){
-						$('#warna').empty();
+						$('#pilih_warna').empty();
 
 						if(results.data){
-							$('#warna').append('<option value="">Pilih Warna</option>');
+							$('#pilih_warna').append('<option value="">Pilih Warna</option>');
 							$.each(results.data, function(i, warna){
-								$('#warna').append('<option value="'+warna['id_jenis_warna']+'">'+warna['warna']+'</option>');
+								$('#pilih_warna').append('<option value="'+warna['id_jenis_warna']+'">'+warna['warna']+'</option>');
 							});	
 						} else {
-							$('#warna').append('<option value="">Warna kosong</option>');
+							$('#pilih_warna').append('<option value="">Warna kosong</option>');
 						}
 
-						$('#jenis_warna').removeClass('hide');
+						$('#warna').removeClass('hide');
 					} 
 				}
 			});
 		});
 
+		$('#tambah_spesifikasi').on('change',function(){
+			$.ajax({
+				url: 'get_sub_spesifikasi.php',
+				data: { 'id_spesifikasi': $('#tambah_spesifikasi').val() },
+				dataType : 'json',
+				success: function(results){
+					if(results.Status == 'OK'){
+						$('#pilih_sub_spesifikasi').empty();
 
-    });
+						if(results.data){
+							$('#pilih_sub_spesifikasi').append('<option value="">Pilih Sub</option>');
+							$.each(results.data, function(i, sub){
+								$('#pilih_sub_spesifikasi').append('<option value="'+sub['id_sub_spesifikasi']+'">'+sub['nama']+'</option>');
+							});	
+						} else {
+							$('#pilih_sub_spesifikasi').append('<option value="">Warna kosong</option>');
+						}
+
+						$('#sub_spesifikasi').removeClass('hide');
+					} 
+				}
+			});
+		});
+	})
 </script>
 
-</body>
-</html>;
+<?php include '../footer.php'; ?>

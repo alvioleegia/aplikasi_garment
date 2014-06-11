@@ -42,6 +42,8 @@
 
         <!-- Bootstrap WYSIHTML5 -->
         <script src="<?php echo DOMAIN; ?>/js/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js" type="text/javascript"></script>
+
+        <script src="<?php echo DOMAIN; ?>/js/plugins/validation/jqBootstrapValidation.js" type="text/javascript"></script>
     </head>
     <body class="skin-blue">
         <!-- header logo: style can be found in header.less -->
