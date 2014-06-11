@@ -141,14 +141,14 @@
                             </ul>
                         </li>
 
-                        <li class="treeview">
+                         <li class="treeview <?php if($pageActive == 'warna'): ?>active<?php endif; ?>">
                             <a href="#">
                                 <i class="fa fa-table"></i> <span>Warna Kain</span>
                                 <i class="fa fa-angle-left pull-right"></i>
                             </a>
                             <ul class="treeview-menu">
-                                <li><a ><i class="fa fa-angle-double-right"></i>Manage Warna</a></li>
-                                <li><a ><i class="fa fa-angle-double-right"></i>Tambah Warna</a></li>
+                                <li><a href="<?php echo DOMAIN; ?>/page/warna"><i class="fa fa-angle-double-right"></i>Manage Warna</a></li>
+                                <li><a href="<?php echo DOMAIN; ?>/page/warna/input.php"><i class="fa fa-angle-double-right"></i>Tambah Warna</a></li>
                             </ul>
                         </li>
 

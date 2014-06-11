@@ -41,4 +41,11 @@
 		return false;
 	}
 
+	function getKain($id){
+		$q = mysql_query("select * from kains where id_kain='$id'");
+		$data = mysql_fetch_array($q);
+
+		return $data['kain'];
+	}
+
 ?>
