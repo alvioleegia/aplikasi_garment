@@ -33,12 +33,37 @@
 
         <!-- jQuery 2.0.2 -->
         <script src="<?php echo DOMAIN; ?>/js/jquery-2.0.2.min.js"></script>
-
+        <!-- jQuery UI 1.10.3 -->
+        <script src="js/jquery-ui-1.10.3.min.js" type="text/javascript"></script>
         <!-- Bootstrap -->
         <script src="<?php echo DOMAIN; ?>/js/bootstrap.min.js" type="text/javascript"></script>
-
         <!-- date-range-picker -->
         <script src="<?php echo DOMAIN; ?>/js/plugins/daterangepicker/daterangepicker.js" type="text/javascript"></script>
+        <!-- Bootstrap WYSIHTML5 -->
+        <script src="<?php echo DOMAIN; ?>/js/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js" type="text/javascript"></script>
+        <script src="<?php echo DOMAIN; ?>/js/plugins/validation/jqBootstrapValidation.js" type="text/javascript"></script>
+
+        <!-- Morris.js charts -->
+        <script src="//cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael-min.js"></script>
+        <script src="js/plugins/morris/morris.min.js" type="text/javascript"></script>
+        <!-- Sparkline -->
+        <script src="js/plugins/sparkline/jquery.sparkline.min.js" type="text/javascript"></script>
+        <!-- jvectormap -->
+        <script src="js/plugins/jvectormap/jquery-jvectormap-1.2.2.min.js" type="text/javascript"></script>
+        <script src="js/plugins/jvectormap/jquery-jvectormap-world-mill-en.js" type="text/javascript"></script>
+        <!-- fullCalendar -->
+        <script src="js/plugins/fullcalendar/fullcalendar.min.js" type="text/javascript"></script>
+        <!-- jQuery Knob Chart -->
+        <script src="js/plugins/jqueryKnob/jquery.knob.js" type="text/javascript"></script>
+        <!-- iCheck -->
+        <script src="js/plugins/iCheck/icheck.min.js" type="text/javascript"></script>
+        <!-- AdminLTE App -->
+        <script src="<?php echo DOMAIN; ?>/js/AdminLTE/app.js" type="text/javascript"></script>
+        
+        <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
+        <script src="js/AdminLTE/dashboard.js" type="text/javascript"></script>    
+        <!-- AdminLTE for demo purposes -->
+        <script src="js/AdminLTE/demo.js" type="text/javascript"></script>
     </head>
     <body class="skin-blue">
         <!-- header logo: style can be found in header.less -->
@@ -69,7 +94,7 @@
                             <ul class="dropdown-menu">
                                 <!-- User image -->
                                 <li class="user-header bg-light-blue">
-                                    <img src="img/avatar3.png" class="img-circle" alt="User Image" />
+                                    <img src="<?php echo DOMAIN; ?>/img/avatar3.png" class="img-circle" alt="User Image" />
                                     <p>
                                         <?php echo getUserInfo('nama'); ?> - <?php echo getUserLevel(); ?>
                                     </p>
@@ -97,7 +122,7 @@
                     <!-- Sidebar user panel -->
                     <div class="user-panel">
                         <div class="pull-left image">
-                            <img src="img/avatar3.png" class="img-circle" alt="User Image" />
+                            <img src="<?php echo DOMAIN; ?>/img/avatar3.png" class="img-circle" alt="User Image" />
                         </div>
                         <div class="pull-left info">
                             <p>Hello, <?php echo getUserInfo('nama'); ?></p>
@@ -121,8 +146,8 @@
                                 <i class="fa fa-angle-left pull-right"></i>
                             </a>
                             <ul class="treeview-menu">
-                                <li><a href="<?php echo DOMAIN; ?>/page/user"><i class="fa fa-angle-double-right"></i>Manage User</a></li>
-                                <li><a href="<?php echo DOMAIN; ?>/page/user/input.php"><i class="fa fa-angle-double-right"></i>Tambah User</a></li>
+                                <li><a href="<?php echo DOMAIN; ?>/page/user" ><i class="fa fa-angle-double-right"></i>Manage User</a></li>
+                                <li><a href="<?php echo DOMAIN; ?>/page/user/input.php" ><i class="fa fa-angle-double-right"></i>Tambah User</a></li>
                             </ul>
                         </li>
                         <?php endif; ?>
@@ -150,7 +175,7 @@
                             </ul>
                         </li>
 
-                         <li class="treeview <?php if($pageActive == 'warna'): ?>active<?php endif; ?>">
+                        <li class="treeview <?php if($pageActive == 'warna'): ?>active<?php endif; ?>">
                             <a href="#">
                                 <i class="fa fa-table"></i> <span>Warna Kain</span>
                                 <i class="fa fa-angle-left pull-right"></i>
@@ -161,7 +186,7 @@
                             </ul>
                         </li>
 
-                        <li class="treeview">
+                        <li class="treeview <?php if($pageActive == 'size'): ?>active<?php endif; ?>">
                             <a href="#">
                                 <i class="fa fa-table"></i> <span>Size</span>
                                 <i class="fa fa-angle-left pull-right"></i>
@@ -171,7 +196,6 @@
                                 <li><a href="<?php echo DOMAIN; ?>/page/size/input.php"><i class="fa fa-angle-double-right"></i>Tambah Size</a></li>
                             </ul>
                         </li>
-
 
                         <li class="treeview <?php if($pageActive == 'spesifikasi'): ?>active<?php endif; ?>">
                             <a href="#">
