@@ -23,11 +23,12 @@
 			exit();
 		}
 
-		$sql = mysql_query("DELETE FROM produksi_spesifikasi WHERE ".$field_id."='".$id."'");
-
-		if(!$sql){
-			echo mysql_error();
-			exit();
+		if($_SESSION['level'] == 1 || $_SESSION['level'] == 2){	
+			$sql = mysql_query("DELETE FROM produksi_spesifikasi WHERE ".$field_id."='".$id."'");
+			if(!$sql){
+				echo mysql_error();
+				exit();
+			}	
 		}
 
 		if(!empty($_POST["spesifikasi"])){

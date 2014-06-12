@@ -23,164 +23,166 @@
     ?>
 	<form role="form" action="proses_edit.php" method="post" id="form_input">
 		<div class="row">
-            <div class="col-md-12">
-                <div class="box box-danger">
-                    <div class="box-header">
-                        <h3 class="box-title">Biaya</h3>
-                        <div class="box-tools pull-right">
-                            <a class="btn btn-default btn-sm" data-widget="collapse" data-toggle="tooltip" title="" data-original-title="Collapse"><i class="fa fa-minus"></i></a>
+            <?php if($_SESSION['level'] == 1 || $_SESSION['level'] == 2): ?>
+                <div class="col-md-12">
+                    <div class="box box-danger">
+                        <div class="box-header">
+                            <h3 class="box-title">Biaya</h3>
+                            <div class="box-tools pull-right">
+                                <a class="btn btn-default btn-sm" data-widget="collapse" data-toggle="tooltip" title="" data-original-title="Collapse"><i class="fa fa-minus"></i></a>
+                            </div>
                         </div>
-                    </div>
-                    <div class="box-body">
-                         <?php
-                            // Menghitung jumlah potong barang
-                            $jml_pesanan = 0;
-                            $sql = mysql_query("SELECT * FROM produksi_size where id_produksi=".$id);
+                        <div class="box-body">
+                             <?php
+                                // Menghitung jumlah potong barang
+                                $jml_pesanan = 0;
+                                $sql = mysql_query("SELECT * FROM produksi_size where id_produksi=".$id);
 
-                            if($sql){
-                                while($row = mysql_fetch_row($sql)) {
-                                    $jml_pesanan += $row[3];
-                                }
-                            }
-                            //echo $jml_pesanan;
-
-                            // Menghitung harga kain/potong
-                            $total_harga_kain = 0;
-                            $sql = mysql_query("SELECT * FROM produksi_warna where id_produksi=".$id);
-                            if($sql){
-                                while($row = mysql_fetch_row($sql)) {
-                                    $sql_warna = mysql_query("SELECT * FROM jenis_warna WHERE id_jenis_warna=".$row[3]);
-                                    if ($sql_warna) {
-                                        $warna = mysql_fetch_array($sql_warna) or die(mysql_error());
-
-                                        //echo $warna['warna'].' '.($warna['harga'] * ($row[4]/100)).'<br>';
-                                        $total_harga_kain += $warna['harga'] * ($row[4]/100);
+                                if($sql){
+                                    while($row = mysql_fetch_row($sql)) {
+                                        $jml_pesanan += $row[3];
                                     }
                                 }
-                            }
-                            //echo $total_harga_kain;
+                                //echo $jml_pesanan;
 
-                            // Menghitung harga spesifikasi
-                            $total_harga_spesifikasi = 0;
-                            $sql = mysql_query("SELECT * FROM produksi_spesifikasi where id_produksi=".$id);
-                            if($sql){
-                                while($row = mysql_fetch_row($sql)) {
-                                    $sql_spesifikasii = mysql_query("SELECT * FROM sub_spesifikasi WHERE id_sub_spesifikasi=".$row[3]);
-                                    if ($sql_spesifikasii) {
-                                        $spesifikasi = mysql_fetch_array($sql_spesifikasii) or die(mysql_error());
+                                // Menghitung harga kain/potong
+                                $total_harga_kain = 0;
+                                $sql = mysql_query("SELECT * FROM produksi_warna where id_produksi=".$id);
+                                if($sql){
+                                    while($row = mysql_fetch_row($sql)) {
+                                        $sql_warna = mysql_query("SELECT * FROM jenis_warna WHERE id_jenis_warna=".$row[3]);
+                                        if ($sql_warna) {
+                                            $warna = mysql_fetch_array($sql_warna) or die(mysql_error());
 
-                                        //echo $spesifikasi['nama'].' '.($spesifikasi['harga'] * $jml_pesanan).'<br>';
-                                        $total_harga_spesifikasi += $spesifikasi['harga'] * $jml_pesanan;
+                                            //echo $warna['warna'].' '.($warna['harga'] * ($row[4]/100)).'<br>';
+                                            $total_harga_kain += $warna['harga'] * ($row[4]/100);
+                                        }
                                     }
                                 }
-                            }
-                            //echo $total_harga_spesifikasi;
+                                //echo $total_harga_kain;
 
-                            $jenis_barang = dataJenisBarang($data['id_jenis_barang']);
-                            $qty_per_kg = $jenis_barang['qty_per_kg'];
-                            $harga_jasa = $jenis_barang['harga_jasa'];
+                                // Menghitung harga spesifikasi
+                                $total_harga_spesifikasi = 0;
+                                $sql = mysql_query("SELECT * FROM produksi_spesifikasi where id_produksi=".$id);
+                                if($sql){
+                                    while($row = mysql_fetch_row($sql)) {
+                                        $sql_spesifikasii = mysql_query("SELECT * FROM sub_spesifikasi WHERE id_sub_spesifikasi=".$row[3]);
+                                        if ($sql_spesifikasii) {
+                                            $spesifikasi = mysql_fetch_array($sql_spesifikasii) or die(mysql_error());
 
-                            // echo $qty_per_kg;
-                            // echo $harga_jasa;
+                                            //echo $spesifikasi['nama'].' '.($spesifikasi['harga'] * $jml_pesanan).'<br>';
+                                            $total_harga_spesifikasi += $spesifikasi['harga'] * $jml_pesanan;
+                                        }
+                                    }
+                                }
+                                //echo $total_harga_spesifikasi;
 
-                            // Menghitung total harga
-                            $lusin = ceil($jml_pesanan / 12);
+                                $jenis_barang = dataJenisBarang($data['id_jenis_barang']);
+                                $qty_per_kg = $jenis_barang['qty_per_kg'];
+                                $harga_jasa = $jenis_barang['harga_jasa'];
 
-                            if(!$total_harga_kain){
-                                $harga_bersih = 0;
-                            } else {
-                                $harga_bersih = ((($jml_pesanan / $qty_per_kg) * $total_harga_kain) + $total_harga_spesifikasi + ($harga_jasa * $lusin));  
-                            }
+                                // echo $qty_per_kg;
+                                // echo $harga_jasa;
 
-                            $fee_perusahaan = $harga_bersih * (30/100);
+                                // Menghitung total harga
+                                $lusin = ceil($jml_pesanan / 12);
 
-                            $total_harga = $harga_bersih + $fee_perusahaan;
+                                if(!$total_harga_kain){
+                                    $harga_bersih = 0;
+                                } else {
+                                    $harga_bersih = ((($jml_pesanan / $qty_per_kg) * $total_harga_kain) + $total_harga_spesifikasi + ($harga_jasa * $lusin));  
+                                }
 
-                        ?>
+                                $fee_perusahaan = $harga_bersih * (30/100);
 
-                        <?php $i = 1; ?>
-                        <table class="table table-bordered">
-                            <tr>
-                                <th style="width: 10px">#</th>
-                                <th>Item</th>
-                                <th style="width: 135px">Jumlah/Pemakaian</th>
-                                <th>Harga</th>
-                            </tr>
+                                $total_harga = $harga_bersih + $fee_perusahaan;
 
-                            <?php $sql = mysql_query("SELECT * FROM produksi_warna WHERE id_produksi=".$data['id_produksi']); ?>
-                            <?php while($row = mysql_fetch_array($sql)): ?>
+                            ?>
+
+                            <?php $i = 1; ?>
+                            <table class="table table-bordered">
                                 <tr>
-                                    <td><?php echo $i; ?>.</td>
-                                    <td>Kain <?php echo getKain($row['id_kain']);?> <?php echo getWarna($row['id_jenis_warna']); ?> (<?php echo getHargaWarna($row['id_jenis_warna']); ?>/kg)</td>
-                                    <td><?php echo $row['pemakaian']; ?>%</td>
-                                    <td>Rp <?php echo getMoneyFormat((getHargaWarna($row['id_jenis_warna']) * $row['pemakaian'] / 100)); ?></td>
+                                    <th style="width: 10px">#</th>
+                                    <th>Item</th>
+                                    <th style="width: 135px">Jumlah/Pemakaian</th>
+                                    <th>Harga</th>
                                 </tr>
-                            <?php $i++; ?>
-                            <?php endwhile; ?>
 
-                            <tr >
-                                <td colspan="2" class="text-right">
-                                    <b>Total harga kain</b>
-                                </td>
-                                <td>1 kg</b></td>
-                                <td><b>Rp <?php echo getMoneyFormat($total_harga_kain); ?></b></td>
-                            </tr>
-                            <tr class="bg-gray">
-                                <td colspan="2" class="text-right">
-                                    <b>Total harga <?php echo $jenis_barang['barang']; ?> (<?php echo $qty_per_kg; ?> potong/kg)</b>
-                                </td>
-                                <td><b><?php echo ($jml_pesanan / $qty_per_kg); ?> kg</b></td>
-                                <td><b>Rp <?php echo getMoneyFormat((($jml_pesanan / $qty_per_kg) * $total_harga_kain)); ?></b></td>
-                            </tr>
-
-                            <?php $sql = mysql_query("SELECT * FROM produksi_spesifikasi WHERE id_produksi=".$data['id_produksi']); ?>
-                            <?php while($row = mysql_fetch_array($sql)): ?>
-                                <tr>
-                                    <td><?php echo $i; ?>.</td>
-                                    <td>
-                                        <?php echo getSpesifikasi($row['id_spesifikasi']); ?> <?php echo getSubSpesifikasi($row['id_sub_spesifikasi']); ?> (<?php echo getMoneyFormat(getHargaSubSpesifikasi($row['id_sub_spesifikasi'])); ?>)
-                                    </td>
-                                    <td><?php echo $jml_pesanan; ?></td>
-                                    <td>Rp <?php echo getMoneyFormat((getHargaSubSpesifikasi($row['id_sub_spesifikasi']) * $jml_pesanan)); ?></td>
-                                </tr>
+                                <?php $sql = mysql_query("SELECT * FROM produksi_warna WHERE id_produksi=".$data['id_produksi']); ?>
+                                <?php while($row = mysql_fetch_array($sql)): ?>
+                                    <tr>
+                                        <td><?php echo $i; ?>.</td>
+                                        <td>Kain <?php echo getKain($row['id_kain']);?> <?php echo getWarna($row['id_jenis_warna']); ?> (<?php echo getHargaWarna($row['id_jenis_warna']); ?>/kg)</td>
+                                        <td><?php echo $row['pemakaian']; ?>%</td>
+                                        <td>Rp <?php echo getMoneyFormat((getHargaWarna($row['id_jenis_warna']) * $row['pemakaian'] / 100)); ?></td>
+                                    </tr>
                                 <?php $i++; ?>
-                            <?php endwhile; ?>
+                                <?php endwhile; ?>
 
-                            <tr>
-                                <td><?php echo $i; ?></td>
-                                <td>Fee Jasa (<?php echo getMoneyFormat($harga_jasa); ?>/lusin)</td>
-                                <td><?php echo $lusin; ?></td>
-                                <td>Rp <?php echo getMoneyFormat(($harga_jasa * $lusin)); ?></td>
-                            </tr>
-                            
-                            <tr>
-                                <td colspan="3" class="text-right">
-                                    <b>Harga Bersih</b>
-                                </td>
-                                <td><b>Rp <?php echo getMoneyFormat($harga_bersih); ?></b></td>
-                            </tr>
+                                <tr >
+                                    <td colspan="2" class="text-right">
+                                        <b>Total harga kain</b>
+                                    </td>
+                                    <td>1 kg</b></td>
+                                    <td><b>Rp <?php echo getMoneyFormat($total_harga_kain); ?></b></td>
+                                </tr>
+                                <tr class="bg-gray">
+                                    <td colspan="2" class="text-right">
+                                        <b>Total harga <?php echo $jenis_barang['barang']; ?> (<?php echo $qty_per_kg; ?> potong/kg)</b>
+                                    </td>
+                                    <td><b><?php echo ($jml_pesanan / $qty_per_kg); ?> kg</b></td>
+                                    <td><b>Rp <?php echo getMoneyFormat((($jml_pesanan / $qty_per_kg) * $total_harga_kain)); ?></b></td>
+                                </tr>
 
-                            <tr>
-                                <td colspan="3" class="text-right">
-                                    <b>Fee Perusahaan (30%)</b>
-                                </td>
-                                <td><b>Rp <?php echo getMoneyFormat($fee_perusahaan); ?></b></td>
-                            </tr>
+                                <?php $sql = mysql_query("SELECT * FROM produksi_spesifikasi WHERE id_produksi=".$data['id_produksi']); ?>
+                                <?php while($row = mysql_fetch_array($sql)): ?>
+                                    <tr>
+                                        <td><?php echo $i; ?>.</td>
+                                        <td>
+                                            <?php echo getSpesifikasi($row['id_spesifikasi']); ?> <?php echo getSubSpesifikasi($row['id_sub_spesifikasi']); ?> (<?php echo getMoneyFormat(getHargaSubSpesifikasi($row['id_sub_spesifikasi'])); ?>)
+                                        </td>
+                                        <td><?php echo $jml_pesanan; ?></td>
+                                        <td>Rp <?php echo getMoneyFormat((getHargaSubSpesifikasi($row['id_sub_spesifikasi']) * $jml_pesanan)); ?></td>
+                                    </tr>
+                                    <?php $i++; ?>
+                                <?php endwhile; ?>
 
-                            <tr class="bg-gray">
-                                <td colspan="3" class="text-right">
-                                    <b>Total Harga</b>
-                                </td>
-                                <td><b>Rp <?php echo getMoneyFormat($total_harga); ?></b></td>
-                            </tr>
-                        </table>
+                                <tr>
+                                    <td><?php echo $i; ?></td>
+                                    <td>Fee Jasa (<?php echo getMoneyFormat($harga_jasa); ?>/lusin)</td>
+                                    <td><?php echo $lusin; ?></td>
+                                    <td>Rp <?php echo getMoneyFormat(($harga_jasa * $lusin)); ?></td>
+                                </tr>
+                                
+                                <tr>
+                                    <td colspan="3" class="text-right">
+                                        <b>Harga Bersih</b>
+                                    </td>
+                                    <td><b>Rp <?php echo getMoneyFormat($harga_bersih); ?></b></td>
+                                </tr>
 
-                        <div class="text-right margin">
-                            <a class="btn btn-warning"><i class="fa fa-print"></i> Buat Nota</a>
+                                <tr>
+                                    <td colspan="3" class="text-right">
+                                        <b>Fee Perusahaan (30%)</b>
+                                    </td>
+                                    <td><b>Rp <?php echo getMoneyFormat($fee_perusahaan); ?></b></td>
+                                </tr>
+
+                                <tr class="bg-gray">
+                                    <td colspan="3" class="text-right">
+                                        <b>Total Harga</b>
+                                    </td>
+                                    <td><b>Rp <?php echo getMoneyFormat($total_harga); ?></b></td>
+                                </tr>
+                            </table>
+
+                            <div class="text-right margin">
+                                <a class="btn btn-warning"><i class="fa fa-print"></i> Buat Nota</a>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
+            <?php endif; ?>
 
 			<div class="col-md-6">
 				<div class="box box-primary">
@@ -232,56 +234,58 @@
 					</div>
 				</div>
 
-				<div class="box box-danger">
-					<div class="box-header">
-						<h3 class="box-title">Spesifikasi</h3>
-					</div>
-					<div class="box-body">
-						<div class="form-group">
-							<select class="form-control " id="tambah_spesifikasi">
-								<option>Pilih Spesifikasi</option>
-								<?php $sql = mysql_query("SELECT * FROM spesifikasis ORDER BY spesifikasi ASC"); ?>
-								<?php while($row = mysql_fetch_row($sql)): ?>
-									<option value="<?php echo $row[0]; ?>"><?php echo $row[1]; ?></option>
-								<?php endwhile; ?>
-							</select>
-						</div>
-						<div class="input-group form-group hide" id="sub_spesifikasi">
-							<select class="form-control " id="pilih_sub_spesifikasi">
-								<option>Pilih Sub</option>
-							</select>
-							<span class="input-group-btn">
-                                <button class="btn btn-primary btn-flat" id="tambah_sub_spesifikasi" type="button">Tambah</button>
-                            </span>
-						</div>
+                <?php if($_SESSION['level'] == 1 || $_SESSION['level'] == 2): ?>
+    				<div class="box box-danger">
+    					<div class="box-header">
+    						<h3 class="box-title">Spesifikasi</h3>
+    					</div>
+    					<div class="box-body">
+    						<div class="form-group">
+    							<select class="form-control " id="tambah_spesifikasi">
+    								<option>Pilih Spesifikasi</option>
+    								<?php $sql = mysql_query("SELECT * FROM spesifikasis ORDER BY spesifikasi ASC"); ?>
+    								<?php while($row = mysql_fetch_row($sql)): ?>
+    									<option value="<?php echo $row[0]; ?>"><?php echo $row[1]; ?></option>
+    								<?php endwhile; ?>
+    							</select>
+    						</div>
+    						<div class="input-group form-group hide" id="sub_spesifikasi">
+    							<select class="form-control " id="pilih_sub_spesifikasi">
+    								<option>Pilih Sub</option>
+    							</select>
+    							<span class="input-group-btn">
+                                    <button class="btn btn-primary btn-flat" id="tambah_sub_spesifikasi" type="button">Tambah</button>
+                                </span>
+    						</div>
 
-						<table class="table table-striped" id="data_spesifikasi">
-                            <tr>
-                                <th style="width: 10px">#</th>
-                                <th>Spesifikasi</th>
-                                <th>Sub</th>
-                                <th style="width: 20px">&nbsp;</th>
-                            </tr>
-
-                            <?php $sql = mysql_query("SELECT * FROM produksi_spesifikasi WHERE id_produksi=".$data['id_produksi']); ?>
-                            <?php $i = 1; ?>
-                            <?php while($row = mysql_fetch_array($sql)): ?>
+    						<table class="table table-striped" id="data_spesifikasi">
                                 <tr>
-                                    <td><?php echo $i; ?></td>
-                                    <td><?php echo getSpesifikasi($row['id_spesifikasi']); ?></td>
-                                    <td><?php echo getSubSpesifikasi($row['id_sub_spesifikasi']); ?></td>
-                                    <td>
-                                        <a class="btn btn-danger btn-xs hapus-spesifikasi">
-                                            <i class="glyphicon glyphicon-remove"></i>
-                                        </a>
-                                    </td>
-                                    <input type="hidden" class="input-spesifikasi" name="spesifikasi[<?php echo $row['id_spesifikasi']; ?>]" value="<?php echo $row['id_sub_spesifikasi']; ?>">
+                                    <th style="width: 10px">#</th>
+                                    <th>Spesifikasi</th>
+                                    <th>Sub</th>
+                                    <th style="width: 20px">&nbsp;</th>
                                 </tr>
-                                <?php $i++; ?>
-                            <?php endwhile; ?>
-                        </table>
-					</div>
-				</div>
+
+                                <?php $sql = mysql_query("SELECT * FROM produksi_spesifikasi WHERE id_produksi=".$data['id_produksi']); ?>
+                                <?php $i = 1; ?>
+                                <?php while($row = mysql_fetch_array($sql)): ?>
+                                    <tr>
+                                        <td><?php echo $i; ?></td>
+                                        <td><?php echo getSpesifikasi($row['id_spesifikasi']); ?></td>
+                                        <td><?php echo getSubSpesifikasi($row['id_sub_spesifikasi']); ?></td>
+                                        <td>
+                                            <a class="btn btn-danger btn-xs hapus-spesifikasi">
+                                                <i class="glyphicon glyphicon-remove"></i>
+                                            </a>
+                                        </td>
+                                        <input type="hidden" class="input-spesifikasi" name="spesifikasi[<?php echo $row['id_spesifikasi']; ?>]" value="<?php echo $row['id_sub_spesifikasi']; ?>">
+                                    </tr>
+                                    <?php $i++; ?>
+                                <?php endwhile; ?>
+                            </table>
+    					</div>
+    				</div>
+                <?php endif; ?>
 			</div>
 			<div class="col-md-6">
 				<div class="box box-warning">
@@ -291,8 +295,9 @@
 					<div class="box-body">
 						<p>
 							<button type="submit" class="btn btn-primary">Simpan</button>
-
-                            <a class="btn btn-warning"><i class="fa fa-repeat"></i> Re-kalkulasi</a>
+                            <?php if($_SESSION['level'] == 1 || $_SESSION['level'] == 2): ?>
+                                <a class="btn btn-warning"><i class="fa fa-repeat"></i> Re-kalkulasi</a>
+                            <?php endif; ?>
 						</p>
 					</div>
 				</div>

@@ -71,9 +71,11 @@
 									<a class="btn btn-warning btn-xs" title="Edit" href="edit.php?id=<?php echo $row['id_produksi']; ?>">
 										<i class="glyphicon glyphicon-edit"></i>
 									</a>
-									<a class="btn btn-danger btn-xs" title="Hapus" href="delete.php?id=<?php echo $row['id_produksi']; ?>" onclick="return confirm('Anda yakin akan menghapus ini?')">
-										<i class='glyphicon glyphicon-remove'></i>
-									</a>
+									<?php if($_SESSION['level'] == 1 || $_SESSION['level'] == 2): ?>
+										<a class="btn btn-danger btn-xs" title="Hapus" href="delete.php?id=<?php echo $row['id_produksi']; ?>" onclick="return confirm('Anda yakin akan menghapus ini?')">
+											<i class='glyphicon glyphicon-remove'></i>
+										</a>
+									<?php endif; ?>
 								</td>
 							</tr>
 

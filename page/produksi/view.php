@@ -183,9 +183,11 @@
 						<p>
 							<a href="edit.php?id=<?php echo $id; ?>" class="btn btn-warning">Edit</a>
 						</p>
-						<p>
-							<a href="delete.php?id=<?php echo $id; ?>" onclick="return confirm('Anda yakin akan menghapus ini?')" class="btn btn-danger">Hapus</a>
-						</p>
+						<?php if($_SESSION['level'] == 1 || $_SESSION['level'] == 2): ?>
+							<p>
+								<a href="delete.php?id=<?php echo $id; ?>" onclick="return confirm('Anda yakin akan menghapus ini?')" class="btn btn-danger">Hapus</a>
+							</p>
+						<?php endif; ?>
 
 					</div>
 				</div>
