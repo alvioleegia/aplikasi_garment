@@ -557,10 +557,10 @@
         });
 
         $('#form_input').submit(function(){
-        	if(!$('body').find('.input-spesifikasi').length){
-        		alert("Tambahkan Spesifikasi!");
-        		return false;
-        	}
+        	// if(!$('body').find('.input-spesifikasi').length){
+        	// 	alert("Tambahkan Spesifikasi!");
+        	// 	return false;
+        	// }
         	if(!$('body').find('.input-kain').length){
         		alert("Tambahkan Kain!");
         		return false;

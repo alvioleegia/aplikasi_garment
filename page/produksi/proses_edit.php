@@ -23,13 +23,14 @@
 			exit();
 		}
 
-		if(!empty($_POST["spesifikasi"])){
-			$sql = mysql_query("DELETE FROM produksi_spesifikasi WHERE ".$field_id."='".$id."'");
+		$sql = mysql_query("DELETE FROM produksi_spesifikasi WHERE ".$field_id."='".$id."'");
 
-			if(!$sql){
-				echo mysql_error();
-				exit();
-			}
+		if(!$sql){
+			echo mysql_error();
+			exit();
+		}
+
+		if(!empty($_POST["spesifikasi"])){
 
 			foreach ($_POST["spesifikasi"] as $id_spesifikasi => $id_sub_spesifikasi) 
 			{
