@@ -21,13 +21,13 @@
         $sql = mysql_query("SELECT * FROM produksi WHERE id_produksi=$id");
         $data = mysql_fetch_array($sql);
     ?>
-	<form role="form" action="proses_edit.php" method="post" id="form_input">
+	<form role="form" action="proses_edit.php" method="post" id="form_input" enctype="multipart/form-data">
 		<div class="row">
             <?php if($_SESSION['level'] == 1 || $_SESSION['level'] == 2): ?>
                 <div class="col-md-12">
                     <div class="box box-danger">
                         <div class="box-header">
-                            <h3 class="box-title">Biaya</h3>
+                            <h3 class="box-title">Total Biaya</h3>
                             <div class="box-tools pull-right">
                                 <a class="btn btn-default btn-sm" data-widget="collapse" data-toggle="tooltip" title="" data-original-title="Collapse"><i class="fa fa-minus"></i></a>
                             </div>
@@ -206,15 +206,15 @@
                             <div class="form-group">
                                 <label>Status</label>
                                 <select name="fm[status]" class="form-control " id="jenis_barang" required>
-                                    <option value="0">Pending</option>
+                                    <option value="0" <?php if($data['status'] == 0) echo 'selected'; ?>>Pending</option>
                                     
-                                    <option value="2">Ready</option>
-                                    <option value="3">Uang muka</option>
-                                    <option value="4">Produksi</option>
-                                    <option value="5">Pelunasan</option>
-                                    <option value="6">Lunas</option>
+                                    <option value="2" <?php if($data['status'] == 2) echo 'selected'; ?>>Ready</option>
+                                    <option value="3" <?php if($data['status'] == 3) echo 'selected'; ?>>Uang muka</option>
+                                    <option value="4" <?php if($data['status'] == 4) echo 'selected'; ?>>Produksi</option>
+                                    <option value="5" <?php if($data['status'] == 5) echo 'selected'; ?>>Pelunasan</option>
+                                    <option value="6" <?php if($data['status'] == 6) echo 'selected'; ?>>Lunas</option>
                                     
-                                    <option value="7">Cancel</option>
+                                    <option value="1" <?php if($data['status'] == 1) echo 'selected'; ?>>Cancel</option>
                                 </select>
                             </div>
                         <?php endif; ?>
@@ -443,6 +443,22 @@
                         </table>
 					</div>
 				</div>
+
+                <div class="box box-warning">
+                    <div class="box-header">
+                        <h3 class="box-title">Gambar</h3>
+                    </div>
+                    <div class="box-body">
+                        <?php if($data['gambar']): ?>
+                            <div class="form-group">
+                                <img class="img-responsive" src="<?php echo DOMAIN; ?>/images/produksi/<?php echo $data['gambar']; ?>">
+                            </div>
+                        <?php endif; ?>
+                        <div class="form-group">
+                            <input type="file" name="fm[gambar]">
+                        </div>
+                    </div>
+                </div>
 			</div>
 		</div>
 	</form>
