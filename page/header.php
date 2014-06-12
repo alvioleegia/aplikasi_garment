@@ -151,6 +151,18 @@
                             </ul>
                         </li>
 
+                        <?php if($_SESSION['level'] == 1 || $_SESSION['level'] == 4): ?>
+                            <li class="treeview <?php if($pageActive == 'penjualan'): ?>active<?php endif; ?>">
+                                <a href="#">
+                                    <i class="fa fa-table"></i> <span>Penjualan</span>
+                                    <i class="fa fa-angle-left pull-right"></i>
+                                </a>
+                                <ul class="treeview-menu">
+                                    <li><a href="<?php echo DOMAIN; ?>/page/penjualan"><i class="fa fa-angle-double-right"></i>Manage Penjualan</a></li>
+                                </ul>
+                            </li>
+                        <?php endif; ?>
+
                         <?php if($_SESSION['level'] == 1 || $_SESSION['level'] == 2): ?>
                         <li class="treeview <?php if($pageActive == 'kain'): ?>active<?php endif; ?>">
                             <a href="#">

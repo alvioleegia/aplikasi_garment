@@ -1,31 +1,33 @@
 <?php
-	require '../../config/config.php';
-	require '../../config/session.php';
+require "../../config/config.php";
 
-	if(isset($_POST['fm'])){
-		$data = array();
+print_r($_POST);
+if(!isset($_POST['fm'])){ 
+	echo "Process Error!"; 
+	exit();
+}
 
-		foreach($_POST['fm'] as $key => $value){
-			$data[] = $key."='".$value."'";
-		}
+$id_produksi = $_POST['fm']['id_produksi'];
 
-		$datas = implode(", ", $data);
-		
-		$id = $_POST['fm']['id_produksi'];
-		$field_id = "id_produksi";
+$field = array();
+$data = array();
 
-		$table = "produksi";
+foreach($_POST['fm'] as $key => $value){
+	$field[] = $key;
+	$data[] = "'".$value."'";
+}
 
-		$sql = mysql_query("UPDATE ".$table." SET ".$datas." WHERE ".$field_id."='".$id."'");
+$fields = implode(", ", $field);
+$datas = implode(", ", $data);
+$table = "penjualan";
 
-		if(!$sql){
-			echo mysql_error();
-			exit();
-		}
+$sql = mysql_query("INSERT INTO ".$table."(".$fields.") VALUES(".$datas.")");
 
-		header("Location:".DOMAIN."/page/produksi/view.php?id=".$id."&r=1");
-	} else {
-		header("Location:".DOMAIN."/404.php");
-	}
+if ($sql){
+	header('Location:view.php?id='.$id_produksi.'&q=1');
+} else {
+    echo 'Could not run query: ' . mysql_error();
+}
 
-?> 
+
+?>

@@ -112,9 +112,14 @@
 		return $jml;
 	}
 
-	function dateFormat($date){
+	function dateFormat($date, $isTime){
 		$date = new DateTime($date);
-		$result = $date->format('d M, Y');
+
+		if(!$isTime){
+			$result = $date->format('d M, Y');	
+		} else {
+			$result = $date->format('d M, Y H:i');
+		}
 
 		return $result;
 	}
@@ -138,6 +143,13 @@
 		$number = number_format($number, 0 ,',', '.');
 
 		return $number;
+	}
+
+	function getProduksi($id){
+		$q = mysql_query("SELECT * FROM produksi WHERE id_produksi=".$id);
+		$data = mysql_fetch_array($q);
+
+		return $data['nama'];
 	}
 
 	function getStatusProduksi($status){
@@ -177,6 +189,22 @@
 			default:
 				$output['text'] = 'Pending';
 				$output['class'] = 'badge';
+				break;
+		}
+
+		return $output;
+	}
+
+	function getTipePenjualan($tipe){
+		switch ($tipe) {
+			case 1:
+				$output['text'] = 'Uang Muka';
+				$output['class'] = 'label bg-yellow';
+				break;
+
+			case 2:
+				$output['text'] = 'Pelunasan';
+				$output['class'] = 'label bg-green';
 				break;
 		}
 
