@@ -467,6 +467,48 @@
 					</form>
 				<?php endif; ?>
 
+				<?php if(($_SESSION['level'] == 1 || $_SESSION['level'] == 4) && $data['status'] == 6): ?>
+					<form role="form" action="update_penjualan.php" method="post">
+						<div class="box box-success">
+							<div class="box-header">
+								<h3 class="box-title">Pembayaran</h3>
+							</div>
+							<div class="box-body">
+								<?php $sql = mysql_query("SELECT * FROM penjualan WHERE id_produksi=".$data['id_produksi']); ?>
+								<?php if(mysql_num_rows($sql)){ ?>
+									
+									<table class="table table-condensed">
+		                            	<tr>
+		                            		<th>Tipe</th>
+			                                <th>Tanggal Waktu</th>
+			                                <th>Nilai</th>
+										</tr>
+										<?php while($row = mysql_fetch_array($sql)): ?>
+											<tr>
+												<?php $tipe = getTipePenjualan($row['type']); ?>
+												<td><?php echo $tipe['text']; ?>
+												<td><?php echo dateFormat($row['tanggal_waktu'], true); ?></td>
+												<td>Rp <?php echo getMoneyFormat($row['nilai']); ?></td>
+											</tr>
+										<?php endwhile; ?>
+									</table>
+								<?php } else { ?>
+									<div class="form-group">
+										<input type="text" name="fm[nilai]" class="form-control" placeholder="Rp. nilai pelunasan" required>
+									</div>
+									<div class="form-group">
+										<button type="submit" class="btn btn-primary">Simpan</button>
+										<input type="hidden" name="fm[id_produksi]" value="<?php echo $data['id_produksi']; ?>">
+										<input type="hidden" name="fm[type]" value="2">
+										<input type="hidden" name="fm[tanggal_waktu]" value="<?php echo Date('Y-m-d H:i:s'); ?>">
+									</div>
+								<?php } ?>
+ 								
+							</div>
+						</div>
+					</form>
+				<?php endif; ?>
+
 				<div class="box box-info">
 					<div class="box-header">
 						<h3 class="box-title">Gambar</h3>
