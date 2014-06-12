@@ -29,6 +29,13 @@
     <body class="bg-black">
 
         <div class="form-box" id="login-box">
+            <?php if(isset($_GET['r']) && $_GET['r'] == 1): ?>
+                <div class="alert alert-danger alert-dismissable">
+                    <i class="fa fa-ban"></i>
+                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                    <b>Error!</b> User ID/Password Salah.
+                </div>
+            <?php endif; ?>
             <div class="header">Sign In</div>
             <form action="proses_login.php" method="post">
                 <div class="body bg-gray">
