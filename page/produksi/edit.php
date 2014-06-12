@@ -314,11 +314,13 @@
 					</div>
 					<div class="box-body">
                         <div class="input-group <?php if($_SESSION['level'] == 1 || $_SESSION['level'] == 2){ echo 'col-md-7'; } else { echo 'col-md-5'; } ?>">
-                            <?php if($data['status'] == 0 || $data['status'] == 1): ?>
-                                <select class="form-control " name="fm[status]">
-                                    <option value="2">Ready</option>
-                                    <option value="1" <?php if($data['status'] == 1) echo 'selected'; ?>>Cancel</option>
-                                </select>
+                            <?php if($data['level'] == 3): ?>
+                                <?php if($data['status'] == 0 || $data['status'] == 1): ?>
+                                    <select class="form-control " name="fm[status]">
+                                        <option value="2">Ready</option>
+                                        <option value="1" <?php if($data['status'] == 1) echo 'selected'; ?>>Cancel</option>
+                                    </select>
+                                <?php endif; ?>
                             <?php endif; ?>
 
                             <span class="input-group-btn">

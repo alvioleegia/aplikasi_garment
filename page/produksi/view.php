@@ -204,24 +204,24 @@
 	                        </form>
 
 	                        <?php if($data['status'] == 3){ ?>
-	                        	<div class="form-grup">
+	                        	<div class="form-group">
 	                        		<a href="" class="btn btn-warning"><i class="fa fa-print"></i> Cetak Nota Uang Muka</a>
 	                        	</div>
 	                        <?php } else if($data['status'] == 4){ ?>
-	                        	<div class="form-grup">
+	                        	<div class="form-group">
 	                        		<a href="" class="btn btn-warning"><i class="fa fa-print"></i> Cetak Surat Perintah Produksi</a>
 	                        	</div>
 	                        <?php } else if($data['status'] == 5){ ?>
-	                        	<div class="form-grup">
+	                        	<div class="form-group">
 	                        		<a href="" class="btn btn-warning"><i class="fa fa-print"></i> Cetak Nota Pelunasan</a>
 	                        	</div>
 	                        <?php } ?>
 						<?php endif; ?>
 
 						<?php if($_SESSION['level'] == 1 || $_SESSION['level'] == 2): ?>
-							<p>
+							<div>
 								<a href="delete.php?id=<?php echo $id; ?>" onclick="return confirm('Anda yakin akan menghapus ini?')" class="btn btn-danger">Hapus</a>
-							</p>
+							</div>
 						<?php endif; ?>
 
 					</div>

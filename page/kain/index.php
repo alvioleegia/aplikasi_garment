@@ -43,26 +43,37 @@
 		                </div>
 		            </div>
 		        </div><!-- /.box-header -->
-		        <div class="box-body table-responsive no-padding">
-		            <table class="table table-hover">
-		                <tr>
-		                    <th>ID</th>
-		                    <th>Kain</th>
-		                    <th>Action</th>
-		                </tr>
-		                <?php $sql = mysql_query('SELECT * FROM kains ORDER BY id_kain DESC'); ?>
-		                <?php while($row = mysql_fetch_array($sql) ): ?>
-			                <tr>
-			                    <td><?php echo $row['id_kain']; ?></td>
-			                    <td><?php echo $row['kain']; ?></td>
-			                    <td><a href="view.php?id=<?php echo $row['id_kain']; ?>" class="btn btn-primary btn-xs">lihat</a> <a href="edit.php?id=<?php echo $row['id_kain']; ?>" class="btn btn-warning btn-xs">edit</a> <a href="delete.php?id=<?php echo $row['id_kain']; ?>" onclick="return confirm('Anda yakin akan menghapus ini?')" class="btn btn-danger btn-xs">hapus</a></td>
-			                </tr>
-			            <?php endwhile; ?>
+		        <div class="box-body table-responsive">
+		            <table class="table table-hover" id="table_data">
+		            	<thead>
+			            	<tr>
+			                    <th>ID</th>
+			                    <th>Kain</th>
+			                    <th>Action</th>
+			                </tr>	
+		            	</thead>
+		                <tbody>
+			                <?php $sql = mysql_query('SELECT * FROM kains'); ?>
+			                <?php while($row = mysql_fetch_array($sql) ): ?>
+				                <tr>
+				                    <td><?php echo $row['id_kain']; ?></td>
+				                    <td><?php echo $row['kain']; ?></td>
+				                    <td><a href="view.php?id=<?php echo $row['id_kain']; ?>" class="btn btn-primary btn-xs">lihat</a> <a href="edit.php?id=<?php echo $row['id_kain']; ?>" class="btn btn-warning btn-xs">edit</a> <a href="delete.php?id=<?php echo $row['id_kain']; ?>" onclick="return confirm('Anda yakin akan menghapus ini?')" class="btn btn-danger btn-xs">hapus</a></td>
+				                </tr>
+				            <?php endwhile; ?>
+		                </tbody>
+		                
 		            </table>
 		        </div><!-- /.box-body -->
 		    </div><!-- /.box -->
 		</div>
 		</div>
 </section><!-- /.content -->
+
+<script type="text/javascript">
+    $(function() {
+        $("#table_data").dataTable();
+    });
+</script>
 
 <?php include '../footer.php'; ?>

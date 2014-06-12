@@ -34,39 +34,42 @@
 		    <div class="box">
 		        <div class="box-header">
 		            <h3 class="box-title">Data Warna</h3>
-		            <div class="box-tools">
-		                <div class="input-group">
-		                    <input type="text" name="table_search" class="form-control input-sm pull-right" style="width: 150px;" placeholder="Search"/>
-		                    <div class="input-group-btn">
-		                        <button class="btn btn-sm btn-default"><i class="fa fa-search"></i></button>
-		                    </div>
-		                </div>
-		            </div>
 		        </div><!-- /.box-header -->
-		        <div class="box-body table-responsive no-padding">
-		            <table class="table table-hover">
-		                <tr>
-		                    <th>ID</th>
-		                    <th>Kain</th>
-		                    <th>Warna</th>
-		                    <th>Harga</th>
-		                    <th>Action</th>
-		                </tr>
-		                <?php $sql = mysql_query('SELECT * FROM jenis_warna ORDER BY id_jenis_warna DESC'); ?>
-		                <?php while($row = mysql_fetch_array($sql) ): ?>
-			                <tr>
-			                    <td><?php echo $row['id_jenis_warna']; ?></td>
-			                    <td><?php echo getKain($row['id_kain']); ?></td>
-			                    <td><?php echo $row['warna']; ?></td>
-			                    <td><?php echo $row['harga']; ?></td>
-			                    <td><a href="view.php?id=<?php echo $row['id_jenis_warna']; ?>" class="btn btn-primary btn-xs">lihat</a> <a href="edit.php?id=<?php echo $row['id_jenis_warna']; ?>" class="btn btn-warning btn-xs">edit</a> <a href="delete.php?id=<?php echo $row['id_jenis_warna']; ?>" onclick="return confirm('Anda yakin akan menghapus ini?')" class="btn btn-danger btn-xs">hapus</a></td>
-			                </tr>
-			            <?php endwhile; ?>
+		        <div class="box-body table-responsive">
+		            <table class="table table-hover" id="table_data">
+		            	<thead>
+			            	<tr>
+			                    <th>ID</th>
+			                    <th>Kain</th>
+			                    <th>Warna</th>
+			                    <th>Harga</th>
+			                    <th>Action</th>
+			                </tr>	
+		            	</thead>
+		                <tbody>
+			                <?php $sql = mysql_query('SELECT * FROM jenis_warna'); ?>
+			                <?php while($row = mysql_fetch_array($sql) ): ?>
+				                <tr>
+				                    <td><?php echo $row['id_jenis_warna']; ?></td>
+				                    <td><?php echo getKain($row['id_kain']); ?></td>
+				                    <td><?php echo $row['warna']; ?></td>
+				                    <td><?php echo $row['harga']; ?></td>
+				                    <td><a href="view.php?id=<?php echo $row['id_jenis_warna']; ?>" class="btn btn-primary btn-xs">lihat</a> <a href="edit.php?id=<?php echo $row['id_jenis_warna']; ?>" class="btn btn-warning btn-xs">edit</a> <a href="delete.php?id=<?php echo $row['id_jenis_warna']; ?>" onclick="return confirm('Anda yakin akan menghapus ini?')" class="btn btn-danger btn-xs">hapus</a></td>
+				                </tr>
+				            <?php endwhile; ?>	
+		                </tbody>
+		                
 		            </table>
 		        </div><!-- /.box-body -->
 		    </div><!-- /.box -->
 		</div>
 		</div>
 </section><!-- /.content -->
+
+<script type="text/javascript">
+    $(function() {
+        $("#table_data").dataTable();
+    });
+</script>
 
 <?php include '../footer.php'; ?>

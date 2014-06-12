@@ -21,6 +21,8 @@
         <link href="<?php echo DOMAIN; ?>/css/daterangepicker/daterangepicker-bs3.css" rel="stylesheet" type="text/css" />
         <!-- bootstrap wysihtml5 - text editor -->
         <link href="<?php echo DOMAIN; ?>/css/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css" rel="stylesheet" type="text/css" />
+        <!-- DATA TABLES -->
+        <link href="../../css/datatables/dataTables.bootstrap.css" rel="stylesheet" type="text/css" />
         <!-- Theme style -->
         <link href="<?php echo DOMAIN; ?>/css/AdminLTE.css" rel="stylesheet" type="text/css" />
 
@@ -44,6 +46,10 @@
         <script src="<?php echo DOMAIN; ?>/js/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js" type="text/javascript"></script>
 
         <script src="<?php echo DOMAIN; ?>/js/plugins/validation/jqBootstrapValidation.js" type="text/javascript"></script>
+
+        <!-- DATA TABES SCRIPT -->
+        <script src="<?php echo DOMAIN; ?>/js/plugins/datatables/jquery.dataTables.js" type="text/javascript"></script>
+        <script src="<?php echo DOMAIN; ?>/js/plugins/datatables/dataTables.bootstrap.js" type="text/javascript"></script>
     </head>
     <body class="skin-blue">
         <!-- header logo: style can be found in header.less -->

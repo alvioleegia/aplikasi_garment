@@ -34,70 +34,71 @@
 		    <div class="box">
 		        <div class="box-header">
 		            <h3 class="box-title">Data Produksi</h3>
-		            <div class="box-tools">
-		                <div class="input-group">
-		                    <input type="text" name="table_search" class="form-control input-sm pull-right" style="width: 150px;" placeholder="Search"/>
-		                    <div class="input-group-btn">
-		                        <button class="btn btn-sm btn-default"><i class="fa fa-search"></i></button>
-		                    </div>
-		                </div>
-		            </div>
 		        </div><!-- /.box-header -->
-		        <div class="box-body table-responsive no-padding">
+		        <div class="box-body table-responsiv">
 		            <table class="table table-hover" id="table_data">
-						<tr>
-							<th>ID</th>
-							<th>Nama Pemesan</th>
-							<th>Tanggal Pemesanan</th>
-							<th>Status</th>
-							<?php if($_SESSION['level'] == 1 || $_SESSION['level'] == 2): ?>
-								<th>Spesifikasi</th>
-							<?php endif; ?>
-							<th>Jumlah</th>
-							<th>Action</th>
-						</tr>
-
-						<?php $sql = mysql_query("SELECT * FROM produksi ORDER BY id_produksi DESC"); ?>
-						<?php while($row = mysql_fetch_array($sql)): ?>
-							<tr>
-								<td><?php echo $row['id_produksi']; ?></td>
-								<td><?php echo $row['nama']; ?></td>
-								<td>
-									<?php echo dateFormat($row['tanggal_pemesanan']); ?> s/d <?php echo dateFormat($row['tanggal_selesai']); ?>
-								</td>
-								<td>
-									<?php $status = getStatusProduksi($row['status']); ?>
-									<span class="<?php echo $status['class'] ; ?>"><?php echo $status['text']; ?></span>
-								</td>
+		            	<thead>
+			            	<tr>
+								<th>ID</th>
+								<th>Nama Pemesan</th>
+								<th>Tanggal Pemesanan</th>
+								<th>Status</th>
 								<?php if($_SESSION['level'] == 1 || $_SESSION['level'] == 2): ?>
-									<td><?php echo getCountSpesifikasi($row['id_produksi']); ?></td>
+									<th>Spesifikasi</th>
 								<?php endif; ?>
-								<td><?php echo getJumlahProduksi($row['id_produksi']); ?></td>
-								<td>
-									<a class="btn btn-primary btn-xs" title="Lihat" href="view.php?id=<?php echo $row['id_produksi']; ?>">
-										<i class="glyphicon glyphicon-search"></i>
-									</a>
-
-									<?php if($_SESSION['level'] != 4): ?>
-										<a class="btn btn-warning btn-xs" title="Edit" href="edit.php?id=<?php echo $row['id_produksi']; ?>">
-											<i class="glyphicon glyphicon-edit"></i>
-										</a>
-									<?php endif; ?>
-
-									<?php if($_SESSION['level'] == 1): ?>
-										<a class="btn btn-danger btn-xs" title="Hapus" href="delete.php?id=<?php echo $row['id_produksi']; ?>" onclick="return confirm('Anda yakin akan menghapus ini?')">
-											<i class='glyphicon glyphicon-remove'></i>
-										</a>
-									<?php endif; ?>
-								</td>
+								<th>Jumlah</th>
+								<th>Action</th>
 							</tr>
+		            	</thead>
+						<tbody>
+							<?php $sql = mysql_query("SELECT * FROM produksi ORDER BY id_produksi DESC"); ?>
+							<?php while($row = mysql_fetch_array($sql)): ?>
+								<tr>
+									<td><?php echo $row['id_produksi']; ?></td>
+									<td><?php echo $row['nama']; ?></td>
+									<td>
+										<?php echo dateFormat($row['tanggal_pemesanan']); ?> s/d <?php echo dateFormat($row['tanggal_selesai']); ?>
+									</td>
+									<td>
+										<?php $status = getStatusProduksi($row['status']); ?>
+										<span class="<?php echo $status['class'] ; ?>"><?php echo $status['text']; ?></span>
+									</td>
+									<?php if($_SESSION['level'] == 1 || $_SESSION['level'] == 2): ?>
+										<td><?php echo getCountSpesifikasi($row['id_produksi']); ?></td>
+									<?php endif; ?>
+									<td><?php echo getJumlahProduksi($row['id_produksi']); ?></td>
+									<td>
+										<a class="btn btn-primary btn-xs" title="Lihat" href="view.php?id=<?php echo $row['id_produksi']; ?>">
+											<i class="glyphicon glyphicon-search"></i>
+										</a>
 
-						<?php endwhile; ?>
+										<?php if($_SESSION['level'] != 4): ?>
+											<a class="btn btn-warning btn-xs" title="Edit" href="edit.php?id=<?php echo $row['id_produksi']; ?>">
+												<i class="glyphicon glyphicon-edit"></i>
+											</a>
+										<?php endif; ?>
+
+										<?php if($_SESSION['level'] == 1): ?>
+											<a class="btn btn-danger btn-xs" title="Hapus" href="delete.php?id=<?php echo $row['id_produksi']; ?>" onclick="return confirm('Anda yakin akan menghapus ini?')">
+												<i class='glyphicon glyphicon-remove'></i>
+											</a>
+										<?php endif; ?>
+									</td>
+								</tr>
+							<?php endwhile; ?>
+						</tbody>
+						
 					</table>
 		        </div><!-- /.box-body -->
 		    </div><!-- /.box -->
 		</div>
 		</div>
 </section><!-- /.content -->
+
+<script type="text/javascript">
+    $(function() {
+        $("#table_data").dataTable();
+    });
+</script>
 
 <?php include '../footer.php'; ?>
