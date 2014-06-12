@@ -562,9 +562,20 @@
         	// 	return false;
         	// }
         	if(!$('body').find('.input-kain').length){
-        		alert("Tambahkan Kain!");
-        		return false;
-        	}
+                alert("Tambahkan Kain!");
+                return false;
+            } else if($('body').find('.input-kain').length){
+                var jumlah_kain = 0;
+                $.each($('body').find('.input-kain'),function(i, e){
+                    jumlah_kain += parseInt($(e).val());
+                });
+
+                if(jumlah_kain < 100 || jumlah_kain > 100){
+                    alert("Pemakaian kain harus 100%!");
+                    return false;
+                }
+            }
+            
         	if(!$('body').find('.input-size').length){
         		alert("Tambahkan Size!");
         		return false;
