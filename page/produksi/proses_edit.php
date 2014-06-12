@@ -94,7 +94,11 @@
 
 		}
 
-		header("Location:".DOMAIN."/page/produksi/view.php?id=".$id."&r=1");
+		if(isset($_GET['ref']) && $_GET['ref'] == 'kalkulasi'){
+			header("Location:".DOMAIN."/page/produksi/edit.php?id=".$id."&r=1");
+		} else {
+			header("Location:".DOMAIN."/page/produksi/view.php?id=".$id."&r=1");
+		}
 	} else {
 		header("Location:".DOMAIN."/404.php");
 	}

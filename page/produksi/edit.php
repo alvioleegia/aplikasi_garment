@@ -33,7 +33,15 @@
                             </div>
                         </div>
                         <div class="box-body">
-                             <?php
+                            <?php if(isset($_GET['r']) && $_GET['r'] == 1): ?>
+                            <div class="alert alert-success alert-dismissable">
+                                <i class="fa fa-check"></i>
+                                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                                <b>Success!</b> Data updated.
+                            </div>
+                            <?php endif; ?>
+
+                            <?php
                                 // Menghitung jumlah potong barang
                                 $jml_pesanan = 0;
                                 $sql = mysql_query("SELECT * FROM produksi_size where id_produksi=".$id);
@@ -175,10 +183,6 @@
                                     <td><b>Rp <?php echo getMoneyFormat($total_harga); ?></b></td>
                                 </tr>
                             </table>
-
-                            <div class="text-right margin">
-                                <a class="btn btn-warning"><i class="fa fa-print"></i> Buat Nota</a>
-                            </div>
                         </div>
                     </div>
                 </div>
@@ -314,10 +318,10 @@
 					</div>
 					<div class="box-body">
                         <div class="input-group <?php if($_SESSION['level'] == 1 || $_SESSION['level'] == 2){ echo 'col-md-7'; } else { echo 'col-md-5'; } ?>">
-                            <?php if($data['level'] == 3): ?>
-                                <?php if($data['status'] == 0 || $data['status'] == 1): ?>
+                            <?php if($_SESSION['level'] == 2): ?>
+                                <?php if($data['status'] == 0 || $data['status'] == 1 || $data['status'] == 2): ?>
                                     <select class="form-control " name="fm[status]">
-                                        <option value="2">Ready</option>
+                                        <option value="2" <?php if($data['status'] == 2) echo 'selected'; ?>>Ready</option>
                                         <option value="1" <?php if($data['status'] == 1) echo 'selected'; ?>>Cancel</option>
                                     </select>
                                 <?php endif; ?>
@@ -326,7 +330,7 @@
                             <span class="input-group-btn">
                                 <button type="submit" class="btn btn-primary">Simpan</button>
                                 <?php if($_SESSION['level'] == 1 || $_SESSION['level'] == 2): ?>
-                                    <a class="btn btn-warning"><i class="fa fa-repeat"></i> Re-kalkulasi</a>
+                                    <a id="rekalkulasi" class="btn btn-warning"><i class="fa fa-repeat"></i> Re-kalkulasi</a>
                                 <?php endif; ?>
                             </span>
                         </div>
@@ -678,6 +682,11 @@
 				}
 			});
 		});
+
+        $('#rekalkulasi').on('click',function(e){
+            e.preventDefault();
+            $('#form_input').attr('action','proses_edit.php?ref=kalkulasi').submit();
+        });
 	})
 </script>
 
