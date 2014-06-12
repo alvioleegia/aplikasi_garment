@@ -1,6 +1,7 @@
 <?php
 	define('DOMAIN', 'http://localhost/aplikasi_garment');
 	define('PAGE_TITLE', 'PT Cipta Gemilang Sentosa'); // default page title
+	define('SITE_ROOT', dirname(__FILE__).'/../');
 
 	$dbname	= "aplikasi_garment";
 	$dbusername = "root";

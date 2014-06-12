@@ -14,9 +14,40 @@ foreach($_POST['fm'] as $key => $value){
 	$data[] = "'".$value."'";
 }
 
+if(isset($_FILES['fm'])){
+	$image = $_POST['fm']['gambar'];
+    //Stores the filename as it was on the client computer.
+    $imagename = $_FILES['fm']['name']['gambar'];
+    //Stores the filetype e.g image/jpeg
+    $imagetype = $_FILES['fm']['type']['gambar'];
+    //Stores any error codes from the upload.
+    $imageerror = $_FILES['fm']['error']['gambar'];
+    //Stores the tempname as it is given by the host when uploaded.
+    $imagetemp = $_FILES['fm']['tmp_name']['gambar'];
+    $newname = Date("YmdHis").'-'.$imagename;
+
+    //The path you wish to upload the image to
+    $imagePath = SITE_ROOT."images/produksi/";
+
+    if(is_uploaded_file($imagetemp)) {
+        if(move_uploaded_file($imagetemp, $imagePath . $newname)) {
+            //echo "Sussecfully uploaded your image.";
+            $field[] = 'gambar';
+            $data[] = "'".$newname."'";
+        }
+        else {
+            echo "Failed to move your image.";
+            exit();
+        }
+    }
+    else {
+        echo "Failed to upload your image.";
+        exit();
+    }
+} 
+
 $fields = implode(", ", $field);
 $datas = implode(", ", $data);
-
 $table = "produksi";
 
 $sql = mysql_query("INSERT INTO ".$table."(".$fields.") VALUES(".$datas.")");

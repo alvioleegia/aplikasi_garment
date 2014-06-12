@@ -187,7 +187,9 @@
 						<h3 class="box-title">Gambar</h3>
 					</div>
 					<div class="box-body">
-						<img class="img-responsive" src="<?php echo DOMAIN; ?>/img/tshirt.jpg">
+						<?php if($data['gambar']): ?>
+							<img class="img-responsive" src="<?php echo DOMAIN; ?>/images/produksi/<?php echo $data['gambar']; ?>">
+						<?php endif; ?>
 					</div>
 				</div>
 				
