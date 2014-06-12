@@ -188,6 +188,9 @@
 				<div class="box box-primary">
 					<div class="box-header">
 						<h3 class="box-title">Produksi #<?php echo $data['id_produksi']; ?></h3>
+                        <div class="box-tools pull-right">
+                            <a class="btn btn-default btn-sm" data-widget="collapse" data-toggle="tooltip" title="" data-original-title="Collapse"><i class="fa fa-minus"></i></a>
+                        </div>
 					</div>
 					<div class="box-body">
 						<div class="form-group">
