@@ -59,7 +59,7 @@
 			                    <td><?php echo $row['id_user']; ?></td>
 			                    <td><?php echo $row['nama']; ?></td>
 			                    <td><?php echo $row['username']; ?></td>
-			                    <td><span class="label <?php if($row['level'] == 1){ echo 'label-warning'; } else if($row['level'] == 2){ echo 'label-success'; } else { echo 'label-primary'; } ?>"><?php echo getUserLevel($row['level']); ?></span></td>
+			                    <td><span class="label <?php if($row['level'] == 1){ echo 'label-warning'; } else if($row['level'] == 2){ echo 'label-success'; } else if($row['level'] == 4){ echo 'label-danger'; } else { echo 'label-primary'; } ?>"><?php echo getUserLevel($row['level']); ?></span></td>
 			                    <td><?php echo $row['date_created']; ?></td>
 			                    <td><a href="view.php?id=<?php echo $row['id_user']; ?>" class="btn btn-primary btn-xs">lihat</a> <a href="edit.php?id=<?php echo $row['id_user']; ?>" class="btn btn-warning btn-xs">edit</a> <a href="delete.php?id=<?php echo $row['id_user']; ?>" onclick="return confirm('Anda yakin akan menghapus ini?')" class="btn btn-danger btn-xs">hapus</a></td>
 			                </tr>

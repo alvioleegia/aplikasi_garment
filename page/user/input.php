@@ -39,6 +39,7 @@
 						<div class="form-group">
 							<label>Level</label>
 							<select class="form-control" name="fm[level]">
+								<option value="4" >Penjualan</option>
 								<option value="3" >Sales</option>
 								<option value="2" >PPC</option>
 								<option value="1" >Superadmin</option>

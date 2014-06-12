@@ -49,6 +49,7 @@
 									<option value="1" <?php if($data['level'] == 1) echo 'selected'; ?>>Superadmin</option>
 									<option value="2" <?php if($data['level'] == 2) echo 'selected'; ?>>PPC</option>
 									<option value="3" <?php if($data['level'] == 3) echo 'selected'; ?>>Sales</option>
+									<option value="4" <?php if($data['level'] == 4) echo 'selected'; ?>>Sales</option>
 								</select>
 							</div>
 							<div class="form-group">

@@ -30,6 +30,10 @@
 					$level = 'Sales';
 					break;
 
+				case 4:
+					$level = 'Penjualan';
+					break;
+
 				default:
 					$level = 'Customer';
 					break;
