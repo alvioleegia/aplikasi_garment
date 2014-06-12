@@ -142,7 +142,9 @@
                                 <th style="width: 10px">#</th>
                                 <th>Kain</th>
                                 <th>Warna</th>
-                                <th style="width: 100px">Pemakaian</th>
+                                <?php if($_SESSION['level'] == 1 || $_SESSION['level'] == 2): ?>
+                                    <th style="width: 100px">Pemakaian</th>
+                                <?php endif; ?>
                                 <th style="width: 20px">&nbsp;</th>
                             </tr>
                         </table>
@@ -236,12 +238,18 @@
             el += '    <td>'+jumlah_kain+'.</td>';
             el += '    <td>'+kain+'</td>';
             el += '    <td>'+text+'</td>';
-            el += '    <td>';
-            el += '    	<div class="input-group input-group-sm">';
-            el += '    		<input type="text" class="form-control input-kain" style="width:60px" name="warna['+kain_value+']['+value+']">';
-            el += '    		<span class="input-group-btn">%</span>';
-            el += '    	</div>';
-            el += '   </td>';
+
+            <?php if($_SESSION['level'] == 1 || $_SESSION['level'] == 2){ ?>
+                el += '    <td>';
+                el += '    	<div class="input-group input-group-sm">';
+                el += '    		<input type="text" class="form-control input-kain" style="width:60px" name="warna['+kain_value+']['+value+']">';
+                el += '    		<span class="input-group-btn">%</span>';
+                el += '    	</div>';
+                el += '   </td>';
+            <?php } else { ?>
+                el += '         <input type="hidden" class="input-kain" name="warna['+kain_value+']['+value+']" value="0">';
+            <?php } ?>
+
             el += '    <td>';
             el += '    	<a class="btn btn-danger btn-xs hapus-kain">';
             el += '    		<i class="glyphicon glyphicon-remove"></i>';
@@ -341,7 +349,7 @@
         	if(!$('body').find('.input-kain').length){
         		alert("Tambahkan Kain!");
         		return false;
-        	} else if($('body').find('.input-kain').length){
+        	} <?php if($_SESSION['level'] == 1 || $_SESSION['level'] == 2){ ?> else if($('body').find('.input-kain').length){
                 var jumlah_kain = 0;
                 $.each($('body').find('.input-kain'),function(i, e){
                     jumlah_kain += parseInt($(e).val());
@@ -352,6 +360,7 @@
                     return false;
                 }
             }
+            <?php } ?>
 
         	if(!$('body').find('.input-size').length){
         		alert("Tambahkan Size!");

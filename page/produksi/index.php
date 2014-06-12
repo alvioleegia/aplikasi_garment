@@ -49,7 +49,9 @@
 							<th>ID</th>
 							<th>Nama Pemesan</th>
 							<th>Tanggal Pemesanan</th>
-							<th>Spesifikasi</th>
+							<?php if($_SESSION['level'] == 1 || $_SESSION['level'] == 2): ?>
+								<th>Spesifikasi</th>
+							<?php endif; ?>
 							<th>Jumlah</th>
 							<th>Action</th>
 						</tr>
@@ -62,7 +64,9 @@
 								<td>
 									<?php echo dateFormat($row['tanggal_pemesanan']); ?> s/d <?php echo dateFormat($row['tanggal_selesai']); ?>
 								</td>
-								<td><?php echo getCountSpesifikasi($row['id_produksi']); ?></td>
+								<?php if($_SESSION['level'] == 1 || $_SESSION['level'] == 2): ?>
+									<td><?php echo getCountSpesifikasi($row['id_produksi']); ?></td>
+								<?php endif; ?>
 								<td><?php echo getJumlahProduksi($row['id_produksi']); ?></td>
 								<td>
 									<a class="btn btn-primary btn-xs" title="Lihat" href="view.php?id=<?php echo $row['id_produksi']; ?>">

@@ -24,7 +24,7 @@
 		?>
 
 		<div class="row">
-			<div class="col-md-6">
+			<div class="col-md-7">
 				<div class="box box-primary">
 					<div class="box-header">
 						<h3 class="box-title">Produksi #<?php echo $data['id_produksi']; ?></h3>
@@ -165,16 +165,7 @@
 				<?php //endif; ?>
 
 			</div>
-			<div class="col-md-3">
-				<div class="box box-primary">
-					<div class="box-header">
-						<h3 class="box-title">Gambar</h3>
-					</div>
-					<div class="box-body">
-						<img class="img-responsive" src="<?php echo DOMAIN; ?>/img/tshirt.jpg">
-					</div>
-				</div>
-
+			<div class="col-md-5">
 				<div class="box box-warning">
 					<div class="box-header">
 						<h3 class="box-title">Action</h3>
@@ -191,6 +182,15 @@
 
 					</div>
 				</div>
+				<div class="box box-primary">
+					<div class="box-header">
+						<h3 class="box-title">Gambar</h3>
+					</div>
+					<div class="box-body">
+						<img class="img-responsive" src="<?php echo DOMAIN; ?>/img/tshirt.jpg">
+					</div>
+				</div>
+				
 			</div>
 		</div>
 	<?php } else { ?>
