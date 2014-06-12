@@ -66,39 +66,41 @@
 					</div>
 				</div>
 
-				<div class="box box-danger">
-					<div class="box-header">
-						<h3 class="box-title">Spesifikasi</h3>
-					</div>
-					<div class="box-body">
-						<div class="form-group">
-							<select class="form-control " id="tambah_spesifikasi">
-								<option>Pilih Spesifikasi</option>
-								<?php $sql = mysql_query("SELECT * FROM spesifikasis ORDER BY spesifikasi ASC"); ?>
-								<?php while($row = mysql_fetch_row($sql)): ?>
-									<option value="<?php echo $row[0]; ?>"><?php echo $row[1]; ?></option>
-								<?php endwhile; ?>
-							</select>
-						</div>
-						<div class="input-group form-group hide" id="sub_spesifikasi">
-							<select class="form-control " id="pilih_sub_spesifikasi">
-								<option>Pilih Sub</option>
-							</select>
-							<span class="input-group-btn">
-                                <button class="btn btn-primary btn-flat" id="tambah_sub_spesifikasi" type="button">Tambah</button>
-                            </span>
-						</div>
+                <?php if($_SESSION['level'] == 1 || $_SESSION['level'] == 2): ?>
+    				<div class="box box-danger">
+    					<div class="box-header">
+    						<h3 class="box-title">Spesifikasi</h3>
+    					</div>
+    					<div class="box-body">
+    						<div class="form-group">
+    							<select class="form-control " id="tambah_spesifikasi">
+    								<option>Pilih Spesifikasi</option>
+    								<?php $sql = mysql_query("SELECT * FROM spesifikasis ORDER BY spesifikasi ASC"); ?>
+    								<?php while($row = mysql_fetch_row($sql)): ?>
+    									<option value="<?php echo $row[0]; ?>"><?php echo $row[1]; ?></option>
+    								<?php endwhile; ?>
+    							</select>
+    						</div>
+    						<div class="input-group form-group hide" id="sub_spesifikasi">
+    							<select class="form-control " id="pilih_sub_spesifikasi">
+    								<option>Pilih Sub</option>
+    							</select>
+    							<span class="input-group-btn">
+                                    <button class="btn btn-primary btn-flat" id="tambah_sub_spesifikasi" type="button">Tambah</button>
+                                </span>
+    						</div>
 
-						<table class="table table-striped" id="data_spesifikasi">
-                            <tr>
-                                <th style="width: 10px">#</th>
-                                <th>Spesifikasi</th>
-                                <th>Sub</th>
-                                <th style="width: 20px">&nbsp;</th>
-                            </tr>
-                        </table>
-					</div>
-				</div>
+    						<table class="table table-striped" id="data_spesifikasi">
+                                <tr>
+                                    <th style="width: 10px">#</th>
+                                    <th>Spesifikasi</th>
+                                    <th>Sub</th>
+                                    <th style="width: 20px">&nbsp;</th>
+                                </tr>
+                            </table>
+    					</div>
+    				</div>
+                <?php endif; ?>
 			</div>
 			<div class="col-md-5">
 				<div class="box box-warning">
