@@ -55,6 +55,13 @@
 		return $data['warna'];
 	}
 
+	function getHargaWarna($id){
+		$q = mysql_query("select * from jenis_warna where id_jenis_warna='$id'");
+		$data = mysql_fetch_array($q);
+
+		return $data['harga'];
+	}
+
 	function getSize($id){
 		$q = mysql_query("select * from sizes where id_size='$id'");
 		$data = mysql_fetch_array($q);
@@ -74,6 +81,13 @@
 		$data = mysql_fetch_array($q);
 
 		return $data['nama'];
+	}
+
+	function getHargaSubSpesifikasi($id){
+		$q = mysql_query("select * from sub_spesifikasi where id_sub_spesifikasi='$id'");
+		$data = mysql_fetch_array($q);
+
+		return $data['harga'];
 	}
 
 	function getCountSpesifikasi($id_produksi){
@@ -107,6 +121,19 @@
 		$data = mysql_fetch_array($q);
 
 		return $data['barang'];
+	}
+
+	function dataJenisBarang($id){
+		$q = mysql_query("SELECT * FROM jenis_barang WHERE id_jenis_barang=".$id);
+		$data = mysql_fetch_array($q);
+
+		return $data;
+	}
+
+	function getMoneyFormat($number){
+		$number = number_format($number, 0 ,',', '.');
+
+		return $number;
 	}
 
 ?>
