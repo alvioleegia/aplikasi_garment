@@ -28,6 +28,23 @@
 							<input type="text" class="form-control" name="fm[nama]" required>
 						</div>
 
+                        <?php if($_SESSION['level'] == 1): ?>
+                            <div class="form-group">
+                                <label>Status</label>
+                                <select name="fm[status]" class="form-control " id="jenis_barang" required>
+                                    <option value="0">Pending</option>
+                                    
+                                    <option value="2">Ready</option>
+                                    <option value="3">Uang muka</option>
+                                    <option value="4">Produksi</option>
+                                    <option value="5">Pelunasan</option>
+                                    <option value="6">Lunas</option>
+                                    
+                                    <option value="7">Cancel</option>
+                                </select>
+                            </div>
+                        <?php endif; ?>
+
 						<div class="form-group">
 							<label>Tanggal Pemesanan</label>
 							<div class="input-group">

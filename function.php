@@ -140,4 +140,47 @@
 		return $number;
 	}
 
+	function getStatusProduksi($status){
+		switch ($status) {
+			case 1:
+				$output['text'] = 'Cancel';
+				$output['class'] = 'badge bg-red';
+				break;
+
+			case 2:
+				$output['text'] = 'Ready';
+				$output['class'] = 'badge bg-yellow';
+
+				break;
+
+			case 3:
+				$output['text'] = 'Uang Muka';
+				$output['class'] = 'badge bg-maroon';
+
+				break;
+
+			case 4:
+				$output['text'] = 'Produksi';
+				$output['class'] = 'badge bg-purple';
+				break;
+
+			case 5:
+				$output['text'] = 'Pelunasan';
+				$output['class'] = 'badge bg-aqua';
+				break;
+
+			case 6:
+				$output['text'] = 'Lunas';
+				$output['class'] = 'badge bg-green';
+				break;
+			
+			default:
+				$output['text'] = 'Pending';
+				$output['class'] = 'badge';
+				break;
+		}
+
+		return $output;
+	}
+
 ?>

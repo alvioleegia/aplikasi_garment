@@ -159,7 +159,9 @@
                             </a>
                             <ul class="treeview-menu">
                                 <li><a href="<?php echo DOMAIN; ?>/page/produksi"><i class="fa fa-angle-double-right"></i>Manage Produksi</a></li>
-                                <li><a href="<?php echo DOMAIN; ?>/page/produksi/input.php"><i class="fa fa-angle-double-right"></i>Tambah Produksi</a></li>
+                                <?php if($_SESSION['level'] == 1 || $_SESSION['level'] == 3): ?>   
+                                    <li><a href="<?php echo DOMAIN; ?>/page/produksi/input.php"><i class="fa fa-angle-double-right"></i>Tambah Produksi</a></li>
+                                <?php endif; ?>
                             </ul>
                         </li>
 

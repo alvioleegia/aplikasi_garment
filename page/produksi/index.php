@@ -49,6 +49,7 @@
 							<th>ID</th>
 							<th>Nama Pemesan</th>
 							<th>Tanggal Pemesanan</th>
+							<th>Status</th>
 							<?php if($_SESSION['level'] == 1 || $_SESSION['level'] == 2): ?>
 								<th>Spesifikasi</th>
 							<?php endif; ?>
@@ -64,6 +65,10 @@
 								<td>
 									<?php echo dateFormat($row['tanggal_pemesanan']); ?> s/d <?php echo dateFormat($row['tanggal_selesai']); ?>
 								</td>
+								<td>
+									<?php $status = getStatusProduksi($row['status']); ?>
+									<span class="<?php echo $status['class'] ; ?>"><?php echo $status['text']; ?></span>
+								</td>
 								<?php if($_SESSION['level'] == 1 || $_SESSION['level'] == 2): ?>
 									<td><?php echo getCountSpesifikasi($row['id_produksi']); ?></td>
 								<?php endif; ?>
@@ -72,10 +77,14 @@
 									<a class="btn btn-primary btn-xs" title="Lihat" href="view.php?id=<?php echo $row['id_produksi']; ?>">
 										<i class="glyphicon glyphicon-search"></i>
 									</a>
-									<a class="btn btn-warning btn-xs" title="Edit" href="edit.php?id=<?php echo $row['id_produksi']; ?>">
-										<i class="glyphicon glyphicon-edit"></i>
-									</a>
-									<?php if($_SESSION['level'] == 1 || $_SESSION['level'] == 2): ?>
+
+									<?php if($_SESSION['level'] != 4): ?>
+										<a class="btn btn-warning btn-xs" title="Edit" href="edit.php?id=<?php echo $row['id_produksi']; ?>">
+											<i class="glyphicon glyphicon-edit"></i>
+										</a>
+									<?php endif; ?>
+
+									<?php if($_SESSION['level'] == 1): ?>
 										<a class="btn btn-danger btn-xs" title="Hapus" href="delete.php?id=<?php echo $row['id_produksi']; ?>" onclick="return confirm('Anda yakin akan menghapus ini?')">
 											<i class='glyphicon glyphicon-remove'></i>
 										</a>

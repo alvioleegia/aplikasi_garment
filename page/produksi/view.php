@@ -45,6 +45,12 @@
 						</div>
 
 						<div class="form-group">
+							<label>Status</label>
+							<?php $status = getStatusProduksi($data['status']); ?>
+							<p><span class="<?php echo $status['class']; ?>"><?php echo $status['text']; ?></span></p>
+						</div>
+
+						<div class="form-group">
 							<label>Tinggal Pemesanan</label>
 							<p><?php echo dateFormat($data['tanggal_pemesanan']); ?></p>
 						</div>
@@ -171,9 +177,47 @@
 						<h3 class="box-title">Action</h3>
 					</div>
 					<div class="box-body">
-						<p>
-							<a href="edit.php?id=<?php echo $id; ?>" class="btn btn-warning">Edit</a>
-						</p>
+
+						<?php if($_SESSION['level'] != 4): ?>
+							<p>
+								<a href="edit.php?id=<?php echo $id; ?>" class="btn btn-warning">Edit</a>
+							</p>
+						<?php endif; ?>
+
+						<?php if($_SESSION['level'] == 4 || $_SESSION['level'] == 1): ?>
+	                        <form role="form" action="update_penjualan.php" method="post">
+								<div class="input-group form-group col-md-6">
+	                                <select class="form-control " name="fm[status]">
+	                                    <option value="3" <?php if($data['status'] == 3) echo 'selected'; ?>>Uang Muka</option>
+	                                    <option value="4" <?php if($data['status'] == 4) echo 'selected'; ?>>Produksi</option>
+	                                    <option value="5" <?php if($data['status'] == 5) echo 'selected'; ?>>Pelunasan</option>
+	                                    <option value="6" <?php if($data['status'] == 6) echo 'selected'; ?>>Lunas</option>
+	                                    <option value="1" <?php if($data['status'] == 1) echo 'selected'; ?>>Cancel</option>
+	                                </select>
+
+		                            <span class="input-group-btn">
+		                                <button type="submit" class="btn btn-primary">Update</button>
+		                            </span>
+
+		                            <input type="hidden" name="fm[id_produksi]" value="<?php echo $data['id_produksi']; ?>">
+		                        </div>
+	                        </form>
+
+	                        <?php if($data['status'] == 3){ ?>
+	                        	<div class="form-grup">
+	                        		<a href="" class="btn btn-warning"><i class="fa fa-print"></i> Cetak Nota Uang Muka</a>
+	                        	</div>
+	                        <?php } else if($data['status'] == 4){ ?>
+	                        	<div class="form-grup">
+	                        		<a href="" class="btn btn-warning"><i class="fa fa-print"></i> Cetak Surat Perintah Produksi</a>
+	                        	</div>
+	                        <?php } else if($data['status'] == 5){ ?>
+	                        	<div class="form-grup">
+	                        		<a href="" class="btn btn-warning"><i class="fa fa-print"></i> Cetak Nota Pelunasan</a>
+	                        	</div>
+	                        <?php } ?>
+						<?php endif; ?>
+
 						<?php if($_SESSION['level'] == 1 || $_SESSION['level'] == 2): ?>
 							<p>
 								<a href="delete.php?id=<?php echo $id; ?>" onclick="return confirm('Anda yakin akan menghapus ini?')" class="btn btn-danger">Hapus</a>

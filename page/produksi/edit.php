@@ -198,6 +198,23 @@
 							<input type="text" class="form-control" name="fm[nama]" value="<?php echo $data['nama']; ?>" required>
 						</div>
 
+                        <?php if($_SESSION['level'] == 1): ?>
+                            <div class="form-group">
+                                <label>Status</label>
+                                <select name="fm[status]" class="form-control " id="jenis_barang" required>
+                                    <option value="0">Pending</option>
+                                    
+                                    <option value="2">Ready</option>
+                                    <option value="3">Uang muka</option>
+                                    <option value="4">Produksi</option>
+                                    <option value="5">Pelunasan</option>
+                                    <option value="6">Lunas</option>
+                                    
+                                    <option value="7">Cancel</option>
+                                </select>
+                            </div>
+                        <?php endif; ?>
+
 						<div class="form-group">
 							<label>Tanggal Pemesanan</label>
 							<div class="input-group">
@@ -296,12 +313,21 @@
 						<h3 class="box-title">Action</h3>
 					</div>
 					<div class="box-body">
-						<p>
-							<button type="submit" class="btn btn-primary">Simpan</button>
-                            <?php if($_SESSION['level'] == 1 || $_SESSION['level'] == 2): ?>
-                                <a class="btn btn-warning"><i class="fa fa-repeat"></i> Re-kalkulasi</a>
+                        <div class="input-group <?php if($_SESSION['level'] == 1 || $_SESSION['level'] == 2){ echo 'col-md-7'; } else { echo 'col-md-5'; } ?>">
+                            <?php if($data['status'] == 0 || $data['status'] == 1): ?>
+                                <select class="form-control " name="fm[status]">
+                                    <option value="2">Ready</option>
+                                    <option value="1" <?php if($data['status'] == 1) echo 'selected'; ?>>Cancel</option>
+                                </select>
                             <?php endif; ?>
-						</p>
+
+                            <span class="input-group-btn">
+                                <button type="submit" class="btn btn-primary">Simpan</button>
+                                <?php if($_SESSION['level'] == 1 || $_SESSION['level'] == 2): ?>
+                                    <a class="btn btn-warning"><i class="fa fa-repeat"></i> Re-kalkulasi</a>
+                                <?php endif; ?>
+                            </span>
+                        </div>
 					</div>
 				</div>
 
