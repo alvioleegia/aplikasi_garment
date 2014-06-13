@@ -322,6 +322,7 @@
                                 <?php if($data['status'] == 0 || $data['status'] == 1 || $data['status'] == 2): ?>
                                     <select class="form-control " name="fm[status]">
                                         <option value="2" <?php if($data['status'] == 2) echo 'selected'; ?>>Ready</option>
+                                        <option value="0" <?php if($data['status'] == 0) echo 'selected'; ?>>Pending</option>
                                         <option value="1" <?php if($data['status'] == 1) echo 'selected'; ?>>Cancel</option>
                                     </select>
                                 <?php endif; ?>
