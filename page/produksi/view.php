@@ -343,6 +343,14 @@
 					</div>
 					<div class="box-body">
 
+                        <?php if($_SESSION['level'] == 2): ?>
+                            <?php if($data['status'] == 4){ ?>
+                                <div class="form-group">
+                                    <a href="" class="btn btn-info"><i class="fa fa-print"></i> Cetak Surat Perintah Produksi</a>
+                                </div>
+                            <?php } ;?>
+                        <?php endif; ?>
+
 						<?php if($_SESSION['level'] != 4): ?>
 							<p>
 								<a href="edit.php?id=<?php echo $id; ?>" class="btn btn-warning">Edit</a>
@@ -372,10 +380,6 @@
 	                        <?php if($data['status'] == 3){ ?>
 	                        	<div class="form-group">
 	                        		<a href="" class="btn btn-warning"><i class="fa fa-print"></i> Cetak Nota Uang Muka</a>
-	                        	</div>
-	                        <?php } else if($data['status'] == 4){ ?>
-	                        	<div class="form-group">
-	                        		<a href="" class="btn btn-warning"><i class="fa fa-print"></i> Cetak Surat Perintah Produksi</a>
 	                        	</div>
 	                        <?php } else if($data['status'] == 5){ ?>
 	                        	<div class="form-group">

@@ -317,11 +317,17 @@
 						<h3 class="box-title">Action</h3>
 					</div>
 					<div class="box-body">
-                        <div class="input-group <?php if($_SESSION['level'] == 1 || $_SESSION['level'] == 2){ echo 'col-md-12'; } else { echo 'col-md-10'; } ?>">
+                        <div class="input-group form-group <?php if($_SESSION['level'] == 1 || $_SESSION['level'] == 2){ echo 'col-md-12'; } else { echo 'col-md-10'; } ?>">
                             <?php if($_SESSION['level'] == 2): ?>
-                                <?php if($data['status'] == 0 || $data['status'] == 1 || $data['status'] == 2): ?>
+                                <?php if($data['status'] == 0 || $data['status'] == 1 || $data['status'] == 2 || $data['status'] == 4 || $data['status'] == 5): ?>
                                     <select class="form-control " name="fm[status]">
                                         <option value="2" <?php if($data['status'] == 2) echo 'selected'; ?>>Ready</option>
+
+                                        <?php if($data['status'] == 4 || $data['status'] == 5): ?>
+                                            <option value="4" <?php if($data['status'] == 4) echo 'selected'; ?>>Produksi</option>
+                                            <option value="5" <?php if($data['status'] == 5) echo 'selected'; ?>>Pelunasan</option>
+                                        <?php endif; ?>
+
                                         <option value="0" <?php if($data['status'] == 0) echo 'selected'; ?>>Pending</option>
                                         <option value="1" <?php if($data['status'] == 1) echo 'selected'; ?>>Cancel</option>
                                     </select>
@@ -344,6 +350,14 @@
                                 <?php endif; ?>
                             </span>
                         </div>
+
+                        <?php if($_SESSION['level'] == 2): ?>
+                            <?php if($data['status'] == 4){ ?>
+                                <div class="form-group">
+                                    <a href="" class="btn btn-warning"><i class="fa fa-print"></i> Cetak Surat Perintah Produksi</a>
+                                </div>
+                            <?php } ;?>
+                        <?php endif; ?>
 					</div>
 				</div>
 
