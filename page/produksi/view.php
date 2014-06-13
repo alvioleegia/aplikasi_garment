@@ -359,7 +359,7 @@
 
 						<?php if($_SESSION['level'] == 4 || $_SESSION['level'] == 1): ?>
 	                        <form role="form" action="update_status.php" method="post">
-								<div class="input-group form-group col-md-6">
+								<div class="input-group form-group col-md-12">
 	                                <select class="form-control " name="fm[status]">
 	                                	<option value="2" <?php if($data['status'] == 2) echo 'selected'; ?>>Ready</option>
 	                                    <option value="3" <?php if($data['status'] == 3) echo 'selected'; ?>>Uang Muka</option>
