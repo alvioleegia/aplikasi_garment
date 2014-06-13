@@ -112,7 +112,7 @@
 		return $jml;
 	}
 
-	function dateFormat($date, $isTime){
+	function dateFormat($date, $isTime=false){
 		$date = new DateTime($date);
 
 		if(!$isTime){
