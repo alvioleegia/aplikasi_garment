@@ -11,14 +11,14 @@
 
 		$datas = implode(", ", $data);
 		
-		$id = $_POST['fm']['id_spesifikasi'];
+		$id = $_POST['fm']['id_penjualan'];
 
-		$table = "spesifikasis";
+		$table = "penjualan";
 
-		$sql = mysql_query("UPDATE ".$table." SET ".$datas." WHERE id_spesifikasi='".$id."'");
+		$sql = mysql_query("UPDATE ".$table." SET ".$datas." WHERE id_penjualan='".$id."'");
 
 		if($sql){
-			header("Location:".DOMAIN."/page/spesifikasi/view.php?id=".$id."&r=1");
+			header("Location:".DOMAIN."/page/penjualan/view.php?id=".$id."&r=1");
 		} else {
 			echo mysql_error();
 		}
