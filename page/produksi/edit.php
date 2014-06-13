@@ -351,23 +351,26 @@
 						<h3 class="box-title">Kain</h3>
 					</div>
 					<div class="box-body">
-						<div class="form-group">
-							<select class="form-control " id="tambah_kain">
-								<option>Pilih Kain</option>
-								<?php $sql = mysql_query("SELECT * FROM kains ORDER BY kain ASC"); ?>
-								<?php while($row = mysql_fetch_row($sql)): ?>
-									<option value="<?php echo $row[0]; ?>"><?php echo $row[1]; ?></option>
-								<?php endwhile; ?>
-							</select>
-						</div>
-						<div class="input-group form-group hide" id="warna">
-							<select class="form-control " id="pilih_warna">
-								<option>Pilih Warna</option>
-							</select>
-							<span class="input-group-btn">
-                                <button class="btn btn-primary btn-flat" id="tambah_warna" type="button">Tambah</button>
-                            </span>
-						</div>
+
+                        <?php if($_SESSION['level'] == 1 || $_SESSION['level'] == 3): ?>
+    						<div class="form-group">
+    							<select class="form-control " id="tambah_kain">
+    								<option>Pilih Kain</option>
+    								<?php $sql = mysql_query("SELECT * FROM kains ORDER BY kain ASC"); ?>
+    								<?php while($row = mysql_fetch_row($sql)): ?>
+    									<option value="<?php echo $row[0]; ?>"><?php echo $row[1]; ?></option>
+    								<?php endwhile; ?>
+    							</select>
+    						</div>
+    						<div class="input-group form-group hide" id="warna">
+    							<select class="form-control " id="pilih_warna">
+    								<option>Pilih Warna</option>
+    							</select>
+    							<span class="input-group-btn">
+                                    <button class="btn btn-primary btn-flat" id="tambah_warna" type="button">Tambah</button>
+                                </span>
+    						</div>
+                        <?php endif; ?>
 
 						<table class="table table-striped" id="data_kain">
                             <tr>
@@ -413,18 +416,20 @@
 						<h3 class="box-title">Size</h3>
 					</div>
 					<div class="box-body">
-						<div class="input-group form-group">
-							<select class="form-control " id="pilih_size">
-								<option>Pilih Size</option>
-								<?php $sql = mysql_query("SELECT * FROM sizes ORDER BY size ASC"); ?>
-								<?php while($row = mysql_fetch_row($sql)): ?>
-									<option value="<?php echo $row[0]; ?>"><?php echo $row[1]; ?></option>
-								<?php endwhile; ?>
-							</select>
-							<span class="input-group-btn">
-                                <button class="btn btn-primary btn-flat" id="tambah_size" type="button">Tambah</button>
-                            </span>
-						</div>
+                        <?php if($_SESSION['level'] == 1 || $_SESSION['level'] == 3): ?>
+    						<div class="input-group form-group">
+    							<select class="form-control " id="pilih_size">
+    								<option>Pilih Size</option>
+    								<?php $sql = mysql_query("SELECT * FROM sizes ORDER BY size ASC"); ?>
+    								<?php while($row = mysql_fetch_row($sql)): ?>
+    									<option value="<?php echo $row[0]; ?>"><?php echo $row[1]; ?></option>
+    								<?php endwhile; ?>
+    							</select>
+    							<span class="input-group-btn">
+                                    <button class="btn btn-primary btn-flat" id="tambah_size" type="button">Tambah</button>
+                                </span>
+    						</div>
+                        <?php endif; ?>
 
 						<table class="table table-striped" id="data_size">
                             <tr>
