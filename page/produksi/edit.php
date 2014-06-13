@@ -317,7 +317,7 @@
 						<h3 class="box-title">Action</h3>
 					</div>
 					<div class="box-body">
-                        <div class="input-group <?php if($_SESSION['level'] == 1 || $_SESSION['level'] == 2){ echo 'col-md-7'; } else { echo 'col-md-5'; } ?>">
+                        <div class="input-group <?php if($_SESSION['level'] == 1 || $_SESSION['level'] == 2){ echo 'col-md-12'; } else { echo 'col-md-10'; } ?>">
                             <?php if($_SESSION['level'] == 2): ?>
                                 <?php if($data['status'] == 0 || $data['status'] == 1 || $data['status'] == 2): ?>
                                     <select class="form-control " name="fm[status]">

@@ -14,7 +14,7 @@ foreach($_POST['fm'] as $key => $value){
 	$data[] = "'".$value."'";
 }
 
-if(isset($_FILES['fm'])){
+if(isset($_FILES['fm']) && isset($_FILES['fm']['name']['gambar'])){
 	$image = $_POST['fm']['gambar'];
     //Stores the filename as it was on the client computer.
     $imagename = $_FILES['fm']['name']['gambar'];
