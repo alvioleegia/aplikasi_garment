@@ -70,7 +70,7 @@
 				                	?>
 				                	<tr>
 				                		<td><?php echo $bulan; ?></td>
-				                		<td><?php echo date('F', strtotime($first_condition)); ?></td>
+				                		<td><?php echo date('F', strtotime($start)); ?></td>
 				                		<td><?php echo laporanJumlahProduksi($start, $end); ?></td>
 				                		<td><?php echo laporanUangMasuk($start, $end); ?></td>
 				                	</tr>
