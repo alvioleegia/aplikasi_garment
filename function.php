@@ -211,4 +211,11 @@
 		return $output;
 	}
 
+	function laporanJumlahProduksi($start, $end){
+		return "0";
+	}
+
+	function laporanUangMasuk($start, $end){
+		return "0";
+	}
 ?>

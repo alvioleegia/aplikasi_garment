@@ -178,7 +178,7 @@
                                 </a>
                                 <ul class="treeview-menu">
                                     <li><a href="<?php echo DOMAIN; ?>/page/penjualan"><i class="fa fa-angle-double-right"></i>Manage Penjualan</a></li>
-                                    <li><a href="#"><i class="fa fa-angle-double-right"></i>Laporan Penjualan</a></li>
+                                    <li><a href="<?php echo DOMAIN; ?>/page/penjualan/laporan.php"><i class="fa fa-angle-double-right"></i>Laporan Penjualan</a></li>
                                 </ul>
                             </li>
                         <?php endif; ?>
