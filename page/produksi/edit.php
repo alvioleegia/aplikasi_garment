@@ -105,6 +105,8 @@
 
                                 $total_harga = $harga_bersih + $fee_perusahaan;
 
+                                $harga_satuan = $total_harga / $jml_pesanan;
+
                             ?>
 
                             <?php $i = 1; ?>
@@ -174,6 +176,13 @@
                                         <b>Fee Perusahaan (30%)</b>
                                     </td>
                                     <td><b>Rp <?php echo getMoneyFormat($fee_perusahaan); ?></b></td>
+                                </tr>
+
+                                <tr>
+                                    <td colspan="3" class="text-right">
+                                        <b>Harga/pcs</b>
+                                    </td>
+                                    <td><b>Rp <?php echo getMoneyFormat($harga_satuan); ?></b></td>
                                 </tr>
 
                                 <tr class="bg-gray">

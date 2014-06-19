@@ -182,7 +182,7 @@
 				break;
 
 			case 6:
-				$output['text'] = 'Lunas';
+				$output['text'] = 'Selesai';
 				$output['class'] = 'badge bg-green';
 				break;
 			
