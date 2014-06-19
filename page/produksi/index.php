@@ -40,6 +40,7 @@
 		            	<thead>
 			            	<tr>
 								<th>ID</th>
+								<th>Kode</th>
 								<th>Nama Pemesan</th>
 								<th>Tanggal Pemesanan</th>
 								<th>Status</th>
@@ -55,6 +56,7 @@
 							<?php while($row = mysql_fetch_array($sql)): ?>
 								<tr>
 									<td><?php echo $row['id_produksi']; ?></td>
+									<td><?php echo $row['kode_produksi']; ?></td>
 									<td><?php echo $row['nama']; ?></td>
 									<td>
 										<?php echo dateFormat($row['tanggal_pemesanan']); ?> s/d <?php echo dateFormat($row['tanggal_selesai']); ?>

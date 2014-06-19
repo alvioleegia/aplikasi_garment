@@ -212,10 +212,48 @@
 	}
 
 	function laporanJumlahProduksi($start, $end){
-		return "0";
+		$start = $start.' 00:00:00';
+		$end = $end.' 00:00:00';
+		$sql = mysql_query("SELECT id_penjualan,COUNT(id_penjualan) as jumlah_produksi FROM penjualan WHERE tanggal_waktu >= '".$start."' && tanggal_waktu <= '".$end."' GROUP BY id_produksi");
+
+		$result = mysql_fetch_array($sql);
+
+		$jumlah_produksi = $result['jumlah_produksi'] ? $result['jumlah_produksi'] : 0;
+
+		return getMoneyFormat($jumlah_produksi);
 	}
 
 	function laporanUangMasuk($start, $end){
-		return "0";
+		$start = $start.' 00:00:00';
+		$end = $end.' 00:00:00';
+		$sql = mysql_query("SELECT SUM(nilai) as nilai FROM penjualan WHERE tanggal_waktu >= '".$start."' && tanggal_waktu <= '".$end."'");
+
+		$result = mysql_fetch_array($sql);
+
+		$nilai = $result['nilai'] ? $result['nilai'] : 0;
+
+		return getMoneyFormat($nilai);
+	}
+
+	function kodeJenisBarang($id_jenis_barang){
+		switch ($id_jenis_barang) {
+			case 1:
+				$kode = "TS";
+				break;
+
+			case 2:
+				$kode = "CP";
+				break;
+
+			case 3:
+				$kode = "CA";
+				break;
+
+			case 4:
+				$kode = "JK";
+				break;
+		}
+
+		return $kode;
 	}
 ?>

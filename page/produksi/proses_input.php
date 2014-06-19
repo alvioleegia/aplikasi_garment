@@ -1,5 +1,6 @@
 <?php
 require "../../config/config.php";
+require "../../function.php";
 
 if(!isset($_POST['fm'])){ 
 	echo "Process Error!"; 
@@ -50,10 +51,14 @@ $fields = implode(", ", $field);
 $datas = implode(", ", $data);
 $table = "produksi";
 
-$sql = mysql_query("INSERT INTO ".$table."(".$fields.") VALUES(".$datas.")");
+$sql = mysql_query("INSERT INTO ".$table."(".$fields.") VALUES(".$datas.")") or die(mysql_error());
+$id_produksi = mysql_insert_id();
+
+$kode_produksi = "CGS".kodeJenisBarang($_POST['fm']['id_jenis_barang'])."00".$id_produksi;
+$sql = mysql_query("UPDATE ".$table." SET kode_produksi='".$kode_produksi."' WHERE id_produksi=".$id_produksi) or die(mysql_error());
 
 if ($sql){
-	$id_produksi = mysql_insert_id();
+	
 	
 	if(!empty($_POST["spesifikasi"])){
 		foreach ($_POST["spesifikasi"] as $id_spesifikasi => $id_sub_spesifikasi) 

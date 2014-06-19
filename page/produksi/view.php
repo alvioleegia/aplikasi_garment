@@ -213,6 +213,11 @@
                         </div>
 	                    <?php endif; ?>
 
+                        <div class="form-group">
+                            <label>Kode Produksi</label>
+                            <p><?php echo $data['kode_produksi']; ?></p>
+                        </div>
+
 						<div class="form-group">
 							<label>Nama Pemesan</label>
 							<p><?php echo $data['nama']; ?></p>

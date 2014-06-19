@@ -72,7 +72,7 @@
 				                		<td><?php echo $bulan; ?></td>
 				                		<td><?php echo date('F', strtotime($start)); ?></td>
 				                		<td><?php echo laporanJumlahProduksi($start, $end); ?></td>
-				                		<td><?php echo laporanUangMasuk($start, $end); ?></td>
+				                		<td>Rp <?php echo laporanUangMasuk($start, $end); ?></td>
 				                	</tr>
 				                <?php endfor; ?>
 			                </tbody>
@@ -86,9 +86,9 @@
 </section><!-- /.content -->
 
 <script type="text/javascript">
-    $(function() {
-        $("#table_data").dataTable();
-    });
+    // $(function() {
+    //     $("#table_data").dataTable();
+    // });
 </script>
 
 <?php include '../footer.php'; ?>
