@@ -31,11 +31,29 @@
 	                <b>Success!</b> Data berhasil ditambahkan.
 	            </div>
             <?php endif; ?>
+
 		    <div class="box">
 		        <div class="box-header">
 		            <h3 class="box-title">Data Produksi</h3>
 		        </div><!-- /.box-header -->
 		        <div class="box-body table-responsiv">
+		        	<div class="form-group input-group">
+			            <div class="input-group-btn">
+			                <button type="button" class="btn btn-warning dropdown-toggle" data-toggle="dropdown">Filter Status <span class="fa fa-caret-down"></span></button>
+			                <ul class="dropdown-menu">
+			                    <li><a href="?status=0">Pending</a></li>
+			                    <li><a href="?status=2">Ready</a></li>
+			                    <li><a href="?status=3">Uang Muka</a></li>
+			                    <li><a href="?status=4">Produksi</a></li>
+			                    <li><a href="?status=5">Pelunasan</a></li>
+			                    <li><a href="?status=6">Selesai</a></li>
+			                    <li><a href="?status=1">Cancel</a></li>
+			                    <li class="divider"></li>
+			                    <li><a href="?show=all">Semua</a></li>
+			                </ul>
+			            </div><!-- /btn-group -->
+			        </div><!-- /input-group -->
+			    	<div class="clearfix"></div>
 		            <table class="table table-hover" id="table_data">
 		            	<thead>
 			            	<tr>
@@ -52,7 +70,13 @@
 							</tr>
 		            	</thead>
 						<tbody>
-							<?php $sql = mysql_query("SELECT * FROM produksi ORDER BY id_produksi DESC"); ?>
+							<?php 
+								$filter = ""; 
+								if(isset($_GET['status'])){
+									$filter = "WHERE status=".$_GET['status'];
+								}
+							?>
+							<?php $sql = mysql_query("SELECT * FROM produksi ".$filter." ORDER BY id_produksi DESC"); ?>
 							<?php while($row = mysql_fetch_array($sql)): ?>
 								<tr>
 									<td><?php echo $row['id_produksi']; ?></td>
