@@ -213,7 +213,7 @@
 
                         <div class="form-group">
                             <label>Alamat</label>
-                            <input type="text" class="form-control" name="fm[alamat]" value="<?php echo $data['alamat']; ?>" required>
+                            <textarea name="fm[alamat]" class="form-control" rows="2" required><?php echo $data['alamat']; ?></textarea>
                         </div>
 
                         <div class="form-group">
