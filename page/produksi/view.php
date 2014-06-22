@@ -223,6 +223,16 @@
 							<p><?php echo $data['nama']; ?></p>
 						</div>
 
+                        <div class="form-group">
+                            <label>Alamat</label>
+                            <p><?php echo $data['alamat']; ?></p>
+                        </div>
+
+                        <div class="form-group">
+                            <label>No. Tlp</label>
+                            <p><?php echo $data['no_tlp']; ?></p>
+                        </div>
+
 						<div class="form-group">
 							<label>Status</label>
 							<?php $status = getStatusProduksi($data['status']); ?>
@@ -393,7 +403,7 @@
 
 	                        <?php if($data['status'] == 3){ ?>
 	                        	<div class="form-group">
-	                        		<a href="" class="btn btn-warning"><i class="fa fa-print"></i> Cetak Nota Uang Muka</a>
+	                        		<a href="<?php echo DOMAIN; ?>/page/produksi/cetak_uang_muka.php?id=<?php echo $data['id_produksi']; ?>" target="_blank" class="btn btn-warning"><i class="fa fa-print"></i> Cetak Nota Uang Muka</a>
 	                        	</div>
 	                        <?php } else if($data['status'] == 5){ ?>
 	                        	<div class="form-group">

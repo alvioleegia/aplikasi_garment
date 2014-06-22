@@ -28,6 +28,16 @@
 							<input type="text" class="form-control" name="fm[nama]" required>
 						</div>
 
+                        <div class="form-group">
+                            <label>Alamat</label>
+                            <input type="text" class="form-control" name="fm[alamat]" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label>No. Tlp</label>
+                            <input type="text" class="form-control" name="fm[no_tlp]" required>
+                        </div>
+
                         <?php if($_SESSION['level'] == 1): ?>
                             <div class="form-group">
                                 <label>Status</label>

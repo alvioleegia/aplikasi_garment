@@ -211,6 +211,16 @@
 							<input type="text" class="form-control" name="fm[nama]" value="<?php echo $data['nama']; ?>" required>
 						</div>
 
+                        <div class="form-group">
+                            <label>Alamat</label>
+                            <input type="text" class="form-control" name="fm[alamat]" value="<?php echo $data['alamat']; ?>" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label>No. Tlp</label>
+                            <input type="text" class="form-control" name="fm[no_tlp]" value="<?php echo $data['no_tlp']; ?>" required>
+                        </div>
+
                         <?php if($_SESSION['level'] == 1): ?>
                             <div class="form-group">
                                 <label>Status</label>
