@@ -23,6 +23,74 @@
 			$data = mysql_fetch_array($sql);
 		?>
 
+		<?php
+            // Menghitung jumlah potong barang
+            $jml_pesanan = 0;
+            $sql = mysql_query("SELECT * FROM produksi_size where id_produksi=".$id);
+
+            if($sql){
+                while($row = mysql_fetch_row($sql)) {
+                    $jml_pesanan += $row[3];
+                }
+            }
+            //echo $jml_pesanan;
+
+            // Menghitung harga kain/potong
+            $total_harga_kain = 0;
+            $sql = mysql_query("SELECT * FROM produksi_warna where id_produksi=".$id);
+            if($sql){
+                while($row = mysql_fetch_row($sql)) {
+                    $sql_warna = mysql_query("SELECT * FROM jenis_warna WHERE id_jenis_warna=".$row[3]);
+                    if ($sql_warna) {
+                        $warna = mysql_fetch_array($sql_warna) or die(mysql_error());
+
+                        //echo $warna['warna'].' '.($warna['harga'] * ($row[4]/100)).'<br>';
+                        $total_harga_kain += $warna['harga'] * ($row[4]/100);
+                    }
+                }
+            }
+            //echo $total_harga_kain;
+
+            // Menghitung harga spesifikasi
+            $total_harga_spesifikasi = 0;
+            $sql = mysql_query("SELECT * FROM produksi_spesifikasi where id_produksi=".$id);
+            if($sql){
+                while($row = mysql_fetch_row($sql)) {
+                    $sql_spesifikasii = mysql_query("SELECT * FROM sub_spesifikasi WHERE id_sub_spesifikasi=".$row[3]);
+                    if ($sql_spesifikasii) {
+                        $spesifikasi = mysql_fetch_array($sql_spesifikasii) or die(mysql_error());
+
+                        //echo $spesifikasi['nama'].' '.($spesifikasi['harga'] * $jml_pesanan).'<br>';
+                        $total_harga_spesifikasi += $spesifikasi['harga'] * $jml_pesanan;
+                    }
+                }
+            }
+            //echo $total_harga_spesifikasi;
+
+            $jenis_barang = dataJenisBarang($data['id_jenis_barang']);
+            $qty_per_kg = $jenis_barang['qty_per_kg'];
+            $harga_jasa = $jenis_barang['harga_jasa'];
+
+            // echo $qty_per_kg;
+            // echo $harga_jasa;
+
+            // Menghitung total harga
+            $lusin = ceil($jml_pesanan / 12);
+
+            if(!$total_harga_kain){
+                $harga_bersih = 0;
+            } else {
+                $harga_bersih = ((($jml_pesanan / $qty_per_kg) * $total_harga_kain) + $total_harga_spesifikasi + ($harga_jasa * $lusin));  
+            }
+
+            $fee_perusahaan = $harga_bersih * (30/100);
+
+            $total_harga = $harga_bersih + $fee_perusahaan;
+
+            $harga_satuan = $total_harga / $jml_pesanan;
+
+        ?>
+
 		<div class="row">
 
 			<div class="col-md-7">
@@ -197,7 +265,7 @@
                         <?php if($_SESSION['level'] == 2): ?>
                             <?php if($data['status'] == 4){ ?>
                                 <div class="form-group">
-                                    <a href="" class="btn btn-info"><i class="fa fa-print"></i> Cetak Surat Perintah Produksi</a>
+                                    <a href="<?php echo DOMAIN; ?>/page/produksi/cetak_produksi.php?id=<?php echo $data['id_produksi']; ?>" target="_blank" class="btn btn-info"><i class="fa fa-print"></i> Cetak Surat Perintah Produksi</a>
                                 </div>
                             <?php } ;?>
                         <?php endif; ?>
@@ -216,7 +284,7 @@
 	                                    <option value="3" <?php if($data['status'] == 3) echo 'selected'; ?>>Uang Muka</option>
 	                                    <option value="4" <?php if($data['status'] == 4) echo 'selected'; ?>>Produksi</option>
 	                                    <option value="5" <?php if($data['status'] == 5) echo 'selected'; ?>>Pelunasan</option>
-	                                    <option value="6" <?php if($data['status'] == 6) echo 'selected'; ?>>Lunas</option>
+	                                    <option value="6" <?php if($data['status'] == 6) echo 'selected'; ?>>Selesai</option>
 	                                    <option value="1" <?php if($data['status'] == 1) echo 'selected'; ?>>Cancel</option>
 	                                </select>
 
@@ -292,6 +360,36 @@
 								<h3 class="box-title">Pelunasan</h3>
 							</div>
 							<div class="box-body">
+								<?php $cek_pelunasan = mysql_query("SELECT * FROM penjualan WHERE id_produksi=".$data['id_produksi']." && type=2"); ?>
+								<?php if( !mysql_num_rows($cek_pelunasan) ): ?>
+									<?php $sql = mysql_query("SELECT * FROM penjualan WHERE id_produksi=".$data['id_produksi']." && type=1"); ?>
+									<?php if(mysql_num_rows($sql)){ ?>
+										<div class="form-group">
+											<table class="table table-condensed">
+												<?php while($row = mysql_fetch_array($sql)): ?>
+													<tr>
+														<?php $tipe = getTipePenjualan($row['type']); ?>
+														<td><?php echo $tipe['text']; ?></td>
+														<td>Rp <?php echo getMoneyFormat($row['nilai']); ?></td>
+														<td><?php echo dateFormat($row['tanggal_waktu'], true); ?></td>
+													</tr>
+
+													
+														<tr class="bg-gray">
+															<td><b>Sisa</b></td>
+															<td colspan="2">
+																<?php $sisa = $total_harga - $row['nilai']; ?>
+																<b>Rp <?php echo getMoneyFormat($sisa); ?></b>
+															</td>
+														</tr>
+													
+												<?php endwhile; ?>
+											</table>
+										</div>
+									<?php } ?>
+								<?php endif; ?>
+
+
 								<?php $sql = mysql_query("SELECT * FROM penjualan WHERE id_produksi=".$data['id_produksi']." && type=2"); ?>
 								<?php if(mysql_num_rows($sql)){ ?>
 									<?php $row = mysql_fetch_array($sql); ?>
@@ -307,7 +405,7 @@
 									</table>
 								<?php } else { ?>
 									<div class="form-group">
-										<input type="text" name="fm[nilai]" class="form-control" placeholder="Rp. nilai pelunasan" required>
+										<input type="text" name="fm[nilai]" class="form-control" placeholder="Rp. nilai pelunasan" value="<?php echo round($sisa); ?>" required>
 									</div>
 									<div class="form-group">
 										<button type="submit" class="btn btn-primary">Simpan</button>
@@ -394,74 +492,6 @@
                                 <b>Success!</b> Data updated.
                             </div>
                             <?php endif; ?>
-
-                            <?php
-                                // Menghitung jumlah potong barang
-                                $jml_pesanan = 0;
-                                $sql = mysql_query("SELECT * FROM produksi_size where id_produksi=".$id);
-
-                                if($sql){
-                                    while($row = mysql_fetch_row($sql)) {
-                                        $jml_pesanan += $row[3];
-                                    }
-                                }
-                                //echo $jml_pesanan;
-
-                                // Menghitung harga kain/potong
-                                $total_harga_kain = 0;
-                                $sql = mysql_query("SELECT * FROM produksi_warna where id_produksi=".$id);
-                                if($sql){
-                                    while($row = mysql_fetch_row($sql)) {
-                                        $sql_warna = mysql_query("SELECT * FROM jenis_warna WHERE id_jenis_warna=".$row[3]);
-                                        if ($sql_warna) {
-                                            $warna = mysql_fetch_array($sql_warna) or die(mysql_error());
-
-                                            //echo $warna['warna'].' '.($warna['harga'] * ($row[4]/100)).'<br>';
-                                            $total_harga_kain += $warna['harga'] * ($row[4]/100);
-                                        }
-                                    }
-                                }
-                                //echo $total_harga_kain;
-
-                                // Menghitung harga spesifikasi
-                                $total_harga_spesifikasi = 0;
-                                $sql = mysql_query("SELECT * FROM produksi_spesifikasi where id_produksi=".$id);
-                                if($sql){
-                                    while($row = mysql_fetch_row($sql)) {
-                                        $sql_spesifikasii = mysql_query("SELECT * FROM sub_spesifikasi WHERE id_sub_spesifikasi=".$row[3]);
-                                        if ($sql_spesifikasii) {
-                                            $spesifikasi = mysql_fetch_array($sql_spesifikasii) or die(mysql_error());
-
-                                            //echo $spesifikasi['nama'].' '.($spesifikasi['harga'] * $jml_pesanan).'<br>';
-                                            $total_harga_spesifikasi += $spesifikasi['harga'] * $jml_pesanan;
-                                        }
-                                    }
-                                }
-                                //echo $total_harga_spesifikasi;
-
-                                $jenis_barang = dataJenisBarang($data['id_jenis_barang']);
-                                $qty_per_kg = $jenis_barang['qty_per_kg'];
-                                $harga_jasa = $jenis_barang['harga_jasa'];
-
-                                // echo $qty_per_kg;
-                                // echo $harga_jasa;
-
-                                // Menghitung total harga
-                                $lusin = ceil($jml_pesanan / 12);
-
-                                if(!$total_harga_kain){
-                                    $harga_bersih = 0;
-                                } else {
-                                    $harga_bersih = ((($jml_pesanan / $qty_per_kg) * $total_harga_kain) + $total_harga_spesifikasi + ($harga_jasa * $lusin));  
-                                }
-
-                                $fee_perusahaan = $harga_bersih * (30/100);
-
-                                $total_harga = $harga_bersih + $fee_perusahaan;
-
-                                $harga_satuan = $total_harga / $jml_pesanan;
-
-                            ?>
 
                             <?php $i = 1; ?>
                             <table class="table table-bordered">
