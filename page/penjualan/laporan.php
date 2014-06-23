@@ -63,7 +63,8 @@
 			                <tbody>
 				                <?php for($i = 1; $i<=12; $i++): ?>
 				                	<?php 
-				                		$tahun = $tahun ? $tahun : date("Y"); 
+				                		$tahun = date("Y");
+				                		//$tahun = $tahun ? $tahun : date("Y"); 
 				                		$bulan = $i < 10 ? "0".$i : $i; 
 				                		$start = $tahun."-".$bulan."-"."01"; 
 				                		$end = $tahun."-".$bulan."-"."31";
