@@ -18,6 +18,7 @@
         <link href="<?php echo DOMAIN; ?>/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
         <!-- Theme style -->
         <link href="<?php echo DOMAIN; ?>/css/AdminLTE.css" rel="stylesheet" type="text/css" />
+        <link rel="stylesheet" type="text/css" href="<?php echo DOMAIN; ?>/css/style.css">
 
         <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
         <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -36,7 +37,9 @@
                     <b>Error!</b> User ID/Password Salah.
                 </div>
             <?php endif; ?>
-            <div class="header">Sign In</div>
+            <div class="header">
+                <img src="<?php echo DOMAIN.'/img/logo_2.png'; ?>" class="logo-login">
+            </div>
             <form action="proses_login.php" method="post">
                 <div class="body bg-gray">
                     <div class="form-group">

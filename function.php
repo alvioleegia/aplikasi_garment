@@ -220,7 +220,7 @@
 
 		$jumlah_produksi = $result['jumlah_produksi'] ? $result['jumlah_produksi'] : 0;
 
-		return getMoneyFormat($jumlah_produksi);
+		return $jumlah_produksi;
 	}
 
 	function laporanUangMasuk($start, $end){
@@ -232,7 +232,7 @@
 
 		$nilai = $result['nilai'] ? $result['nilai'] : 0;
 
-		return getMoneyFormat($nilai);
+		return $nilai;
 	}
 
 	function kodeJenisBarang($id_jenis_barang){

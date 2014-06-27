@@ -42,15 +42,13 @@
 	                        <ul class="dropdown-menu">
 	                            <li><a href="?rekap=tahunan">Tahunan</a></li>
 	                            <li><a href="?rekap=bulanan">Bulanan</a></li>
-	                            <li><a href="?rekap=harian">Harian</a></li>
-	                            <li class="divider"></li>
-	                            <li><a href="#">Semua</a></li>
+	                            <li><a href="?rekap=mingguan">Mingguan</a></li>
 	                        </ul>
 	                    </div><!-- /btn-group -->
 	                </div><!-- /input-group -->
 		        	<div class="clearfix"></div>
 
-		        	<?php if(isset($_GET['rekap']) /*&& $_GET['rekap'] == 'tahunan'*/ ): ?>
+		        	<?php if(isset($_GET['rekap']) && $_GET['rekap'] == 'tahunan' ): ?>
 			            <table class="table table-hover" id="table_data">
 			                <thead>
 			                	<tr>
@@ -61,6 +59,7 @@
 				                </tr>
 			                </thead>
 			                <tbody>
+			                	<?php $total = 0; ?>
 				                <?php for($i = 1; $i<=12; $i++): ?>
 				                	<?php 
 				                		$tahun = date("Y");
@@ -72,10 +71,195 @@
 				                	<tr>
 				                		<td><?php echo $bulan; ?></td>
 				                		<td><?php echo date('F', strtotime($start)); ?></td>
-				                		<td><?php echo laporanJumlahProduksi($start, $end); ?></td>
-				                		<td>Rp <?php echo laporanUangMasuk($start, $end); ?></td>
+				                		<td><?php echo getMoneyFormat(laporanJumlahProduksi($start, $end)); ?></td>
+				                		<td>Rp <?php echo getMoneyFormat(laporanUangMasuk($start, $end)); ?></td>
 				                	</tr>
+				                	<?php $total += laporanUangMasuk($start, $end); ?>
 				                <?php endfor; ?>
+				                <tr class="bg-gray">
+				                	<td colspan="3" class="text-right"><b>Total</b></td>
+				                	<td><b>Rp <?php echo getMoneyFormat($total); ?></b></td>
+				                </tr>
+			                </tbody>
+			            </table>
+			        <?php endif; ?>
+
+			        <?php if(isset($_GET['rekap']) && $_GET['rekap'] == 'bulanan' ): ?>
+			            <table class="table table-hover" id="table_data">
+			                <thead>
+			                	<tr>
+			                		<th>#</th>
+				                    <th>Minggu</th>
+				                    <th>Jumlah Produksi</th>
+				                    <th>Uang Masuk</th>
+				                </tr>
+			                </thead>
+			                <tbody>
+			                	<?php $total = 0; ?>
+			                	<?php 
+			                		$tahun = date("Y");
+			                		$bulan = date("m");
+			                		$start = $tahun."-".$bulan."-"."01"; 
+			                		$end = $tahun."-".$bulan."-"."07";
+			                	?>
+			                	<tr>
+			                		<td>1</td>
+			                		<td>Satu</td>
+			                		<td><?php echo getMoneyFormat(laporanJumlahProduksi($start, $end)); ?></td>
+			                		<td>Rp <?php echo getMoneyFormat(laporanUangMasuk($start, $end)); ?></td>
+			                	</tr>
+			                	<?php $total += laporanUangMasuk($start, $end); ?>
+
+			                	<?php 
+			                		$tahun = date("Y");
+			                		$bulan = date("m");
+			                		$start = $tahun."-".$bulan."-"."08"; 
+			                		$end = $tahun."-".$bulan."-"."14";
+			                	?>
+			                	<tr>
+			                		<td>2</td>
+			                		<td>Dua</td>
+			                		<td><?php echo getMoneyFormat(laporanJumlahProduksi($start, $end)); ?></td>
+			                		<td>Rp <?php echo getMoneyFormat(laporanUangMasuk($start, $end)); ?></td>
+			                	</tr>
+			                	<?php $total += laporanUangMasuk($start, $end); ?>
+
+			                	<?php 
+			                		$tahun = date("Y");
+			                		$bulan = date("m");
+			                		$start = $tahun."-".$bulan."-"."15"; 
+			                		$end = $tahun."-".$bulan."-"."21";
+			                	?>
+			                	<tr>
+			                		<td>3</td>
+			                		<td>Tiga</td>
+			                		<td><?php echo getMoneyFormat(laporanJumlahProduksi($start, $end)); ?></td>
+			                		<td>Rp <?php echo getMoneyFormat(laporanUangMasuk($start, $end)); ?></td>
+			                	</tr>
+			                	<?php $total += laporanUangMasuk($start, $end); ?>
+
+			                	<?php 
+			                		$tahun = date("Y");
+			                		$bulan = date("m");
+			                		$start = $tahun."-".$bulan."-"."22"; 
+			                		$end = $tahun."-".$bulan."-"."28";
+			                	?>
+			                	<tr>
+			                		<td>4</td>
+			                		<td>Empat</td>
+			                		<td><?php echo getMoneyFormat(laporanJumlahProduksi($start, $end)); ?></td>
+			                		<td>Rp <?php echo getMoneyFormat(laporanUangMasuk($start, $end)); ?></td>
+			                	</tr>
+			                	<?php $total += laporanUangMasuk($start, $end); ?>
+
+			                	<?php 
+			                		$tahun = date("Y");
+			                		$bulan = date("m");
+			                		$start = $tahun."-".$bulan."-"."29"; 
+			                		$end = $tahun."-".$bulan."-"."35";
+			                	?>
+			                	<tr>
+			                		<td>5</td>
+			                		<td>Lima</td>
+			                		<td><?php echo getMoneyFormat(laporanJumlahProduksi($start, $end)); ?></td>
+			                		<td>Rp <?php echo getMoneyFormat(laporanUangMasuk($start, $end)); ?></td>
+			                	</tr>
+			                	<?php $total += laporanUangMasuk($start, $end); ?>
+
+				                <tr class="bg-gray">
+				                	<td colspan="3" class="text-right"><b>Total</b></td>
+				                	<td><b>Rp <?php echo getMoneyFormat($total); ?></b></td>
+				                </tr>
+			                </tbody>
+			            </table>
+			        <?php endif; ?>
+
+			        <?php if(isset($_GET['rekap']) && $_GET['rekap'] == 'mingguan' ): ?>
+			            <table class="table table-hover" id="table_data">
+			                <thead>
+			                	<tr>
+			                		<th>#</th>
+				                    <th>Hari</th>
+				                    <th>Jumlah Produksi</th>
+				                    <th>Uang Masuk</th>
+				                </tr>
+			                </thead>
+			                <tbody>
+			                	<?php $total = 0; ?>
+			                	<?php 
+			                		$tahun = date("Y");
+			                		$bulan = date("m");
+			                		$start = $tahun."-".$bulan."-"."01"; 
+			                		$end = $tahun."-".$bulan."-"."07";
+			                	?>
+			                	<tr>
+			                		<td>1</td>
+			                		<td>Satu</td>
+			                		<td><?php echo getMoneyFormat(laporanJumlahProduksi($start, $end)); ?></td>
+			                		<td>Rp <?php echo getMoneyFormat(laporanUangMasuk($start, $end)); ?></td>
+			                	</tr>
+			                	<?php $total += laporanUangMasuk($start, $end); ?>
+
+			                	<?php 
+			                		$tahun = date("Y");
+			                		$bulan = date("m");
+			                		$start = $tahun."-".$bulan."-"."08"; 
+			                		$end = $tahun."-".$bulan."-"."14";
+			                	?>
+			                	<tr>
+			                		<td>2</td>
+			                		<td>Dua</td>
+			                		<td><?php echo getMoneyFormat(laporanJumlahProduksi($start, $end)); ?></td>
+			                		<td>Rp <?php echo getMoneyFormat(laporanUangMasuk($start, $end)); ?></td>
+			                	</tr>
+			                	<?php $total += laporanUangMasuk($start, $end); ?>
+
+			                	<?php 
+			                		$tahun = date("Y");
+			                		$bulan = date("m");
+			                		$start = $tahun."-".$bulan."-"."15"; 
+			                		$end = $tahun."-".$bulan."-"."21";
+			                	?>
+			                	<tr>
+			                		<td>3</td>
+			                		<td>Tiga</td>
+			                		<td><?php echo getMoneyFormat(laporanJumlahProduksi($start, $end)); ?></td>
+			                		<td>Rp <?php echo getMoneyFormat(laporanUangMasuk($start, $end)); ?></td>
+			                	</tr>
+			                	<?php $total += laporanUangMasuk($start, $end); ?>
+
+			                	<?php 
+			                		$tahun = date("Y");
+			                		$bulan = date("m");
+			                		$start = $tahun."-".$bulan."-"."22"; 
+			                		$end = $tahun."-".$bulan."-"."28";
+			                	?>
+			                	<tr>
+			                		<td>4</td>
+			                		<td>Empat</td>
+			                		<td><?php echo getMoneyFormat(laporanJumlahProduksi($start, $end)); ?></td>
+			                		<td>Rp <?php echo getMoneyFormat(laporanUangMasuk($start, $end)); ?></td>
+			                	</tr>
+			                	<?php $total += laporanUangMasuk($start, $end); ?>
+
+			                	<?php 
+			                		$tahun = date("Y");
+			                		$bulan = date("m");
+			                		$start = $tahun."-".$bulan."-"."29"; 
+			                		$end = $tahun."-".$bulan."-"."35";
+			                	?>
+			                	<tr>
+			                		<td>5</td>
+			                		<td>Lima</td>
+			                		<td><?php echo getMoneyFormat(laporanJumlahProduksi($start, $end)); ?></td>
+			                		<td>Rp <?php echo getMoneyFormat(laporanUangMasuk($start, $end)); ?></td>
+			                	</tr>
+			                	<?php $total += laporanUangMasuk($start, $end); ?>
+
+				                <tr class="bg-gray">
+				                	<td colspan="3" class="text-right"><b>Total</b></td>
+				                	<td><b>Rp <?php echo getMoneyFormat($total); ?></b></td>
+				                </tr>
 			                </tbody>
 			            </table>
 			        <?php endif; ?>

@@ -373,7 +373,7 @@
                         <?php if($_SESSION['level'] == 2): ?>
                             <?php if($data['status'] == 4){ ?>
                                 <div class="form-group">
-                                    <a href="" class="btn btn-warning"><i class="fa fa-print"></i> Cetak Surat Perintah Produksi</a>
+                                    <a href="<?php echo DOMAIN; ?>/page/produksi/cetak_produksi.php?id=<?php echo $data['id_produksi']; ?>" target="_blank" class="btn btn-warning"><i class="fa fa-print"></i> Cetak Surat Perintah Produksi</a>
                                 </div>
                             <?php } ;?>
                         <?php endif; ?>

@@ -302,7 +302,7 @@
 	                        	</div>
 	                        <?php } else if($data['status'] == 5){ ?>
 	                        	<div class="form-group">
-	                        		<a href="" class="btn btn-warning"><i class="fa fa-print"></i> Cetak Nota Pelunasan</a>
+	                        		<a href="<?php echo DOMAIN; ?>/page/produksi/cetak_uang_pelunasan.php?id=<?php echo $data['id_produksi']; ?>" target="_blank"  class="btn btn-warning"><i class="fa fa-print"></i> Cetak Nota Pelunasan</a>
 	                        	</div>
 	                        <?php } ?>
 						<?php endif; ?>
@@ -338,7 +338,8 @@
 									</table>
 								<?php } else { ?>
 									<div class="form-group">
-										<input type="text" name="fm[nilai]" class="form-control" placeholder="Rp. nilai uang muka" required>
+										<?php $uang_muka = $total_harga * 0.4; ?>
+										<input type="text" name="fm[nilai]" class="form-control" value="<?php echo $uang_muka; ?>" placeholder="Rp. nilai uang muka" required>
 									</div>
 									<div class="form-group">
 										<button type="submit" class="btn btn-primary">Simpan</button>

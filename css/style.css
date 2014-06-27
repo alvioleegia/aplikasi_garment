@@ -13,3 +13,11 @@ body {
     margin: 0 auto;
 }
 
+.logo img {
+	width:40px;
+	margin-right:5px;
+}
+
+.logo-login {
+	width:150px;
+}

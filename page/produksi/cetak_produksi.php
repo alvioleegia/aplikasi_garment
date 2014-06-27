@@ -1,4 +1,4 @@
-<?php $pageTitle = 'Cetak Nota Uang Muka'; $pageActive = 'produksi'; ?>
+<?php $pageTitle = 'Cetak Surat Perintah Produksi'; $pageActive = 'produksi'; ?>
 <?php include '../header.php'; ?>      
 
 <?php if(isset($_GET['id'])): ?>
@@ -80,7 +80,7 @@
 <!-- Content Header (Page header) -->
 <section class="content-header">
     <h1>
-        Invoice
+        Produksi
         <small>#<?php echo $data['kode_produksi']; ?></small>
     </h1>
     <ol class="breadcrumb">
@@ -96,7 +96,7 @@
     <div class="row">
         <div class="col-xs-12">
             <h2 class="page-header">
-                <img src="<?php echo DOMAIN; ?>/img/logo_2.png" style="width:25px"> PT. Cipta Gemilang Sentosa
+                <i class="fa fa-globe"></i> PT. Cipta Gemilang Sentosa
                 <small class="pull-right"><?php echo date("d/M/Y"); ?></small>
             </h2>                            
         </div><!-- /.col -->
@@ -104,12 +104,12 @@
     <!-- info row -->
     <div class="row invoice-info">
         <div class="col-sm-4 invoice-col">
+            Dari
             <address>
-                <strong>
-                Jl. Raya Banjaran KM. 15.5 No. 482<br>
-                Bandung, 40376<br>
-                Phone: (022) 8940685<br>
-                Fax: (022) 5940136
+                <strong>Sales, PT. Cipta Gemilang Sentosa</strong><br>
+                Jl. Soekarno Hatta No.104<br>
+                Bandung, 40135<br>
+                Phone: (022) 2515-517
             </address>
         </div><!-- /.col -->
         <div class="col-sm-4 invoice-col">
@@ -123,6 +123,7 @@
         <div class="col-sm-4 invoice-col">
             <b>Invoice #<?php echo $data['kode_produksi']; ?></b><br/>
             <br/>
+            <b>Order ID:</b> <?php echo $data['kode_produksi']; ?><br/>
             <b>Tanggal Pesan:</b> <?php echo dateFormat($data['tanggal_pemesanan']); ?><br/>
             <b>Tanggal Selesai:</b> <?php echo dateFormat($data['tanggal_selesai']); ?>
         </div><!-- /.col -->
@@ -142,7 +143,7 @@
                             <th><?php echo getSize($row['id_size']); ?></th>
                         <?php endwhile; ?>
                         <th style="width:12.5%">Harga</th>
-                        <th style="width:15%">Subtotal</th>
+                        <th style="width:12.5%">Subtotal</th>
                     </tr>                                    
                 </thead>
                 <tbody>
@@ -173,8 +174,18 @@
     </div><!-- /.row -->
 
     <div class="row">
-        
-        <div class="col-xs-6 pull-right">
+        <!-- accepted payments column -->
+        <div class="col-xs-3">
+            <p class="lead">Pelanggan</p>
+            <br><br><br>
+            <p>...................................................</p>
+        </div><!-- /.col -->
+        <div class="col-xs-3">
+            <p class="lead">Penerima</p>
+            <br><br><br>
+            <p>...................................................</p>
+        </div><!-- /.col -->
+        <div class="col-xs-6">
             <div class="table-responsive">
                 <table class="table">
                     <tr>
@@ -182,28 +193,13 @@
                         <td>Rp <?php echo getMoneyFormat($total_harga); ?></td>
                     </tr>
                     <tr>
-                        <?php $uang_muka = $total_harga * 0.4; ?>
-                        <th>Uang Muka (40%):</th>
+                        <?php $uang_muka = $total_harga * 0.3; ?>
+                        <th>Uang Muka (30%):</th>
                         <td>Rp <?php echo getMoneyFormat($uang_muka); ?></td>
                     </tr>
                 </table>
             </div>
         </div><!-- /.col -->
-
-        <div class="clearfix"></div>
-
-        <!-- accepted payments column -->
-        <div class="col-xs-3 col-xs-push-2">
-            <p class="text-center"><b>Tanda Terima</b></p>
-            <br><br><br>
-            <p class="text-center">.........................................</p>
-        </div><!-- /.col -->
-        <div class="col-xs-3 col-xs-push-3">
-            <p class="text-center"><b>Hormat Kami</b></p>
-            <br><br><br>
-            <p class="text-center">.........................................</p>
-        </div><!-- /.col -->
-
     </div><!-- /.row -->
 
     <!-- this row will not appear when printing -->

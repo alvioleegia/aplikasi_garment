@@ -1,4 +1,4 @@
-<?php $pageTitle = 'Cetak Nota Uang Muka'; $pageActive = 'produksi'; ?>
+<?php $pageTitle = 'Cetak Nota Pelunasan'; $pageActive = 'produksi'; ?>
 <?php include '../header.php'; ?>      
 
 <?php if(isset($_GET['id'])): ?>
@@ -122,7 +122,7 @@
         </div><!-- /.col -->
         <div class="col-sm-4 invoice-col">
             <b>Invoice #<?php echo $data['kode_produksi']; ?></b><br/>
-            <br/>
+            <br/>   
             <b>Tanggal Pesan:</b> <?php echo dateFormat($data['tanggal_pemesanan']); ?><br/>
             <b>Tanggal Selesai:</b> <?php echo dateFormat($data['tanggal_selesai']); ?>
         </div><!-- /.col -->
@@ -182,9 +182,17 @@
                         <td>Rp <?php echo getMoneyFormat($total_harga); ?></td>
                     </tr>
                     <tr>
+                        <?php $sql = mysql_query("SELECT * FROM penjualan WHERE id_produksi=".$data['id_produksi']." && type=1"); ?>
+                        <?php $uang_masuk = mysql_fetch_array($sql); ?>
+
                         <?php $uang_muka = $total_harga * 0.4; ?>
-                        <th>Uang Muka (40%):</th>
-                        <td>Rp <?php echo getMoneyFormat($uang_muka); ?></td>
+                        <th>Uang muka (<?php echo dateFormat($uang_masuk['tanggal_waktu']); ?>):</th>
+                        <td>Rp <?php echo getMoneyFormat($uang_masuk['nilai']); ?></td>
+                    </tr>
+                    <tr>
+                        <?php $pelunasan = $total_harga * 0.6; ?>
+                        <th>Pelunasan (60%):</th>
+                        <td>Rp <?php echo getMoneyFormat($pelunasan); ?></td>
                     </tr>
                 </table>
             </div>
