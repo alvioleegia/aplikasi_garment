@@ -8,6 +8,7 @@
 		$table = 'spesifikasis';
 
 		$sql = mysql_query("DELETE FROM ".$table." WHERE ".$field_id."=".$id);
+		$sql = mysql_query("DELETE FROM sub_spesifikasi WHERE ".$field_id."=".$id);
 
 		if($sql){
 			header("Location:".DOMAIN."/page/spesifikasi/?r=1");
