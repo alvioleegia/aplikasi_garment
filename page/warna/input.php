@@ -16,13 +16,20 @@
 <!-- Main content -->
 <section class="content">
 
-	<form role="form" action="proses_input.php" method="post">
+	<form id="form_input" role="form" action="proses_input.php" method="post">
 		<div class="row">
 			<div class="col-md-6">
 				<div class="box box-primary">
 					<div class="box-header">
 						<h3 class="box-title">Warna Kain Baru</h3>
 					</div>
+					<?php if(isset($_GET['r']) && $_GET['r'] == 1): ?>
+						<div class="alert alert-success alert-dismissable">
+			                <i class="fa fa-check"></i>
+			                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+			                <b>Success!</b> Data berhasil ditambahkan.
+			            </div>
+		            <?php endif; ?>
 					<div class="box-body">
 						<div class="form-group">
 							<label>Kain</label>
@@ -36,12 +43,12 @@
 
 						<div class="form-group">
 							<label>Warna</label>
-							<input type="text" class="form-control" name="fm[warna]" >
+							<input type="text" class="form-control" name="fm[warna]" required>
 						</div>
 
 						<div class="form-group">
 							<label>Harga</label>
-							<input type="text" class="form-control" name="fm[harga]" >
+							<input type="number" class="form-control" name="fm[harga]" required>
 						</div>
 					</div>
 				</div>
@@ -55,6 +62,9 @@
 						<p>
 							<button type="submit" class="btn btn-primary">Simpan</button>
 						</p>
+						<p>
+							<a id="simpan-tambah" type="submit" class="btn btn-warning">Simpan & Tambah</a>
+						</p>
 					</div>
 				</div>
 			</div>
@@ -62,5 +72,14 @@
 	</form>
 
 </section><!-- /.content -->
+
+<script type="text/javascript">
+	$(function(){
+		$('#simpan-tambah').on("click",function(e){
+			e.preventDefault();
+			$('#form_input').attr('action','proses_input.php?ref=tambah').submit();
+		});
+	});
+</script>
 
 <?php include '../footer.php'; ?>

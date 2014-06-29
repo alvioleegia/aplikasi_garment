@@ -19,6 +19,11 @@
 		$sql = mysql_query("INSERT INTO ".$table."(".$fields.") VALUES(".$datas.")");
 
 		if($sql){
+			if(isset($_GET['ref']) && $_GET['ref']=='tambah'){
+				header("Location:".DOMAIN."/page/warna/input.php?r=1");
+				exit();
+			}
+
 			header("Location:".DOMAIN."/page/warna?r=2");
 		} else {
 			echo mysql_error();
