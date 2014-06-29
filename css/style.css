@@ -4,6 +4,19 @@ body {
     background-color: #ebebeb;
 }
 
+
+@page 
+{
+    size: auto;   /* auto is the initial value */
+    margin: 0mm;  /* this affects the margin in the printer settings */
+}
+
+@media print {
+  .invoice {
+    padding:30px;
+  }
+}
+
 #right-side h2:not(:first-child){
 	margin-top: 50px;
 }
