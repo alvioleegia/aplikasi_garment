@@ -41,6 +41,7 @@
 		                	<tr>
 			                    <th>ID</th>
 			                    <th>Spesifikasi</th>
+			                    <th>Sub</th>
 			                    <th>Action</th>
 			                </tr>
 		                </thead>
@@ -50,6 +51,13 @@
 				                <tr>
 				                    <td><?php echo $row['id_spesifikasi']; ?></td>
 				                    <td><?php echo $row['spesifikasi']; ?></td>
+
+				                    <td>
+				                    	<?php $ss= mysql_query('SELECT COUNT(*) FROM sub_spesifikasi WHERE id_spesifikasi='.$row['id_spesifikasi']); ?>
+				                    	<?php $sub_spesifikasi = mysql_result($ss, 0); ?>
+				                    	<?php echo $sub_spesifikasi; ?>
+				                    </td>
+
 				                    <td>
 				                    	<a href="view.php?id=<?php echo $row['id_spesifikasi']; ?>" class="btn btn-primary btn-xs">lihat</a>
 				                    	<a href="edit.php?id=<?php echo $row['id_spesifikasi']; ?>" class="btn btn-warning btn-xs">edit</a>
