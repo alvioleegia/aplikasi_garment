@@ -76,6 +76,8 @@
 									$filter = "WHERE status=".$_GET['status'];
 								} else if($_SESSION['level'] == 2) {
 									$filter = "WHERE status != 3 && status != 5 && status != 6 && status != 1";
+								} else if($_SESSION['level'] == 4) {
+									$filter = "WHERE status=3 || status=5";
 								}
 							?>
 							<?php $sql = mysql_query("SELECT * FROM produksi ".$filter." ORDER BY id_produksi DESC"); ?>
