@@ -178,7 +178,7 @@
 
 			case 5:
 				$output['text'] = 'Pelunasan';
-				$output['class'] = 'badge bg-aqua';
+				$output['class'] = 'badge bg-blue';
 				break;
 
 			case 6:
@@ -193,6 +193,14 @@
 		}
 
 		return $output;
+	}
+
+	function getCountProduksi($status)
+	{
+		$sql = mysql_query("SELECT COUNT(*) FROM produksi WHERE status=".$status);
+		$count = mysql_result($sql, 0);
+
+		return $count;
 	}
 
 	function getTipePenjualan($tipe){

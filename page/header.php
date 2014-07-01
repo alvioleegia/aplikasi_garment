@@ -55,7 +55,7 @@
     <body class="skin-blue">
         <!-- header logo: style can be found in header.less -->
         <header class="header">
-            <a href="index.html" class="logo">
+            <a href="<?php echo DOMAIN; ?>" class="logo">
                 <!-- Add the class icon to your logo image or logo icon to add the margining -->
                 <img src="<?php echo DOMAIN; ?>/img/logo_2.png">PT. CGS
             </a>
