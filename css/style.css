@@ -5,13 +5,16 @@ body {
 }
 
 
-@page 
-{
-    size: auto;   /* auto is the initial value */
-    margin: 0mm;  /* this affects the margin in the printer settings */
-}
+
 
 @media print {
+  @page 
+  {
+      size: auto;   /* auto is the initial value */
+      margin: 0mm;  /* this affects the margin in the printer settings */
+      size: landscape;
+  }
+  
   .invoice {
     padding:30px;
   }

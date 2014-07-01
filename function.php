@@ -156,39 +156,39 @@
 		switch ($status) {
 			case 1:
 				$output['text'] = 'Cancel';
-				$output['class'] = 'badge bg-red';
+				$output['class'] = 'label bg-red';
 				break;
 
 			case 2:
 				$output['text'] = 'Ready';
-				$output['class'] = 'badge bg-yellow';
+				$output['class'] = 'label bg-yellow';
 
 				break;
 
 			case 3:
 				$output['text'] = 'Uang Muka';
-				$output['class'] = 'badge bg-maroon';
+				$output['class'] = 'label bg-maroon';
 
 				break;
 
 			case 4:
 				$output['text'] = 'Produksi';
-				$output['class'] = 'badge bg-purple';
+				$output['class'] = 'label bg-purple';
 				break;
 
 			case 5:
 				$output['text'] = 'Pelunasan';
-				$output['class'] = 'badge bg-blue';
+				$output['class'] = 'label bg-blue';
 				break;
 
 			case 6:
 				$output['text'] = 'Selesai';
-				$output['class'] = 'badge bg-green';
+				$output['class'] = 'label bg-green';
 				break;
 			
 			default:
 				$output['text'] = 'Pending';
-				$output['class'] = 'badge';
+				$output['class'] = 'label';
 				break;
 		}
 
