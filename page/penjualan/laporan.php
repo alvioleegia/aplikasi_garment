@@ -33,7 +33,15 @@
             <?php endif; ?>
 		    <div class="box">
 		        <div class="box-header">
-		            <h3 class="box-title">Laporan Penjualan</h3>
+		            <h3 class="box-title">Laporan Penjualan<b>
+		            	<?php 
+		            		if(isset($_GET['rekap'])){
+		            			echo ucfirst($_GET['rekap']);
+		            		} else {
+		            			echo 'Tahunan';
+		            		}
+		            	?></b>
+		            </h3>
 		        </div><!-- /.box-header -->
 		        <div class="box-body table-responsive">
 		        	<div class="form-group input-group">
@@ -48,7 +56,7 @@
 	                </div><!-- /input-group -->
 		        	<div class="clearfix"></div>
 
-		        	<?php if(isset($_GET['rekap']) && $_GET['rekap'] == 'tahunan' ): ?>
+		        	<?php if(!isset($_GET['rekap']) || isset($_GET['rekap']) && $_GET['rekap'] == 'tahunan' ): ?>
 			            <table class="table table-hover" id="table_data">
 			                <thead>
 			                	<tr>
