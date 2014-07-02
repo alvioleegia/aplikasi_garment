@@ -34,7 +34,12 @@
 
 		    <div class="box">
 		        <div class="box-header">
-		            <h3 class="box-title">Data Produksi</h3>
+		            <h3 class="box-title">Data Produksi<b>
+		            	<?php if(isset($_GET['status'])){
+		            		$status = getStatusProduksi($_GET['status']);
+		            		echo $status['text'];
+		            	} ?></b>
+		            </h3>
 		        </div><!-- /.box-header -->
 		        <div class="box-body table-responsiv">
 		        	<div class="form-group input-group">
