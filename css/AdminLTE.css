@@ -13,7 +13,6 @@
 */
 html,
 body {
-  overflow-x: hidden!important;
   font-family: 'Source Sans Pro', sans-serif;
   -webkit-font-smoothing: antialiased;
   min-height: 100%;
@@ -269,6 +268,9 @@ img {
 }
 .text-maroon {
   color: #85144b !important;
+}
+.text-black {
+  color: #000000 !important;
 }
 /*Hide elements by display none only*/
 .hide {

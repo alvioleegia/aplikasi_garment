@@ -4,9 +4,6 @@ body {
     background-color: #ebebeb;
 }
 
-
-
-
 @media print {
   @page 
   {
@@ -17,6 +14,19 @@ body {
   
   .invoice {
     padding:30px;
+  }
+
+  .table-responsive {
+    border:0px;
+  }
+
+  .page-break {
+    page-break-after: always;
+  }
+
+  .tabel-pengawasan {
+    padding-top: 50px;
+    display: block !important;
   }
 }
 

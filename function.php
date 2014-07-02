@@ -188,7 +188,7 @@
 			
 			default:
 				$output['text'] = 'Pending';
-				$output['class'] = 'label';
+				$output['class'] = 'label bg-gray text-black';
 				break;
 		}
 

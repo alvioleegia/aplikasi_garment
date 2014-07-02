@@ -1,6 +1,17 @@
 <?php $pageTitle = 'Cetak Surat Perintah Produksi'; $pageActive = 'produksi'; ?>
 <?php include '../header.php'; ?>      
 
+<style type="text/css">
+    @media print {
+      @page 
+      {
+          size: auto;   /* auto is the initial value */
+          margin: 0mm;  /* this affects the margin in the printer settings */
+          size: potrait;
+      }
+    }
+</style>
+
 <?php if(isset($_GET['id'])): ?>
     <?php
         $id = $_GET['id'];
@@ -95,118 +106,232 @@
     <!-- title row -->
     <div class="row">
         <div class="col-xs-12">
-            <h2 class="page-header">
-                <i class="fa fa-globe"></i> PT. Cipta Gemilang Sentosa
-                <small class="pull-right"><?php echo date("d/M/Y"); ?></small>
+            <h2 class="page-header text-center">
+               SURAT PERINTAH PRODUKSI
             </h2>                            
         </div><!-- /.col -->
     </div>
     <!-- info row -->
     <div class="row invoice-info">
-        <div class="col-sm-4 invoice-col">
-            Dari
-            <address>
-                <strong>Sales, PT. Cipta Gemilang Sentosa</strong><br>
-                Jl. Soekarno Hatta No.104<br>
-                Bandung, 40135<br>
-                Phone: (022) 2515-517
-            </address>
-        </div><!-- /.col -->
-        <div class="col-sm-4 invoice-col">
-            Kepada
-            <address>
-                <strong><?php echo $data['nama']; ?></strong><br>
-                <?php echo $data['alamat']; ?><br>
-                Phone: <?php echo $data['no_tlp']; ?>
-            </address>
-        </div><!-- /.col -->
-        <div class="col-sm-4 invoice-col">
-            <b>Invoice #<?php echo $data['kode_produksi']; ?></b><br/>
-            <br/>
-            <b>Order ID:</b> <?php echo $data['kode_produksi']; ?><br/>
-            <b>Tanggal Pesan:</b> <?php echo dateFormat($data['tanggal_pemesanan']); ?><br/>
-            <b>Tanggal Selesai:</b> <?php echo dateFormat($data['tanggal_selesai']); ?>
-        </div><!-- /.col -->
+        <div class="col-xs-3 ">
+            <b>Pemesan:</b><br><?php echo $data['nama']; ?>
+        </div>
+        <div class="col-xs-3 ">
+            <b>Tgl. Pesan:</b><br><?php echo dateFormat($data['tanggal_pemesanan']); ?>
+        </div>
+        <div class="col-xs-3 ">
+            <b>Tgl. Selesai:</b><br><?php echo dateFormat($data['tanggal_selesai']); ?>
+        </div>
+        <div class="col-xs-3 ">
+            <b>No. Produksi:</b><br><?php echo $data['kode_produksi']; ?>
+        </div>
     </div><!-- /.row -->
-
+    <div class="clearfix margin"></div>
     <!-- Table row -->
     <div class="row">
-        <div class="col-xs-12 table-responsive">
-            <table class="table table-striped">
+        <div class="col-xs-12 table-responsive" >
+            <table class="table table-bordered">
                 <thead>
                     <tr>
-                        <th>Qty</th>
-                        <th>Item</th>
-                        <?php $q = mysql_query("SELECT * FROM produksi_size where id_produksi=".$id); ?>
-                        <?php $jml_size = mysql_num_rows($q) + 2; ?>
-                        <?php while($row = mysql_fetch_array($q)): ?>
-                            <th><?php echo getSize($row['id_size']); ?></th>
-                        <?php endwhile; ?>
-                        <th style="width:12.5%">Harga</th>
-                        <th style="width:12.5%">Subtotal</th>
+                        <th class="text-center" colspan="4">TABEL PRODUKSI</th>
+                    </tr>                                    
+                </thead>
+                <tbody>
+                    <td style="width:50%">
+                        <table class="table table-bordered">
+                            <tbody>
+                                <tr>
+                                    <td style="width:50%"><b>Jenis Barang</b></td>
+                                    <td style="width:55%"><?php echo getJenisBarang($data['id_jenis_barang']); ?></td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                        <table class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th >Kain</th>
+                                    <th style="width:25%">Pemakaian</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php $sql = mysql_query("SELECT * FROM produksi_warna WHERE id_produksi=".$data['id_produksi']); ?>
+                                <?php while($row = mysql_fetch_array($sql)): ?>
+                                    <tr>
+                                        <td>Kain <?php echo getKain($row['id_kain']);?> <?php echo getWarna($row['id_jenis_warna']); ?></td>
+                                        <td><?php echo $row['pemakaian']; ?>%</td>
+                                    </tr>
+                                <?php $i++; ?>
+                                <?php endwhile; ?>
+                            </tbody>
+                        </table>
+
+                        <table class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th style="width:25%">Ukuran</th>
+                                    <?php $q = mysql_query("SELECT * FROM produksi_size where id_produksi=".$id); ?>
+                                    <?php while($row = mysql_fetch_array($q)): ?>
+                                        <th><?php echo getSize($row['id_size']); ?></th>              
+                                    <?php endwhile; ?>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><b>Jumlah</b></td>
+                                    <?php $q = mysql_query("SELECT * FROM produksi_size where id_produksi=".$id); ?>
+                                    <?php while($row = mysql_fetch_array($q)): ?>
+                                        <td><?php echo $row['jumlah']; ?></td>
+                                    <?php endwhile; ?>
+                                </tr>
+                                <tr>
+                                    <td><b>Total</b></td>
+                                    <td><?php echo $jml_pesanan; ?></td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                        <table class="table table-bordered no-margin">
+                            <thead>
+                                <tr>
+                                    <th>Deskripsi/keterangan</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><?php echo $data['deskripsi']; ?></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </td>
+                    <td style="width:50%" colspan="2">
+                        <table class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>Spesifikasi</th>
+                                    <th style="width:25%">Jumlah</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+
+                                <?php $sql = mysql_query("SELECT * FROM produksi_spesifikasi WHERE id_produksi=".$data['id_produksi']); ?>
+                                <?php while($row = mysql_fetch_array($sql)): ?>
+                                    <tr>
+                                        <td>
+                                            <?php echo getSpesifikasi($row['id_spesifikasi']); ?> <?php echo getSubSpesifikasi($row['id_sub_spesifikasi']); ?> (<?php echo getMoneyFormat(getHargaSubSpesifikasi($row['id_sub_spesifikasi'])); ?>)
+                                        </td>
+                                        <td><?php echo $jml_pesanan; ?></td>
+                                    </tr>
+                                    <?php $i++; ?>
+                                <?php endwhile; ?>
+                            </tbody>
+                        </table>
+
+                        <table class="table table-bordered no-margin">
+                            <thead>
+                                <tr>
+                                    <th>Gambar</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="text-center">
+                                        <img style="max-height:200px" src="<?php echo DOMAIN; ?>/images/produksi/<?php echo $data['gambar']; ?>">
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </td>
+                </tbody>
+            </table>
+        </div>
+    </div><!-- /.row -->
+
+    <div class="page-break"></div>
+
+    <div class="row hide tabel-pengawasan">
+        <div class="col-xs-12 table-responsive">
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th class="text-center" colspan="4">TABEL PENGAWASAN PRODUKSI</th>
                     </tr>                                    
                 </thead>
                 <tbody>
                     <tr>
-                        <td><strong><?php echo $jml_pesanan; ?></strong></td>
-                        <td><strong><?php echo $jenis_barang['barang']; ?></strong></td>
-                        <?php $q = mysql_query("SELECT * FROM produksi_size where id_produksi=".$id); ?>
-                        <?php while($row = mysql_fetch_array($q)): ?>
-                            <td><?php echo $row['jumlah']; ?></td>
-                        <?php endwhile; ?>
-                        <td><strong>Rp <?php echo getMoneyFormat($harga_satuan); ?></strong></td>
-                        <td><strong>Rp <?php echo getMoneyFormat($total_harga); ?></strong></td>
+                        <td>
+                            <table class="table table-bordered no-margin">
+                                <thead>
+                                    <tr>
+                                        <th style="width:15%">Tgl. Mulai</th>
+                                        <th style="width:45%">Proses</th>
+                                        <th style="width:40%">Keterangan</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>&nbsp;<br>&nbsp;<br>&nbsp;</td>
+                                        <td></td>
+                                        <td></td> 
+                                    </tr>
+                                    <tr>
+                                        <td>&nbsp;<br>&nbsp;<br>&nbsp;</td>
+                                        <td></td>
+                                        <td></td> 
+                                    </tr>
+                                    <tr>
+                                        <td>&nbsp;<br>&nbsp;<br>&nbsp;</td>
+                                        <td></td>
+                                        <td></td> 
+                                    </tr>
+                                    <tr>
+                                        <td>&nbsp;<br>&nbsp;<br>&nbsp;</td>
+                                        <td></td>
+                                        <td></td> 
+                                    </tr>
+                                    <tr>
+                                        <td>&nbsp;<br>&nbsp;<br>&nbsp;</td>
+                                        <td></td>
+                                        <td></td> 
+                                    </tr>
+                                    <tr>
+                                        <td>&nbsp;<br>&nbsp;<br>&nbsp;</td>
+                                        <td></td>
+                                        <td></td> 
+                                    </tr>
+                                    <tr>
+                                        <td>&nbsp;<br>&nbsp;<br>&nbsp;</td>
+                                        <td></td>
+                                        <td></td> 
+                                    </tr>
+                                    <tr>
+                                        <td>&nbsp;<br>&nbsp;<br>&nbsp;</td>
+                                        <td></td>
+                                        <td></td> 
+                                    </tr>
+                                    <tr>
+                                        <td>&nbsp;<br>&nbsp;<br>&nbsp;</td>
+                                        <td></td>
+                                        <td></td> 
+                                    </tr>
+                                    <tr>
+                                        <td>&nbsp;<br>&nbsp;<br>&nbsp;</td>
+                                        <td></td>
+                                        <td></td> 
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </td>
                     </tr>
-
-                    
-
-                    <?php $q = mysql_query("SELECT * FROM produksi_warna where id_produksi=".$id); ?>
-                    <?php while($row = mysql_fetch_array($q)): ?>
-                        <tr>
-                            <td>&nbsp;</td>
-                            <td>- Kain <?php echo getKain($row['id_kain']); ?> <?php echo getWarna($row['id_jenis_warna']); ?></td>
-                            <td colspan="<?php echo $jml_size; ?>">&nbsp;</td>
-                        </tr>
-                    <?php endwhile; ?>
                 </tbody>
             </table>                            
         </div><!-- /.col -->
-    </div><!-- /.row -->
-
-    <div class="row">
-        <!-- accepted payments column -->
-        <div class="col-xs-3">
-            <p class="lead">Pelanggan</p>
-            <br><br><br>
-            <p>...................................................</p>
-        </div><!-- /.col -->
-        <div class="col-xs-3">
-            <p class="lead">Penerima</p>
-            <br><br><br>
-            <p>...................................................</p>
-        </div><!-- /.col -->
-        <div class="col-xs-6">
-            <div class="table-responsive">
-                <table class="table">
-                    <tr>
-                        <th style="width:50%">Total:</th>
-                        <td>Rp <?php echo getMoneyFormat($total_harga); ?></td>
-                    </tr>
-                    <tr>
-                        <?php $uang_muka = $total_harga * 0.3; ?>
-                        <th>Uang Muka (30%):</th>
-                        <td>Rp <?php echo getMoneyFormat($uang_muka); ?></td>
-                    </tr>
-                </table>
-            </div>
-        </div><!-- /.col -->
-    </div><!-- /.row -->
+    </div>
 
     <!-- this row will not appear when printing -->
     <div class="row no-print">
         <div class="col-xs-12">
-            <button class="btn btn-default" onclick="window.print();"><i class="fa fa-print"></i> Print</button> 
-            <button class="btn btn-primary pull-right" style="margin-right: 5px;"><i class="fa fa-download"></i> Download PDF</button>
+            <button class="btn btn-warning" onclick="window.print();"><i class="fa fa-print"></i> Print</button> 
         </div>
     </div>
 </section><!-- /.content -->
