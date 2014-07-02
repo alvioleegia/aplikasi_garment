@@ -217,8 +217,7 @@
     <!-- this row will not appear when printing -->
     <div class="row no-print">
         <div class="col-xs-12">
-            <button class="btn btn-default" onclick="window.print();"><i class="fa fa-print"></i> Print</button> 
-            <button class="btn btn-primary pull-right" style="margin-right: 5px;"><i class="fa fa-download"></i> Download PDF</button>
+            <button class="btn btn-warning" onclick="window.print();"><i class="fa fa-print"></i> Print</button> 
         </div>
     </div>
 </section><!-- /.content -->
