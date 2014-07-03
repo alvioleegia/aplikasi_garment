@@ -28,6 +28,15 @@ body {
     padding-top: 50px;
     display: block !important;
   }
+
+  section.content {
+    border:0px;
+    padding:0px;
+  }
+
+  .laporan .page-break + table {
+    margin-top: 70px;
+  }
 }
 
 #right-side h2:not(:first-child){
@@ -46,4 +55,21 @@ body {
 
 .logo-login {
 	width:150px;
+}
+
+.laporan {
+  position: relative;
+  width: 90%;
+  margin: 10px auto;
+  background: #fff;
+  border: 1px solid #f4f4f4;
+}
+
+.laporan .page-header small {
+  font-size: 13px;
+}
+
+.laporan .logo-sm {
+  width: 30px;
+  margin-right: 10px;
 }

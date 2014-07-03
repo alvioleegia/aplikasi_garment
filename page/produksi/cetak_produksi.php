@@ -161,7 +161,6 @@
                                         <td>Kain <?php echo getKain($row['id_kain']);?> <?php echo getWarna($row['id_jenis_warna']); ?></td>
                                         <td><?php echo $row['pemakaian']; ?>%</td>
                                     </tr>
-                                <?php $i++; ?>
                                 <?php endwhile; ?>
                             </tbody>
                         </table>

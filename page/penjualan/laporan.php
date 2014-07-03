@@ -50,10 +50,37 @@
 	                        <ul class="dropdown-menu">
 	                            <li><a href="?rekap=tahunan">Tahunan</a></li>
 	                            <li><a href="?rekap=bulanan">Bulanan</a></li>
-	                            <li><a href="?rekap=mingguan">Mingguan</a></li>
+	                            <li><a href="?rekap=periode">Periode</a></li>
+	                            <!-- <li><a href="?rekap=mingguan">Mingguan</a></li> -->
 	                        </ul>
 	                    </div><!-- /btn-group -->
+
+	                    <a href="cetak_laporan.php<?php if(isset($_GET['rekap'])) echo '?rekap='.$_GET['rekap']; ?><?php if(isset($_GET['periode'])) echo '&periode='.$_GET['periode']; ?>" target="_blank" class="btn btn-primary"><i class="fa fa-print"></i> Cetak Laporan</a>
 	                </div><!-- /input-group -->
+
+	                <?php if(isset($_GET['rekap']) && $_GET['rekap'] == 'periode'): ?>
+	                	<form action="laporan.php?rekap=periode" method="get">
+		                	<div class="form-group col-xs-8 row">
+		                        <label>Periode:</label>
+		                        <div class="input-group">
+		                            <div class="input-group-addon">
+		                                <i class="fa fa-calendar"></i>
+		                            </div>
+		                            
+		                        	<input name="rekap" value="periode" type="hidden">
+		                            <input name="periode" type="text" class="form-control pull-right" id="periode" value="<?php if(isset($_GET['periode'])) echo $_GET['periode']; ?>" />
+
+		                            <div class="input-group-btn">
+			                            <button class="btn btn-primary">
+			                            	Tampilkan
+			                            </button>
+		                            </div>
+		                        </div><!-- /.input group -->
+		                    </div><!-- /.form group -->
+	                	</form>
+		                
+	                <?php endif; ?>
+
 		        	<div class="clearfix"></div>
 
 		        	<?php if(!isset($_GET['rekap']) || isset($_GET['rekap']) && $_GET['rekap'] == 'tahunan' ): ?>
@@ -61,7 +88,7 @@
 			                <thead>
 			                	<tr>
 			                		<th>#</th>
-				                    <th>Bulan</th>
+				                    <th>Bulan Pemesanan</th>
 				                    <th>Jumlah Produksi</th>
 				                    <th>Uang Masuk</th>
 				                </tr>
@@ -79,7 +106,7 @@
 				                	<tr>
 				                		<td><?php echo $bulan; ?></td>
 				                		<td><?php echo date('F', strtotime($start)); ?></td>
-				                		<td><?php echo getMoneyFormat(laporanJumlahProduksi($start, $end)); ?></td>
+				                		<td><?php echo laporanJumlahProduksi($start, $end); ?></td>
 				                		<td>Rp <?php echo getMoneyFormat(laporanUangMasuk($start, $end)); ?></td>
 				                	</tr>
 				                	<?php $total += laporanUangMasuk($start, $end); ?>
@@ -272,6 +299,27 @@
 			            </table>
 			        <?php endif; ?>
 
+			        <?php if(isset($_GET['rekap']) && $_GET['rekap']=='periode' && isset($_GET['periode'])): ?>
+			        	<?php
+	        				$date = explode("-", $_GET['periode']);
+							$start = $date[0].'-'.$date[1].'-'.$date[2];
+							$end = $date[3].'-'.$date[4].'-'.$date[5];
+	        			?>
+			        	<table class="table table-hover">
+			        		<thead>
+			        			<th>Periode</th>
+			        			<th>Jumlah Produksi</th>
+			        			<th>Uang Masuk</th>
+			        		</thead>
+			        		<tbody>
+			        			<tr>
+			        				<td><?php echo dateFormat($start).' - '.dateFormat($end); ?></td>
+			        				<td><?php echo laporanJumlahProduksi($start,$end); ?></td>
+			        				<td>Rp <?php echo getMoneyFormat(laporanUangMasuk($start,$end)); ?></td>
+			        			</tr>
+			        		</tbody>
+			        	</table>
+			        <?php endif; ?>
 		        </div><!-- /.box-body -->
 		    </div><!-- /.box -->
 		</div>
@@ -279,9 +327,10 @@
 </section><!-- /.content -->
 
 <script type="text/javascript">
-    // $(function() {
-    //     $("#table_data").dataTable();
-    // });
+    //Date range picker
+    $('#periode').daterangepicker({
+    	format: 'YYYY-MM-DD',
+    });
 </script>
 
 <?php include '../footer.php'; ?>

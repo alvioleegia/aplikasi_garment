@@ -222,23 +222,48 @@
 	function laporanJumlahProduksi($start, $end){
 		$start = $start.' 00:00:00';
 		$end = $end.' 00:00:00';
-		$sql = mysql_query("SELECT id_penjualan,COUNT(id_penjualan) as jumlah_produksi FROM penjualan WHERE tanggal_waktu >= '".$start."' && tanggal_waktu <= '".$end."' GROUP BY id_produksi");
 
-		$result = mysql_fetch_array($sql);
+		// get all produksi
+		$produksis = mysql_query("SELECT * FROM produksi WHERE tanggal_pemesanan >= '".$start."' && tanggal_pemesanan <= '".$end."' ");
 
-		$jumlah_produksi = $result['jumlah_produksi'] ? $result['jumlah_produksi'] : 0;
+		$penjualans = mysql_query("SELECT * FROM penjualan WHERE type='2'");
+		
+		$penjualan_arr = array();
+		while ($penjualan = mysql_fetch_array($penjualans)) {
+			$penjualan_arr[] = $penjualan['id_produksi'];
+		}
 
-		return $jumlah_produksi;
+		$count = 0;
+		while ($produksi = mysql_fetch_array($produksis)) {
+			if(in_array($produksi['id_produksi'], $penjualan_arr)){
+				$count++;
+			}	
+		}
+
+		return $count;
 	}
 
 	function laporanUangMasuk($start, $end){
 		$start = $start.' 00:00:00';
 		$end = $end.' 00:00:00';
-		$sql = mysql_query("SELECT SUM(nilai) as nilai FROM penjualan WHERE tanggal_waktu >= '".$start."' && tanggal_waktu <= '".$end."'");
 
-		$result = mysql_fetch_array($sql);
+		// get all produksi
+		$produksis = mysql_query("SELECT * FROM produksi WHERE tanggal_pemesanan >= '".$start."' && tanggal_pemesanan <= '".$end."' ");
 
-		$nilai = $result['nilai'] ? $result['nilai'] : 0;
+		$penjualans = mysql_query("SELECT * FROM penjualan WHERE type='2'");
+		
+		$penjualan_arr = array();
+		while ($penjualan = mysql_fetch_array($penjualans)) {
+			$penjualan_arr[] = $penjualan['id_produksi'];
+		}
+
+		$nilai = 0;
+		while ($produksi = mysql_fetch_array($produksis)) {
+			if(in_array($produksi['id_produksi'], $penjualan_arr)){
+				$sql = mysql_query("SELECT SUM(nilai) FROM penjualan WHERE id_produksi='".$produksi['id_produksi']."'");
+				$nilai += mysql_result($sql, 0); 
+			}	
+		}
 
 		return $nilai;
 	}
