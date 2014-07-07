@@ -289,4 +289,15 @@
 
 		return $kode;
 	}
+
+	function uangMukaTerbayar($id_produksi){
+		$sql = mysql_query("SELECT * FROM penjualan WHERE id_produksi=".$id_produksi." && type=1");
+		$count = mysql_num_rows($sql);
+
+		if($count){
+			return true;
+		} else {
+			return false;
+		}
+	}
 ?>

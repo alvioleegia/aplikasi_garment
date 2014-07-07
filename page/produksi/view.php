@@ -282,10 +282,13 @@
 	                                <select class="form-control " name="fm[status]">
 	                                	<option value="2" <?php if($data['status'] == 2) echo 'selected'; ?>>Ready</option>
 	                                    <option value="3" <?php if($data['status'] == 3) echo 'selected'; ?>>Uang Muka</option>
-	                                    <option value="4" <?php if($data['status'] == 4) echo 'selected'; ?>>Produksi</option>
-	                                    <option value="5" <?php if($data['status'] == 5) echo 'selected'; ?>>Pelunasan</option>
-	                                    <option value="6" <?php if($data['status'] == 6) echo 'selected'; ?>>Selesai</option>
-	                                    <option value="1" <?php if($data['status'] == 1) echo 'selected'; ?>>Cancel</option>
+
+										<?php if(uangMukaTerbayar($data['id_produksi'])): ?>	                                    
+		                                    <option value="4" <?php if($data['status'] == 4) echo 'selected'; ?>>Produksi</option>
+		                                    <option value="5" <?php if($data['status'] == 5) echo 'selected'; ?>>Pelunasan</option>
+		                                    <option value="6" <?php if($data['status'] == 6) echo 'selected'; ?>>Selesai</option>
+		                                    <option value="1" <?php if($data['status'] == 1) echo 'selected'; ?>>Cancel</option>
+		                                <?php endif; ?>
 	                                </select>
 
 		                            <span class="input-group-btn">
