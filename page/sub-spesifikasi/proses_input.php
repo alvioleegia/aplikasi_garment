@@ -8,7 +8,7 @@
 
 		foreach($_POST['fm'] as $key => $value){
 			$field[] = $key;
-			$data[] = "'".$value."'";
+			$data[] = "'".addslashes($value)."'";
 		}
 
 		$fields = implode(", ", $field);

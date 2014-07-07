@@ -221,7 +221,6 @@
                                         </td>
                                         <td><?php echo $jml_pesanan; ?></td>
                                     </tr>
-                                    <?php $i++; ?>
                                 <?php endwhile; ?>
                             </tbody>
                         </table>
