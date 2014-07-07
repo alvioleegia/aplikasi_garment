@@ -1,0 +1,1 @@
+ALTER TABLE  `sizes` ADD  `deskripsi` TEXT NOT NULL

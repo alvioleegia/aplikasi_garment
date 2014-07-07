@@ -25,8 +25,21 @@
 					</div>
 					<div class="box-body">
 						<div class="form-group">
+							<label>Barang</label>
+							<?php $sql = mysql_query("SELECT * FROM jenis_barang ORDER BY barang ASC"); ?>
+							<select name="fm[id_jenis_barang]" class="form-control">
+								<?php while($row = mysql_fetch_array($sql)): ?>
+									<option value="<?php echo $row['id_jenis_barang']; ?>"><?php echo $row['barang']; ?></option>
+								<?php endwhile; ?>
+							</select>
+						</div>
+						<div class="form-group">
 							<label>Size</label>
 							<input type="text" class="form-control" name="fm[size]" >
+						</div>
+						<div class="form-group">
+							<label>Deskripsi</label>
+							<textarea name="fm[deskripsi]" class="form-control"></textarea>
 						</div>
 					</div>
 				</div>

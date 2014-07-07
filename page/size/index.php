@@ -40,6 +40,7 @@
 		            	<thead>
 			                <tr>
 			                    <th>ID</th>
+			                    <th>Barang</th>
 			                    <th>Size</th>
 			                    <th>Action</th>
 			                </tr>
@@ -49,6 +50,7 @@
 			                <?php while($row = mysql_fetch_array($sql) ): ?>
 				                <tr>
 				                    <td><?php echo $row['id_size']; ?></td>
+				                	<td><?php echo getJenisBarang($row['id_jenis_barang']); ?></td>
 				                    <td><?php echo $row['size']; ?></td>
 				                    <td><a href="view.php?id=<?php echo $row['id_size']; ?>" class="btn btn-primary btn-xs">lihat</a> <a href="edit.php?id=<?php echo $row['id_size']; ?>" class="btn btn-warning btn-xs">edit</a> <a href="delete.php?id=<?php echo $row['id_size']; ?>" onclick="return confirm('Anda yakin akan menghapus ini?')" class="btn btn-danger btn-xs">hapus</a></td>
 				                </tr>

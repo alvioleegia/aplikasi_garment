@@ -39,9 +39,19 @@
                         </div>
 	                    <?php endif; ?>
 
+	                    <div class="form-group">
+							<label>Barang</label>
+							<p><?php echo getJenisBarang($data['id_jenis_barang']); ?></p>
+						</div>
+
 						<div class="form-group">
 							<label>Size</label>
 							<p><?php echo $data['size']; ?></p>
+						</div>
+
+						<div class="form-group">
+							<label>Deskripsi</label>
+							<p><?php echo $data['deskripsi']; ?></p>
 						</div>
 					</div>
 				</div>
