@@ -1,0 +1,1 @@
+ALTER TABLE  `sizes` ADD  `id_jenis_barang` INT( 5 ) NOT NULL AFTER  `id_size`
