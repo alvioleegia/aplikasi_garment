@@ -262,8 +262,8 @@
 							<label>Jenis Barang</label>
 							<select name="fm[id_jenis_barang]" class="form-control " id="jenis_barang" required>
 								<?php $sql = mysql_query("SELECT * FROM jenis_barang ORDER BY barang ASC"); ?>
-								<?php while($row = mysql_fetch_row($sql)): ?>
-									<option value="<?php echo $row[0]; ?>" <?php if($row[0] == $data['id_jenis_barang']) echo 'selected'; ?> ><?php echo $row[1]; ?></option>
+								<?php while($row = mysql_fetch_array($sql)): ?>
+									<option value="<?php echo $row['id_jenis_barang']; ?>" <?php if($row['id_jenis_barang'] == $data['id_jenis_barang']) echo 'selected'; ?> ><?php echo $row['barang']; ?></option>
 								<?php endwhile; ?>
 							</select>
 						</div>
@@ -278,7 +278,7 @@
 				</div>
 
                 <?php if($_SESSION['level'] == 1 || $_SESSION['level'] == 2): ?>
-    				<div class="box box-danger">
+    				<div id="box-spesifikasi" class="box box-danger">
     					<div class="box-header">
     						<h3 class="box-title">Spesifikasi</h3>
     					</div>
@@ -287,8 +287,8 @@
     							<select class="form-control " id="tambah_spesifikasi">
     								<option>Pilih Spesifikasi</option>
     								<?php $sql = mysql_query("SELECT * FROM spesifikasis ORDER BY spesifikasi ASC"); ?>
-    								<?php while($row = mysql_fetch_row($sql)): ?>
-    									<option value="<?php echo $row[0]; ?>"><?php echo $row[1]; ?></option>
+    								<?php while($row = mysql_fetch_array($sql)): ?>
+    									<option value="<?php echo $row['id_spesifikasi']; ?>"><?php echo $row['spesifikasi']; ?></option>
     								<?php endwhile; ?>
     							</select>
     						</div>
@@ -327,6 +327,9 @@
                                 <?php endwhile; ?>
                             </table>
     					</div>
+
+                        <div class="overlay hide"></div>
+                        <div class="loading-img hide"></div>
     				</div>
                 <?php endif; ?>
 			</div>
@@ -380,7 +383,7 @@
 					</div>
 				</div>
 
-				<div class="box box-success">
+				<div id="box-kain" class="box box-success">
 					<div class="box-header">
 						<h3 class="box-title">Kain</h3>
 					</div>
@@ -442,9 +445,12 @@
                             <?php endwhile; ?>
                         </table>
 					</div>
+
+                    <div class="overlay hide"></div>
+                    <div class="loading-img hide"></div>
 				</div>
 
-				<div class="box box-info">
+				<div id="box-size" class="box box-info">
 					<div class="box-header">
 						<h3 class="box-title">Size</h3>
 					</div>
@@ -454,8 +460,8 @@
 							<select class="form-control " id="pilih_size">
 								<option>Pilih Size</option>
 								<?php $sql = mysql_query("SELECT * FROM sizes ORDER BY size ASC"); ?>
-								<?php while($row = mysql_fetch_row($sql)): ?>
-									<option value="<?php echo $row[0]; ?>"><?php echo $row[1]; ?></option>
+								<?php while($row = mysql_fetch_array($sql)): ?>
+									<option value="<?php echo $row['id_size']; ?>"><?php echo $row['size']; ?></option>
 								<?php endwhile; ?>
 							</select>
 							<span class="input-group-btn">
@@ -488,6 +494,9 @@
                             <?php endwhile; ?>
                         </table>
 					</div>
+
+                    <div class="overlay hide"></div>
+                    <div class="loading-img hide"></div>
 				</div>
 
                 <div class="box box-warning">
@@ -696,13 +705,41 @@
         		return false;
         	}
         });
+
+        $('#jenis_barang').on('change',function(){
+            $('#box-size').find('.overlay, .loading-img').removeClass('hide');
+
+            $.ajax({
+                url: 'get_size.php',
+                data: { 'id_jenis_barang': $('#jenis_barang').val() },
+                dataType : 'json',
+                success: function(results){
+                    $('#box-size').find('.overlay, .loading-img').addClass('hide');
+                    if(results.Status == 'OK'){
+                        $('#pilih_size').empty();
+
+                        if(results.data){
+                            $('#pilih_size').append('<option value="">Pilih Size</option>');
+                            $.each(results.data, function(i, size){
+                                $('#pilih_size').append('<option value="'+size['id_size']+'">'+size['size']+'</option>');
+                            }); 
+                        } else {
+                            $('#pilih_size').append('<option value="">Size kosong</option>');
+                        }
+                    } 
+                }
+            });
+        });
 			
 		$('#tambah_kain').on('change',function(){
+            $('#box-kain').find('.overlay, .loading-img').removeClass('hide');
+
 			$.ajax({
 				url: 'get_warna.php',
 				data: { 'id_kain': $('#tambah_kain').val() },
 				dataType : 'json',
 				success: function(results){
+                    $('#box-kain').find('.overlay, .loading-img').addClass('hide');
 					if(results.Status == 'OK'){
 						$('#pilih_warna').empty();
 
@@ -722,11 +759,15 @@
 		});
 
 		$('#tambah_spesifikasi').on('change',function(){
+            $('#box-spesifikasi').find('.overlay, .loading-img').removeClass('hide');
+
 			$.ajax({
 				url: 'get_sub_spesifikasi.php',
 				data: { 'id_spesifikasi': $('#tambah_spesifikasi').val() },
 				dataType : 'json',
 				success: function(results){
+                    $('#box-spesifikasi').find('.overlay, .loading-img').addClass('hide');
+
 					if(results.Status == 'OK'){
 						$('#pilih_sub_spesifikasi').empty();
 

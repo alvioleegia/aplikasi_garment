@@ -94,7 +94,7 @@
 				</div>
 
                 <?php if($_SESSION['level'] == 1 || $_SESSION['level'] == 2): ?>
-    				<div class="box box-danger">
+    				<div id="box-spesifikasi" class="box box-danger">
     					<div class="box-header">
     						<h3 class="box-title">Spesifikasi</h3>
     					</div>
@@ -126,6 +126,9 @@
                                 </tr>
                             </table>
     					</div>
+
+                        <div class="overlay hide"></div>
+                        <div class="loading-img hide"></div>
     				</div>
                 <?php endif; ?>
 			</div>
@@ -152,7 +155,7 @@
                     </div>
                 </div>
 
-				<div class="box box-success">
+				<div id="box-kain" class="box box-success">
 					<div class="box-header">
 						<h3 class="box-title">Kain</h3>
 					</div>
@@ -187,9 +190,11 @@
                             </tr>
                         </table>
 					</div>
+                    <div class="overlay hide"></div>
+                    <div class="loading-img hide"></div>
 				</div>
 
-				<div class="box box-info">
+				<div id="box-size" class="box box-info">
 					<div class="box-header">
 						<h3 class="box-title">Size</h3>
 					</div>
@@ -216,6 +221,9 @@
                             </tr>
                         </table>
 					</div>
+
+                    <div class="overlay hide"></div>
+                    <div class="loading-img hide"></div>
 				</div>
 			</div>
 		</div>
@@ -381,10 +389,6 @@
         });
 
         $('#form_input').submit(function(){
-        	// if(!$('body').find('.input-spesifikasi').length){
-        	// 	alert("Tambahkan Spesifikasi!");
-        	// 	return false;
-        	// }
         	if(!$('body').find('.input-kain').length){
         		alert("Tambahkan Kain!");
         		return false;
@@ -408,11 +412,14 @@
         });
 
         $('#jenis_barang').on('change',function(){
+            $('#box-size').find('.overlay, .loading-img').removeClass('hide');
+
             $.ajax({
                 url: 'get_size.php',
                 data: { 'id_jenis_barang': $('#jenis_barang').val() },
                 dataType : 'json',
                 success: function(results){
+                    $('#box-size').find('.overlay, .loading-img').addClass('hide');
                     if(results.Status == 'OK'){
                         $('#pilih_size').empty();
 
@@ -430,11 +437,14 @@
         });
 			
 		$('#tambah_kain').on('change',function(){
+            $('#box-kain').find('.overlay, .loading-img').removeClass('hide');
+
 			$.ajax({
 				url: 'get_warna.php',
 				data: { 'id_kain': $('#tambah_kain').val() },
 				dataType : 'json',
 				success: function(results){
+                    $('#box-kain').find('.overlay, .loading-img').addClass('hide');
 					if(results.Status == 'OK'){
 						$('#pilih_warna').empty();
 
@@ -454,11 +464,15 @@
 		});
 
 		$('#tambah_spesifikasi').on('change',function(){
+            $('#box-spesifikasi').find('.overlay, .loading-img').removeClass('hide');
+
 			$.ajax({
 				url: 'get_sub_spesifikasi.php',
 				data: { 'id_spesifikasi': $('#tambah_spesifikasi').val() },
 				dataType : 'json',
 				success: function(results){
+                    $('#box-kain').find('.overlay, .loading-img').addClass('hide');
+
 					if(results.Status == 'OK'){
 						$('#pilih_sub_spesifikasi').empty();
 
