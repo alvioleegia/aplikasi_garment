@@ -71,16 +71,17 @@
 								<div class="input-group-addon">
                                     <i class="fa fa-calendar"></i>
                                 </div>
-								<input type="text" class="form-control pull-right" name="fm[tanggal_selesai]" id="tanggal_selesai" required>
+								<input type="text" class="form-control pull-right" name="fm[tanggal_selesai]" id="tanggal_selesai" required/>
 							</div>
 						</div>
 
 						<div class="form-group">
 							<label>Jenis Barang</label>
 							<select name="fm[id_jenis_barang]" class="form-control " id="jenis_barang" required>
+                                <option value="">Pilih Barang</option>
 								<?php $sql = mysql_query("SELECT * FROM jenis_barang ORDER BY barang ASC"); ?>
-								<?php while($row = mysql_fetch_row($sql)): ?>
-									<option value="<?php echo $row[0]; ?>"><?php echo $row[1]; ?></option>
+								<?php while($row = mysql_fetch_array($sql)): ?>
+									<option value="<?php echo $row['id_jenis_barang']; ?>"><?php echo $row['barang']; ?></option>
 								<?php endwhile; ?>
 							</select>
 						</div>
@@ -118,7 +119,7 @@
 
     						<table class="table table-striped" id="data_spesifikasi">
                                 <tr>
-                                    <th style="width: 10px">#</th>
+                                    <th style="width: 10px">f</th>
                                     <th>Spesifikasi</th>
                                     <th>Sub</th>
                                     <th style="width: 20px">&nbsp;</th>
@@ -160,8 +161,8 @@
 							<select class="form-control " id="tambah_kain">
 								<option>Pilih Kain</option>
 								<?php $sql = mysql_query("SELECT * FROM kains ORDER BY kain ASC"); ?>
-								<?php while($row = mysql_fetch_row($sql)): ?>
-									<option value="<?php echo $row[0]; ?>"><?php echo $row[1]; ?></option>
+								<?php while($row = mysql_fetch_array($sql)): ?>
+									<option value="<?php echo $row['id_kain']; ?>"><?php echo $row['kain']; ?></option>
 								<?php endwhile; ?>
 							</select>
 						</div>
@@ -197,8 +198,8 @@
 							<select class="form-control " id="pilih_size">
 								<option>Pilih Size</option>
 								<?php $sql = mysql_query("SELECT * FROM sizes ORDER BY size ASC"); ?>
-								<?php while($row = mysql_fetch_row($sql)): ?>
-									<option value="<?php echo $row[0]; ?>"><?php echo $row[1]; ?></option>
+								<?php while($row = mysql_fetch_array($sql)): ?>
+									<option value="<?php echo $row['id_size']; ?>"><?php echo $row['size']; ?></option>
 								<?php endwhile; ?>
 							</select>
 							<span class="input-group-btn">
@@ -224,7 +225,8 @@
 
 <script type="text/javascript">
 	$(function(){
-		$('#tanggal_pemesanan, #tanggal_selesai').daterangepicker({singleDatePicker: true, format: 'YYYY-MM-DD'});
+        $('#tanggal_pemesanan').daterangepicker({singleDatePicker: true, format: 'YYYY-MM-DD'});
+		$('#tanggal_selesai').daterangepicker({singleDatePicker: true, format: 'YYYY-MM-DD'});
 		$('#deskripsi').wysihtml5({ "font-styles" : false, "image" : false, "link" : false});
 
 		$('#tambah_sub_spesifikasi').on('click',function(e){
@@ -403,6 +405,28 @@
         		alert("Tambahkan Size!");
         		return false;
         	}
+        });
+
+        $('#jenis_barang').on('change',function(){
+            $.ajax({
+                url: 'get_size.php',
+                data: { 'id_jenis_barang': $('#jenis_barang').val() },
+                dataType : 'json',
+                success: function(results){
+                    if(results.Status == 'OK'){
+                        $('#pilih_size').empty();
+
+                        if(results.data){
+                            $('#pilih_size').append('<option value="">Pilih Size</option>');
+                            $.each(results.data, function(i, size){
+                                $('#pilih_size').append('<option value="'+size['id_size']+'">'+size['size']+'</option>');
+                            }); 
+                        } else {
+                            $('#pilih_size').append('<option value="">Size kosong</option>');
+                        }
+                    } 
+                }
+            });
         });
 			
 		$('#tambah_kain').on('change',function(){
