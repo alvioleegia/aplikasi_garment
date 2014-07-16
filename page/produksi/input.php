@@ -202,10 +202,6 @@
 						<div class="input-group form-group">
 							<select class="form-control " id="pilih_size">
 								<option>Pilih Size</option>
-								<?php $sql = mysql_query("SELECT * FROM sizes ORDER BY size ASC"); ?>
-								<?php while($row = mysql_fetch_array($sql)): ?>
-									<option value="<?php echo $row['id_size']; ?>"><?php echo $row['size']; ?></option>
-								<?php endwhile; ?>
 							</select>
 							<span class="input-group-btn">
                                 <button class="btn btn-primary btn-flat" id="tambah_size" type="button">Tambah</button>
